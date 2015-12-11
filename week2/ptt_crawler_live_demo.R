@@ -1,0 +1,76 @@
+#' ---
+#' title: "PTT Crawler Live Demo"
+#' author: "Agilelearning, Mansun Kuo"
+#' date: "`r Sys.Date()`"
+#' ---
+
+#' ## rvest example
+#' ### Get links of index pages
+library(rvest)
+library(httr)
+library(stringr)
+postUrl = "https://www.ptt.cc/bbs/Gossiping/index.html"
+res = GET(postUrl, config=set_cookies('over18'='1'))
+res = content(res, 'text', encoding = 'utf8')
+res = read_html(res)
+res %>% 
+    html_nodes(xpath = '//*[@id="action-bar-container"]/div/div[2]/a[2]') %>% 
+    html_attrs()
+
+res_href = res %>% 
+    html_nodes(xpath = '//*[@id="action-bar-container"]/div/div[2]/a[2]') %>% 
+    html_attr("href")
+res_href
+
+tmpIndex = res_href %>% 
+    str_extract('[0-9]+') %>% 
+    (function(x){as.numeric(x)+1})
+
+(tmpIndex-10):tmpIndex
+
+sprintf("https://www.ptt.cc/bbs/Gossiping/index%s.html",(tmpIndex-10):tmpIndex)
+
+
+#' ### Crawler example with httr 
+postUrl = "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
+res = GET(postUrl, config=set_cookies('over18'='1')) %>% 
+    read_html(res, encoding = "UTF-8") %>% 
+    html_nodes(xpath = '//*[@id="main-content"]/div/span[1]')
+res
+res_text = res %>% 
+    html_nodes(xpath = '//*[@id="main-content"]/div/span[1]') %>% 
+    html_text() 
+head(res_text[!str_detect(res_text, '作者|看板|標題|時間')])
+
+
+
+#' ## XML example
+library(httr)
+library(XML)
+library(stringr)
+
+
+#' ## Get links of index pages
+postUrl <- "https://www.ptt.cc/bbs/Gossiping/index.html"
+res <- GET(postUrl, config=set_cookies('over18'='1'))
+res <- content(res, 'text', encoding = 'utf8')
+res <- htmlParse(res, encoding = 'utf8')
+tmpIndex <-xpathSApply(res, '//*[@id="action-bar-container"]/div/div[2]/a[2]', xmlAttrs)
+tmpIndex <-tmpIndex["href",]
+tmpIndex <- str_extract(tmpIndex, '[0-9]+')
+tmpIndex <- as.numeric(tmpIndex)+1
+
+(tmpIndex-10):tmpIndex
+
+sprintf("https://www.ptt.cc/bbs/Gossiping/index%s.html",(tmpIndex-10):tmpIndex)
+
+
+#' ## Crawler example with httr 
+# postUrl <- "https://www.ptt.cc/bbs/Gossiping/M.1431338763.A.1BF.html"
+postUrl <- "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
+res <- GET(postUrl, config=set_cookies('over18'='1'))
+res <- content(res, 'text', encoding = 'utf8')
+res <- htmlParse(res, encoding = 'utf8')
+push <-xpathSApply(res, '//*[@id="main-content"]/div/span[1]', xmlValue)
+head(push[!str_detect(push, '作者|看板|標題|時間')])
+

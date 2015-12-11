@@ -1,0 +1,141 @@
+---
+title: "RCrawler101-201512"
+author: "Mansun Kuo"
+date: "`r Sys.Date()`"
+subtitle: "Week 2"
+css: css/ioslides.css
+widescreen: yes
+output: ioslides_presentation
+---
+
+```{r include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(warning = TRUE,
+                      echo = TRUE,
+                      message = TRUE,
+                      fig.align='center',
+                      cache=TRUE)
+```
+
+## Hello RStudio
+
+<img src="img/hello_rstudio.png" width=800>
+
+
+## Must-known keyboard shortcuts
+
+[AllRStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
+
+Description                      | Windows & Linux    | Mac
+-------------------------------- | ------------------ | ---
+Show Keyboard Shortcut Reference | Alt+Shift+K        | Option+Shift+K
+Attempt completion / Indent	     | Tab or Ctrl+Space  | Tab or Command+Space
+Run current line/selection       | Ctrl+Enter         | Command+Enter
+Comment/uncomment current line/selection | Ctrl+Shift+C | Command+Shift+C
+Save active document             | Ctrl+S             | Command+S
+Reindent lines                   | Ctrl+I             | Command+I
+
+
+## Basic R Recap
+
+- ?, ??, how to read manuel
+- vector, list，DataFrame, matrix
+- str, type, class
+- for, if/else ifelse, ifelse 
+- apply/lapply/sapply, unlist
+- do.call
+- [magrittr](https://github.com/smbache/magrittr)
+
+
+## magrittr
+
+Pipe argument to right-hand side with `%>%`
+
+- x %>% f is equivalent to f(x)
+- x %>% f(y) is equivalent to f(x, y)
+- x %>% f %>% g %>% h is equivalent to h(g(f(x)))
+- x %>% f(y, .) is equivalent to f(y, x)
+- x %>% f(y, z = .) is equivalent to f(y, z = x)
+
+
+# Web Connector in R
+
+
+## Web Connector in R
+
+- httr
+- RCurl
+- download.file
+
+
+## HTTP Method Recap
+
+- [W3School](http://www.w3schools.com/tags/ref_httpmethods.asp)
+
+
+## httr
+
+
+# Data parser in R
+
+## Data parser in R
+
+- rvest
+- xml2
+- XML
+
+
+## rvest
+
+A web scraper designed to work with magrittr.
+
+- Create a html document with `read_html`
+- Select parts of a document using css selectors or xpath
+    - `html_nodes(doc, css = "<css selector>")`
+    - `html_nodes(doc, xpath = "<css selector>")`
+- Extract components with 
+    - `html_tag()`: the name of the tag
+    - `html_text()`: all text inside the tag
+    - `html_attr()`: contents of a single attribute
+    - `html_attrs()`: all attributes
+- Parse 
+
+
+## A simple HTML document
+
+[demo](data/demo.html)
+
+<div class="code_block">
+```{r}
+library(magrittr)
+doc = readLines("data/demo.html") %>%
+    paste(collapse = "\n")
+cat(doc)
+```
+</div>
+
+
+## Extract Link
+
+
+
+## Create HTML Document 
+
+```{r}
+library(rvest)
+doc = read_html("data/demo.html")
+doc
+```
+
+
+# Save your Data
+
+
+## Case Study
+
+- https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&loop=false&delayms=60000&slide=id.g70dd955d5_0_179
+- https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies
+
+
+
+
