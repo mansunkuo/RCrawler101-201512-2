@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2015-12-12" />
+  <meta name="date" content="2015-12-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,7 +91,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2015-12-12</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2015-12-14</p>
           </hgroup>
   </slide>
 
@@ -141,13 +141,13 @@
 </tr>
 </table>
 
-</article></slide><slide class=''><hgroup><h2>Basic R Recap</h2></hgroup><article  id="basic-r-recap">
+</article></slide><slide class=''><hgroup><h2>Basic R recap</h2></hgroup><article  id="basic-r-recap">
 
 <ul>
 <li>?, ??, how to read manuel</li>
 <li>vector, list，DataFrame, matrix</li>
 <li>str, type, class</li>
-<li>for, if/else ifelse, ifelse</li>
+<li>for, if/else ifelse</li>
 <li>apply/lapply/sapply, unlist</li>
 <li>do.call</li>
 <li><a href='https://github.com/smbache/magrittr' title=''>magrittr</a></li>
@@ -165,21 +165,21 @@
 <li>x %&gt;% f(y, z = .) is equivalent to f(y, z = x)</li>
 </ul>
 
-</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Web Connector in R</h2></hgroup><article  id="web-connector-in-r">
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Web connector in R</h2></hgroup><article  id="web-connector-in-r">
 
-</article></slide><slide class=''><hgroup><h2>Web Connector in R</h2></hgroup><article  id="web-connector-in-r-1">
-
-<ul>
-<li>httr</li>
-<li>RCurl</li>
-<li>download.file</li>
-</ul>
-
-</article></slide><slide class=''><hgroup><h2>HTTP Method Recap</h2></hgroup><article  id="http-method-recap">
+</article></slide><slide class=''><hgroup><h2>Web connector in R</h2></hgroup><article  id="web-connector-in-r-1">
 
 <ul>
-<li><a href='http://www.w3schools.com/tags/ref_httpmethods.asp' title=''>W3School</a></li>
+<li>httr: Dealing with <a href='http://www.w3schools.com/tags/ref_httpmethods.asp' title=''>HTTP methods</a> in R</li>
+<li>RCurl:
+
+<ul>
+<li>General network client interface for R</li>
+<li>A wrapper of libcurl</li>
+</ul></li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>HTTP method recap</h2></hgroup><article  id="http-method-recap">
 
 </article></slide><slide class=''><hgroup><h2>httr</h2></hgroup><article  id="httr">
 
@@ -208,13 +208,15 @@
 <li>Extract components with
 
 <ul>
-<li><code>html_tag()</code>: the name of the tag</li>
+<li><code>html_name()</code>: the name of the tag</li>
 <li><code>html_text()</code>: all text inside the tag</li>
 <li><code>html_attr()</code>: contents of a single attribute</li>
 <li><code>html_attrs()</code>: all attributes</li>
+<li><code>html_table</code>: parse tables into data frames</li>
 </ul></li>
-<li>Parse</li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>rvest - 2</h2></hgroup><article  id="rvest---2">
 
 </article></slide><slide class=''><hgroup><h2>A simple HTML document</h2></hgroup><article  id="a-simple-html-document">
 
@@ -229,15 +231,20 @@ cat(doc)</pre>
 <pre >## &lt;!DOCTYPE HTML&gt;
 ## &lt;html&gt;
 ##     &lt;body&gt;
-##         &lt;div id=&#39;character1&#39; class=&#39;character&#39;&gt;
-##             &lt;span class=&#39;name&#39;&gt;Mike&lt;/span&gt;
-##             &lt;span class=&#39;level digit&#39;&gt;10&lt;/span&gt;
+##         &lt;div id=&#39;title&#39; class=&#39;character&#39;&gt;
+##             &lt;a class=&quot;link&quot; href=&quot;http://data-sci.info/r-crawler-101/&quot;&gt;Link&lt;/a&gt;
 ##         &lt;/div&gt;
-##         &lt;div id=&#39;character2&#39; class=&#39;character&#39;&gt;
-##             &lt;span class=&#39;name&#39;&gt;Stan&lt;/span&gt;
+##         &lt;div id=&#39;summary&#39; class=&#39;character&#39;&gt;
+##             &lt;span class=&#39;title&#39;&gt;Number:&lt;/span&gt;
+##             &lt;span class=&#39;number&#39;&gt;2&lt;/span&gt;
 ##         &lt;/div&gt;
 ##         &lt;div id=&#39;table1&#39; class=&#39;info&#39;&gt;
 ##             &lt;table style=&quot;width:100%&quot;&gt;
+##                 &lt;tr&gt;
+##                     &lt;th&gt;Name&lt;/th&gt;
+##                     &lt;th&gt;Gender&lt;/th&gt;
+##                     &lt;th&gt;Age&lt;/th&gt;
+##                 &lt;/tr&gt;
 ##                 &lt;tr&gt;
 ##                     &lt;td&gt;Alice&lt;/td&gt;
 ##                     &lt;td&gt;Female&lt;/td&gt; 
@@ -253,21 +260,111 @@ cat(doc)</pre>
 ##     &lt;/body&gt;
 ## &lt;/html&gt;</pre></div>
 
-</article></slide><slide class=''><hgroup><h2>Extract Link</h2></hgroup><article  id="extract-link">
+</article></slide><slide class=''><hgroup><h2>Create HTML document</h2></hgroup><article  id="create-html-document">
 
-</article></slide><slide class=''><hgroup><h2>Create HTML Document</h2></hgroup><article  id="create-html-document">
+<pre class = 'prettyprint lang-r'>library(rvest)</pre>
 
-<pre class = 'prettyprint lang-r'>library(rvest)
-doc = read_html(&quot;data/demo.html&quot;)
+<pre >## Loading required package: xml2</pre>
+
+<pre class = 'prettyprint lang-r'>doc = read_html(&quot;data/demo.html&quot;)
 doc</pre>
 
 <pre >## {xml_document}
 ## &lt;html&gt;
-## [1] &lt;body&gt;\n        &lt;div id=&quot;character1&quot; class=&quot;character&quot;&gt;\n            ...</pre>
+## [1] &lt;body&gt;\n        &lt;div id=&quot;title&quot; class=&quot;character&quot;&gt;\n            &lt;a c ...</pre>
 
-</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Save your Data</h2></hgroup><article  id="save-your-data">
+</article></slide><slide class=''><hgroup><h2>Extract with css</h2></hgroup><article  id="extract-with-css">
 
-</article></slide><slide class=''><hgroup><h2>Case Study</h2></hgroup><article  id="case-study">
+<pre class = 'prettyprint lang-r'>doc %&gt;% 
+    html_nodes(css = &quot;.character&quot;) %&gt;% 
+    html_text</pre>
+
+<pre >## [1] &quot;\n            Link\n        &quot;                  
+## [2] &quot;\n            Number:\n            2\n        &quot;</pre>
+
+<pre class = 'prettyprint lang-r'>doc %&gt;% 
+    html_nodes(css = &quot;#title &gt; .link&quot;) %&gt;% 
+    html_text</pre>
+
+<pre >## [1] &quot;Link&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Extract with xpath</h2></hgroup><article  id="extract-with-xpath">
+
+<pre class = 'prettyprint lang-r'>doc %&gt;% 
+    html_nodes(xpath = &quot;//*[@class=&#39;character&#39;]&quot;) %&gt;% 
+    html_text</pre>
+
+<pre >## [1] &quot;\n            Link\n        &quot;                  
+## [2] &quot;\n            Number:\n            2\n        &quot;</pre>
+
+<pre class = 'prettyprint lang-r'>doc %&gt;% 
+    html_nodes(xpath = &quot;//div[@id=&#39;title&#39;]/a&quot;) %&gt;% 
+    html_text</pre>
+
+<pre >## [1] &quot;Link&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Extract name of tag</h2></hgroup><article  id="extract-name-of-tag">
+
+<pre class = 'prettyprint lang-r'>node = doc %&gt;% 
+    html_nodes(css = &quot;#summary&quot;) %&gt;% 
+    html_name
+node</pre>
+
+<pre >## [1] &quot;div&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Extract link</h2></hgroup><article  id="extract-link">
+
+<pre class = 'prettyprint lang-r'>link = doc %&gt;% 
+    html_nodes(xpath = &quot;/html/body/div[@id=&#39;title&#39;]/a&quot;) %&gt;%
+    html_attr(&quot;href&quot;)
+link</pre>
+
+<pre >## [1] &quot;http://data-sci.info/r-crawler-101/&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Extract table</h2></hgroup><article  id="extract-table">
+
+<pre class = 'prettyprint lang-r'>students = doc %&gt;% 
+    html_nodes(xpath = &quot;//table&quot;) %&gt;%
+    html_table()
+students</pre>
+
+<pre >## [[1]]
+##    Name Gender Age
+## 1 Alice Female  24
+## 2  Jane Female  26</pre>
+
+</article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Save your data</h2></hgroup><article  id="save-your-data">
+
+</article></slide><slide class=''><hgroup><h2>Ways to save your data in R</h2></hgroup><article  id="ways-to-save-your-data-in-r">
+
+<ul>
+<li>download.file: save html, jpeg, etc</li>
+<li>write.csv: save your data.frame into csv</li>
+<li>RSQLite: SQLite connector in R</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Download files</h2></hgroup><article  id="download-files">
+
+<pre class = 'prettyprint lang-r'>dest_dir = &quot;data/download&quot;
+dir.create(dest_dir, showWarnings = FALSE, recursive = TRUE)
+
+# Download whole HTML file
+download.file(&quot;https://www.r-project.org/&quot;, 
+              file.path(dest_dir, &quot;r-project.org.html&quot;))
+
+# Download image
+download.file(&quot;https://www.r-project.org/Rlogo.png&quot;,
+              file.path(dest_dir, &quot;Rlogo.png&quot;))
+
+list.files(dest_dir)</pre>
+
+<pre >## [1] &quot;Rlogo.png&quot;          &quot;r-project.org.html&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article  id="section">
+
+<pre class = 'prettyprint lang-r'>ptt_gossiping = &quot;https://www.ptt.cc/bbs/Gossiping/index.html&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Case study</h2></hgroup><article  id="case-study">
 
 <ul>
 <li><a href='https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&amp;loop=false&amp;delayms=60000&amp;slide=id.g70dd955d5_0_179' title=''>https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&amp;loop=false&amp;delayms=60000&amp;slide=id.g70dd955d5_0_179</a></li>

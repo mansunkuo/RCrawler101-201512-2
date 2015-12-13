@@ -4,8 +4,10 @@ author: "Mansun Kuo"
 date: "`r Sys.Date()`"
 subtitle: "Week 2"
 css: css/ioslides.css
-widescreen: yes
-output: ioslides_presentation
+#widescreen: yes
+output: 
+  ioslides_presentation: 
+    widescreen: yes
 ---
 
 ```{r include=FALSE}
@@ -14,7 +16,7 @@ knitr::opts_chunk$set(warning = TRUE,
                       echo = TRUE,
                       message = TRUE,
                       fig.align='center',
-                      cache=TRUE)
+                      cache=FALSE)
 ```
 
 ## Hello RStudio
@@ -36,12 +38,12 @@ Save active document             | Ctrl+S             | Command+S
 Reindent lines                   | Ctrl+I             | Command+I
 
 
-## Basic R Recap
+## Basic R recap
 
 - ?, ??, how to read manuel
 - vector, list，DataFrame, matrix
 - str, type, class
-- for, if/else ifelse, ifelse 
+- for, if/else ifelse 
 - apply/lapply/sapply, unlist
 - do.call
 - [magrittr](https://github.com/smbache/magrittr)
@@ -58,19 +60,20 @@ Pipe argument to right-hand side with `%>%`
 - x %>% f(y, z = .) is equivalent to f(y, z = x)
 
 
-# Web Connector in R
+# Web connector in R
 
 
-## Web Connector in R
+## Web connector in R
 
-- httr
-- RCurl
-- download.file
+- httr: Dealing with [HTTP methods](http://www.w3schools.com/tags/ref_httpmethods.asp) in R
+- RCurl:
+    - General network client interface for R 
+    - A wrapper of libcurl
+    
 
 
-## HTTP Method Recap
+## HTTP method recap
 
-- [W3School](http://www.w3schools.com/tags/ref_httpmethods.asp)
 
 
 ## httr
@@ -94,11 +97,14 @@ A web scraper designed to work with magrittr.
     - `html_nodes(doc, css = "<css selector>")`
     - `html_nodes(doc, xpath = "<css selector>")`
 - Extract components with 
-    - `html_tag()`: the name of the tag
+    - `html_name()`: the name of the tag
     - `html_text()`: all text inside the tag
     - `html_attr()`: contents of a single attribute
     - `html_attrs()`: all attributes
-- Parse 
+    - `html_table`: parse tables into data frames 
+
+
+## rvest - 2
 
 
 ## A simple HTML document
@@ -115,11 +121,7 @@ cat(doc)
 </div>
 
 
-## Extract Link
-
-
-
-## Create HTML Document 
+## Create HTML document 
 
 ```{r}
 library(rvest)
@@ -128,10 +130,99 @@ doc
 ```
 
 
-# Save your Data
+## Extract with css
+
+```{r}
+doc %>% 
+    html_nodes(css = ".character") %>% 
+    html_text
+doc %>% 
+    html_nodes(css = "#title > .link") %>% 
+    html_text
+```
 
 
-## Case Study
+## Extract with xpath
+
+```{r}
+doc %>% 
+    html_nodes(xpath = "//*[@class='character']") %>% 
+    html_text
+doc %>% 
+    html_nodes(xpath = "//div[@id='title']/a") %>% 
+    html_text
+```
+
+
+## Extract name of tag
+
+```{r}
+node = doc %>% 
+    html_nodes(css = "#summary") %>% 
+    html_name
+node
+```
+
+
+## Extract link
+
+```{r}
+link = doc %>% 
+    html_nodes(xpath = "/html/body/div[@id='title']/a") %>%
+    html_attr("href")
+link
+```
+
+
+## Extract table
+
+```{r}
+students = doc %>% 
+    html_nodes(xpath = "//table") %>%
+    html_table()
+students
+```
+
+
+# Save your data
+
+## Ways to save your data in R
+
+- download.file: save html, jpeg, etc
+- write.csv: save your data.frame into csv
+- RSQLite: SQLite connector in R
+
+
+## Download files
+
+```{r cache = TRUE}
+dest_dir = "data/download"
+dir.create(dest_dir, showWarnings = FALSE, recursive = TRUE)
+
+# Download whole HTML file
+download.file("https://www.r-project.org/", 
+              file.path(dest_dir, "r-project.org.html"))
+
+# Download image
+download.file("https://www.r-project.org/Rlogo.png",
+              file.path(dest_dir, "Rlogo.png"))
+
+list.files(dest_dir)
+```
+
+
+
+##
+
+```{r}
+ptt_gossiping = "https://www.ptt.cc/bbs/Gossiping/index.html"
+```
+
+
+
+
+
+## Case study
 
 - https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&loop=false&delayms=60000&slide=id.g70dd955d5_0_179
 - https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies
