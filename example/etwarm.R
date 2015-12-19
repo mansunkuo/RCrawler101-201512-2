@@ -30,7 +30,8 @@ for (i in 1:3) {
     res = read_html(urls[i]) 
     district = res %>% 
         html_nodes(xpath = "//li[@class='obj_item']/div[@class='obj_info']/h3/a") %>% 
-        html_text %>% 
+        html_text %>%
+        iconv(from = "utf8") %>% 
         str_extract(sprintf("%s.*區", city))
     price = res %>% 
         html_nodes(xpath = "//div[@class='price']") %>% 

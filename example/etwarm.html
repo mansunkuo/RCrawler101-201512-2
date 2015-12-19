@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2015-12-17" />
+<meta name="date" content="2015-12-19" />
 
 <title>ETwarm</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">ETwarm</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2015-12-17</em></h4>
+<h4 class="date"><em>2015-12-19</em></h4>
 </div>
 
 
@@ -95,7 +95,8 @@ for (i in 1:3) {
     res = read_html(urls[i]) 
     district = res %&gt;% 
         html_nodes(xpath = &quot;//li[@class='obj_item']/div[@class='obj_info']/h3/a&quot;) %&gt;% 
-        html_text %&gt;% 
+        html_text %&gt;%
+        iconv(from = &quot;utf8&quot;) %&gt;% 
         str_extract(sprintf(&quot;%s.*區&quot;, city))
     price = res %&gt;% 
         html_nodes(xpath = &quot;//div[@class='price']&quot;) %&gt;% 
@@ -111,21 +112,54 @@ for (i in 1:3) {
 <pre><code>## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=1&quot;
 ## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;
 ## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=3&quot;</code></pre>
-<pre class="r"><code>h &lt;- handle(&quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;, cookies = FALSE)</code></pre>
-<pre><code>## Warning: Cookies argument is depcrated</code></pre>
-<pre class="r"><code>GET(handle = h)$cookies</code></pre>
-<pre><code>## [1] domain     flag       path       secure     expiration name      
-## [7] value     
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>h = HEAD(&quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;)
-h$cookies</code></pre>
-<pre><code>## [1] domain     flag       path       secure     expiration name      
-## [7] value     
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>print(length(h))</code></pre>
-<pre><code>## [1] 10</code></pre>
-<pre class="r"><code>print(length(unlist(h)))</code></pre>
-<pre><code>## [1] 30</code></pre>
+<pre class="r"><code>houses[, .(count = .N), by = &quot;district&quot;]</code></pre>
+<pre><code>##         district count
+##  1: 台北市北投區    12
+##  2: 台北市士林區     1
+##  3: 台北市文山區     6
+##  4: 台北市萬華區     1
+##  5: 台北市松山區     1
+##  6: 台北市信義區     2
+##  7: 台北市中正區     1
+##  8: 台北市南港區     1
+##  9: 台北市大同區     2
+## 10: 台北市大安區     1
+## 11: 台北市內湖區     1
+## 12: 台北市中山區     1</code></pre>
+<pre class="r"><code>houses[, count := .N, by = &quot;district&quot;]
+houses</code></pre>
+<pre><code>##         district price count
+##  1: 台北市北投區  1590    12
+##  2: 台北市士林區  2988     1
+##  3: 台北市北投區  1490    12
+##  4: 台北市文山區  1180     6
+##  5: 台北市北投區  1080    12
+##  6: 台北市北投區  2800    12
+##  7: 台北市萬華區  1900     1
+##  8: 台北市文山區  1180     6
+##  9: 台北市松山區  5900     1
+## 10: 台北市文山區  3480     6
+## 11: 台北市文山區  1688     6
+## 12: 台北市北投區  3680    12
+## 13: 台北市信義區 23800     2
+## 14: 台北市北投區 15000    12
+## 15: 台北市中正區  2550     1
+## 16: 台北市北投區 13000    12
+## 17: 台北市北投區  7800    12
+## 18: 台北市文山區  4398     6
+## 19: 台北市南港區  7280     1
+## 20: 台北市大同區  1398     2
+## 21: 台北市北投區  7480    12
+## 22: 台北市大同區  2080     2
+## 23: 台北市北投區  1420    12
+## 24: 台北市大安區  9980     1
+## 25: 台北市北投區  8000    12
+## 26: 台北市內湖區  1938     1
+## 27: 台北市中山區  2380     1
+## 28: 台北市文山區  1498     6
+## 29: 台北市信義區  2988     2
+## 30: 台北市北投區   738    12
+##         district price count</code></pre>
 
 
 </div>

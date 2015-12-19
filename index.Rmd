@@ -129,9 +129,6 @@ A web scraper designed to work with magrittr.
     - `html_table`: parse tables into data frames 
 
 
-## rvest - 2
-
-
 ## A simple HTML document
 
 [demo](data/demo.html)
@@ -181,7 +178,8 @@ doc %>%
 
 ## Case study: 東森房屋
 
-[etwarm.R](example/etwarm.html)
+- [Result](example/etwarm.html)
+- [Code](example/etwarm.R)
 
 
 ## Exercise
