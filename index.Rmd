@@ -38,7 +38,7 @@ Save active document             | Ctrl+S             | Command+S
 Reindent lines                   | Ctrl+I             | Command+I
 
 
-## Basic R recap
+## R recap
 
 - ?, ??, how to read manuel
 - vector, list，DataFrame, matrix
@@ -47,6 +47,7 @@ Reindent lines                   | Ctrl+I             | Command+I
 - apply/lapply/sapply, unlist
 - do.call
 - [magrittr](https://github.com/smbache/magrittr)
+- [data.table](https://cran.r-project.org/web/packages/data.table/index.html)
 
 
 ## magrittr
@@ -60,39 +61,63 @@ Pipe argument to right-hand side with `%>%`
 - x %>% f(y, z = .) is equivalent to f(y, z = x)
 
 
-# Web connector in R
+## data.table
+
+- What
+    - An enhanced version of data.frames
+    - Optimize most heavy works in C
+    - Minimize redundant copies
+- Why
+    - Speed
+    - Automatically optimization
+    - Total solution for ETL
+    - Concise syntax
+
+## data.table: General Form
+
+**DT[i, j, by]**
+
+R:     i       j               by
+----- ------- --------------- -----------  
+SQL:   where   select/update   group by
+----- ------- --------------- -----------
+
+<br>
+
+Take **DT**, subset rows using *i*, then calculate *j*, grouped by *by*.
 
 
-## Web connector in R
+## data.table: a quick overview
 
-- httr: Dealing with [HTTP methods](http://www.w3schools.com/tags/ref_httpmethods.asp) in R
-- RCurl:
-    - General network client interface for R 
-    - A wrapper of libcurl
-    
+- **data.table**: get a data.table
+- **fread**: read text file into data.table
+- **.**: an abbreviation of list within data.table 
+- **:=**: add/remove/update a column by reference.
+- **by**: to summarize by each group. 
+- **.SD**: **S**ubset of **D**ata.table. It's a data table that holds the data for the current group defined using *by*. 
+- **.SDcols** specifies the columns that returned in .SD.
+- **.N**: returns the number of rows in the subset.
+- **DT[ ... ][ ... ][ ... ]**: chaining. Avoid intermediate assignment
+- **rbindlist**: same as do.call("rbind", l) on data.frames, but faster.
+- **copy**: to do a deep copy
 
 
-## HTTP method recap
+# Crawler's toolkits in R
 
+## Crawler's toolkits in R
 
-
-## httr
-
-
-# Data parser in R
-
-## Data parser in R
-
-- rvest
-- xml2
-- XML
+- [rvest](https://cran.r-project.org/web/packages/rvest/index.html): a web scraper based on httr and xml2
+- [httr](https://cran.r-project.org/web/packages/httr/index.html): toolkit of  [HTTP methods](http://www.w3schools.com/tags/ref_httpmethods.asp) in R
+- [xml2](https://cran.r-project.org/web/packages/xml2/index.html): xml parser based on libxml2
+- [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html): a wrapper of libcurl
+- [XML](https://cran.r-project.org/web/packages/XML/index.html) & : XML parser
 
 
 ## rvest
 
 A web scraper designed to work with magrittr.
 
-- Create a html document with `read_html`
+- Create a html document with `read_html()`
 - Select parts of a document using css selectors or xpath
     - `html_nodes(doc, css = "<css selector>")`
     - `html_nodes(doc, xpath = "<css selector>")`
@@ -154,6 +179,16 @@ doc %>%
 ```
 
 
+## Case study: 東森房屋
+
+[etwarm.R](example/etwarm.html)
+
+
+## Exercise
+
+Modify previous example to get the price of ouse
+
+
 ## Extract name of tag
 
 ```{r}
@@ -184,12 +219,161 @@ students
 ```
 
 
+## httr
+
+- Basic Features:
+    - HTTP verbs: `GET()`, `POST()`, `HEAD()`, `PUT()` and `DELETE()`
+    - `http_status`: Translate 
+       [HTTP status](https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81) code
+    - `headers()`: Access response headers
+    - `content()`: Retrieve the contents of a request
+    - `set_cookies()`: set cookles
+- Can be used with rvest 
+
+
+## Take a look at header
+
+```{r}
+library(httr)
+Target_URL = "http://tw.stock.yahoo.com/d/s/major_2451.html"
+head = headers(HEAD(Target_URL))
+head$`content-type`
+```
+
+
+## Basic
+
+Use `GET()` to make a request
+
+<div class="code_block">
+```{r cache=TRUE}
+# Demo GET method
+res = GET("http://tw.stock.yahoo.com/d/s/major_2451.html")
+res
+class(res)
+typeof(res)
+str(res)
+res$content
+res$request
+```
+</div>
+
+
+## 
+
+```{r}
+library(httr)
+
+url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
+res = GET(url)
+
+url2 = "http://ecshweb.pchome.com.tw/search/v3.3/all/results"
+res2 = GET(url, query = list(q="sony", page="1", sort="rnk/dc"))
+identical(res$content, res2$content)
+```
+
+
+##
+
+```{r}
+library(whisker)
+url_template = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q={{q}}&page={{page}}&sort={{sort}}"
+url3 = whisker.render(url_template, list(q="sony", page="1", sort="rnk/dc"))
+url3
+res3 = GET(url3)
+identical(res$content, res3$content)
+```
+
+
+##
+
+```{r}
+library(jsonlite)
+res_df = content(res, as = "text") %>% 
+    fromJSON() %>% 
+    .$prods     # equivelent to (function(x) {x$prods})
+res_df
+str(res_df)
+```
+
+
+##
+
+```{r}
+res_list = content(res, as = "parsed")
+str(res_list$prods[[1]])
+res_df2 = data.frame()
+for (i in 1:length(res_list$prods)) {
+    res_df2 = rbind(res_df2, 
+                    data.frame(res_list$prods[[i]], 
+                               stringsAsFactors = FALSE))
+}
+identical(res_df, res_df2)
+```
+
+
+##
+
+```{r}
+res_df3 = data.frame(do.call(rbind, res_list$prods))
+identical(res_df, res_df3)
+str(res_df3)
+```
+
+
+## Use with rvest
+
+## 
+<div class="code_block">
+```{r}
+library(httr)
+library(rvest)
+
+Target_URL = "http://tw.stock.yahoo.com/d/s/major_2451.html"
+res = GET(Target_URL)
+doc_str = iconv(content(res, type = "text", encoding = "big5"))
+
+dat1 = doc_str %>% 
+    read_html() %>% 
+    html_nodes(xpath = "//table[1]//table[2]") %>% 
+    html_table(header=TRUE)
+class(dat1)
+class(dat1[[1]])
+dat1
+
+dat2 = read_html(Target_URL, encoding = "big5") %>% 
+    html_nodes(xpath = "//table[1]//table[2]") %>% 
+    html_table(header=TRUE)
+identical(dat1, dat2)
+```
+
+
+## Exercise
+
+[行政院環境保護署環境資源資料開放平台](http://opendata.epa.gov.tw/DevelopZone/Sample/UV/)
+    - [紫外線即時監測資料](http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json)
+
+<div class="code_block">
+```{r cache=TRUE}
+r = GET("http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json")
+str(r)
+```
+</div>
+
+
+## POST
+
+## Exercise: postGuestBook
+
+
+
+
 # Save your data
 
 ## Ways to save your data in R
 
 - download.file: save html, jpeg, etc
-- write.csv: save your data.frame into csv
+- writeBin: write binary object into disk
 - RSQLite: SQLite connector in R
 
 
@@ -211,12 +395,25 @@ list.files(dest_dir)
 ```
 
 
-
-##
+## writeBin
 
 ```{r}
-ptt_gossiping = "https://www.ptt.cc/bbs/Gossiping/index.html"
+r = GET("http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json")
+bin = content(r, "raw")
+writeBin(bin, "data/download/uv.txt")
 ```
+
+
+
+## RSQLite
+
+
+
+
+## RCurl
+    
+- General network client interface for R 
+- A wrapper of libcurl
 
 
 
@@ -226,7 +423,7 @@ ptt_gossiping = "https://www.ptt.cc/bbs/Gossiping/index.html"
 
 - https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&loop=false&delayms=60000&slide=id.g70dd955d5_0_179
 - https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies
-
+- https://github.com/agilearning/RCrawlers/tree/master/CaseStudies
 
 
 

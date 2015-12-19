@@ -9,13 +9,10 @@
 library(rvest)
 library(httr)
 library(stringr)
-postUrl = "https://www.ptt.cc/bbs/Gossiping/index.html"
-res = GET(postUrl, config=set_cookies('over18'='1'))
-res = content(res, 'text', encoding = 'utf8')
-res = read_html(res)
-res %>% 
-    html_nodes(xpath = '//*[@id="action-bar-container"]/div/div[2]/a[2]') %>% 
-    html_attrs()
+url = "https://www.ptt.cc/bbs/Gossiping/index.html"
+res = GET(url, config=set_cookies('over18'='1')) %>% 
+    content(as = "text") %>% 
+    read_html(res)
 
 res_href = res %>% 
     html_nodes(xpath = '//*[@id="action-bar-container"]/div/div[2]/a[2]') %>% 
@@ -25,15 +22,14 @@ res_href
 tmpIndex = res_href %>% 
     str_extract('[0-9]+') %>% 
     (function(x){as.numeric(x)+1})
-
 (tmpIndex-10):tmpIndex
 
 sprintf("https://www.ptt.cc/bbs/Gossiping/index%s.html",(tmpIndex-10):tmpIndex)
 
 
-#' ### Crawler example with httr 
-postUrl = "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
-res = GET(postUrl, config=set_cookies('over18'='1')) %>% 
+#' ### Crawler example 
+url = "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
+res = GET(url, config=set_cookies('over18'='1')) %>% 
     read_html(res, encoding = "UTF-8") %>% 
     html_nodes(xpath = '//*[@id="main-content"]/div/span[1]')
 res
@@ -51,8 +47,8 @@ library(stringr)
 
 
 #' ## Get links of index pages
-postUrl <- "https://www.ptt.cc/bbs/Gossiping/index.html"
-res <- GET(postUrl, config=set_cookies('over18'='1'))
+url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
+res <- GET(url, config=set_cookies('over18'='1'))
 res <- content(res, 'text', encoding = 'utf8')
 res <- htmlParse(res, encoding = 'utf8')
 tmpIndex <-xpathSApply(res, '//*[@id="action-bar-container"]/div/div[2]/a[2]', xmlAttrs)
@@ -65,10 +61,10 @@ tmpIndex <- as.numeric(tmpIndex)+1
 sprintf("https://www.ptt.cc/bbs/Gossiping/index%s.html",(tmpIndex-10):tmpIndex)
 
 
-#' ## Crawler example with httr 
-# postUrl <- "https://www.ptt.cc/bbs/Gossiping/M.1431338763.A.1BF.html"
-postUrl <- "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
-res <- GET(postUrl, config=set_cookies('over18'='1'))
+#' ## Crawler example 
+# url <- "https://www.ptt.cc/bbs/Gossiping/M.1431338763.A.1BF.html"
+url <- "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
+res <- GET(url, config=set_cookies('over18'='1'))
 res <- content(res, 'text', encoding = 'utf8')
 res <- htmlParse(res, encoding = 'utf8')
 push <-xpathSApply(res, '//*[@id="main-content"]/div/span[1]', xmlValue)
