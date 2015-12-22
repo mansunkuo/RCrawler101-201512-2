@@ -35,7 +35,8 @@ res = GET(url, config=set_cookies('over18'='1')) %>%
 res
 res_text = res %>% 
     html_nodes(xpath = '//*[@id="main-content"]/div/span[1]') %>% 
-    html_text() 
+    html_text() %>%  
+    iconv(from = "UTF-8", to = "UTF-8") 
 head(res_text[!str_detect(res_text, '作者|看板|標題|時間')])
 
 

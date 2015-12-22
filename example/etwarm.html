@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2015-12-19" />
+<meta name="date" content="2015-12-23" />
 
 <title>ETwarm</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">ETwarm</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2015-12-19</em></h4>
+<h4 class="date"><em>2015-12-23</em></h4>
 </div>
 
 
@@ -90,13 +90,13 @@ urls = sprintf(&quot;http://www.etwarm.com.tw/object_list?city=%s&amp;page=&quot
 urls = paste0(urls, 1:max_index)
 
 houses = data.table()
-for (i in 1:3) {
 # for (i in 1:length(urls)) {
+for (i in 1:3) {
     res = read_html(urls[i]) 
     district = res %&gt;% 
         html_nodes(xpath = &quot;//li[@class='obj_item']/div[@class='obj_info']/h3/a&quot;) %&gt;% 
         html_text %&gt;%
-        iconv(from = &quot;utf8&quot;) %&gt;% 
+        iconv(from = &quot;UTF-8&quot;, to = &quot;UTF-8&quot;) %&gt;% # to comparable in Wondows  
         str_extract(sprintf(&quot;%s.*區&quot;, city))
     price = res %&gt;% 
         html_nodes(xpath = &quot;//div[@class='price']&quot;) %&gt;% 
@@ -112,54 +112,68 @@ for (i in 1:3) {
 <pre><code>## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=1&quot;
 ## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;
 ## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=3&quot;</code></pre>
-<pre class="r"><code>houses[, .(count = .N), by = &quot;district&quot;]</code></pre>
-<pre><code>##         district count
-##  1: 台北市北投區    12
-##  2: 台北市士林區     1
-##  3: 台北市文山區     6
-##  4: 台北市萬華區     1
-##  5: 台北市松山區     1
-##  6: 台北市信義區     2
-##  7: 台北市中正區     1
-##  8: 台北市南港區     1
-##  9: 台北市大同區     2
-## 10: 台北市大安區     1
-## 11: 台北市內湖區     1
-## 12: 台北市中山區     1</code></pre>
-<pre class="r"><code>houses[, count := .N, by = &quot;district&quot;]
-houses</code></pre>
-<pre><code>##         district price count
-##  1: 台北市北投區  1590    12
-##  2: 台北市士林區  2988     1
-##  3: 台北市北投區  1490    12
-##  4: 台北市文山區  1180     6
-##  5: 台北市北投區  1080    12
-##  6: 台北市北投區  2800    12
-##  7: 台北市萬華區  1900     1
-##  8: 台北市文山區  1180     6
-##  9: 台北市松山區  5900     1
-## 10: 台北市文山區  3480     6
-## 11: 台北市文山區  1688     6
-## 12: 台北市北投區  3680    12
-## 13: 台北市信義區 23800     2
-## 14: 台北市北投區 15000    12
-## 15: 台北市中正區  2550     1
-## 16: 台北市北投區 13000    12
-## 17: 台北市北投區  7800    12
-## 18: 台北市文山區  4398     6
-## 19: 台北市南港區  7280     1
-## 20: 台北市大同區  1398     2
-## 21: 台北市北投區  7480    12
-## 22: 台北市大同區  2080     2
-## 23: 台北市北投區  1420    12
-## 24: 台北市大安區  9980     1
-## 25: 台北市北投區  8000    12
-## 26: 台北市內湖區  1938     1
-## 27: 台北市中山區  2380     1
-## 28: 台北市文山區  1498     6
-## 29: 台北市信義區  2988     2
-## 30: 台北市北投區   738    12
-##         district price count</code></pre>
+<pre class="r"><code># Count number of element in each district
+houses_agg = houses[, .(count = .N, 
+                          mean_price = mean(price)), 
+                      by = &quot;district&quot;]
+
+# Add number of element in original data.table
+head(apply(houses, 2, Encoding))</code></pre>
+<pre><code>##      district price    
+## [1,] &quot;UTF-8&quot;  &quot;unknown&quot;
+## [2,] &quot;UTF-8&quot;  &quot;unknown&quot;
+## [3,] &quot;UTF-8&quot;  &quot;unknown&quot;
+## [4,] &quot;UTF-8&quot;  &quot;unknown&quot;
+## [5,] &quot;UTF-8&quot;  &quot;unknown&quot;
+## [6,] &quot;UTF-8&quot;  &quot;unknown&quot;</code></pre>
+<pre class="r"><code>head(apply(houses_agg, 2, Encoding))</code></pre>
+<pre><code>##      district count     mean_price
+## [1,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot; 
+## [2,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot; 
+## [3,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot; 
+## [4,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot; 
+## [5,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot; 
+## [6,] &quot;UTF-8&quot;  &quot;unknown&quot; &quot;unknown&quot;</code></pre>
+<pre class="r"><code># Left join with data.table::merge
+# both encoding are UTF-8 should be ok so we suppress warnings
+houses_merge = suppressWarnings(
+    merge(houses, houses_agg, 
+          by.x = &quot;district&quot;, by.y = &quot;district&quot;,
+          all.x = TRUE, all.y = FALSE)
+)
+houses_merge</code></pre>
+<pre><code>##         district price count mean_price
+##  1: 台北市中正區   115     3   3661.000
+##  2: 台北市中正區  3880     3   3661.000
+##  3: 台北市中正區  6988     3   3661.000
+##  4: 台北市信義區  3230     1   3230.000
+##  5: 台北市內湖區  1980     3   1986.000
+##  6: 台北市內湖區  2098     3   1986.000
+##  7: 台北市內湖區  1880     3   1986.000
+##  8: 台北市北投區  3750    12   2167.333
+##  9: 台北市北投區  2300    12   2167.333
+## 10: 台北市北投區  2380    12   2167.333
+## 11: 台北市北投區  1028    12   2167.333
+## 12: 台北市北投區  3280    12   2167.333
+## 13: 台北市北投區  2280    12   2167.333
+## 14: 台北市北投區  2580    12   2167.333
+## 15: 台北市北投區  1450    12   2167.333
+## 16: 台北市北投區  1590    12   2167.333
+## 17: 台北市北投區  1490    12   2167.333
+## 18: 台北市北投區  1080    12   2167.333
+## 19: 台北市北投區  2800    12   2167.333
+## 20: 台北市南港區  3580     1   3580.000
+## 21: 台北市士林區  2800     3   2556.000
+## 22: 台北市士林區  1880     3   2556.000
+## 23: 台北市士林區  2988     3   2556.000
+## 24: 台北市大同區  1860     1   1860.000
+## 25: 台北市大安區  6680     2   3939.000
+## 26: 台北市大安區  1198     2   3939.000
+## 27: 台北市文山區  1680     4   1985.000
+## 28: 台北市文山區  1400     4   1985.000
+## 29: 台北市文山區  3680     4   1985.000
+## 30: 台北市文山區  1180     4   1985.000
+##         district price count mean_price</code></pre>
 
 
 </div>

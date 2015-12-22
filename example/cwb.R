@@ -2,7 +2,13 @@
 #' title: "CWB"
 #' author: "Mansun Kuo"
 #' date: "`r Sys.Date()`"
+#' output: 
+#'   html_document: 
+#'     toc: yes
 #' ---
+
+#' [觀測資料查詢系統](http://e-service.cwb.gov.tw/HistoryDataQuery/)
+
 
 library(XML)
 library(whisker)

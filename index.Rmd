@@ -221,7 +221,7 @@ students
 
 - Basic Features:
     - HTTP verbs: `GET()`, `POST()`, `HEAD()`, `PUT()` and `DELETE()`
-    - `http_status`: Translate 
+    - `http_status`: Translate http status code
        [HTTP status](https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81) code
     - `headers()`: Access response headers
     - `content()`: Retrieve the contents of a request
@@ -231,12 +231,23 @@ students
 
 ## Take a look at header
 
+Try to use TAB to explore object in  
+
+<div class="code_block">
 ```{r}
 library(httr)
 Target_URL = "http://tw.stock.yahoo.com/d/s/major_2451.html"
-head = headers(HEAD(Target_URL))
+res = HEAD(Target_URL)
+class(res)
+res$content
+http_status(res)
+res$status_code
+head = headers(res)
 head$`content-type`
+res$headers$`content-type`
+str(res)
 ```
+</div>
 
 
 ## Basic
@@ -245,33 +256,32 @@ Use `GET()` to make a request
 
 <div class="code_block">
 ```{r cache=TRUE}
-# Demo GET method
-res = GET("http://tw.stock.yahoo.com/d/s/major_2451.html")
+library(httr)
+url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
+res = GET(url)
 res
 class(res)
 typeof(res)
 str(res)
 res$content
 res$request
+res
 ```
 </div>
 
 
-## 
+## Query
+
+You can assign query parameter with `query()` 
 
 ```{r}
-library(httr)
-
-url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
-res = GET(url)
-
 url2 = "http://ecshweb.pchome.com.tw/search/v3.3/all/results"
 res2 = GET(url, query = list(q="sony", page="1", sort="rnk/dc"))
 identical(res$content, res2$content)
 ```
 
 
-##
+## String Template
 
 ```{r}
 library(whisker)
@@ -283,20 +293,27 @@ identical(res$content, res3$content)
 ```
 
 
-##
+## Parse JSON format
 
+Yun can parse 
+[JSON](http://www.w3schools.com/json/)
+with jsonlite in R
+
+<div class="code_block">
 ```{r}
 library(jsonlite)
+library(magrittr)
 res_df = content(res, as = "text") %>% 
     fromJSON() %>% 
     .$prods     # equivelent to (function(x) {x$prods})
-res_df
 str(res_df)
 ```
+</div>
 
 
-##
+## Parsed with loop
 
+<div class="code_block">
 ```{r}
 res_list = content(res, as = "parsed")
 str(res_list$prods[[1]])
@@ -308,20 +325,24 @@ for (i in 1:length(res_list$prods)) {
 }
 identical(res_df, res_df2)
 ```
+</div>
 
 
 ##
 
+<div class="code_block">
 ```{r}
 res_df3 = data.frame(do.call(rbind, res_list$prods))
 identical(res_df, res_df3)
 str(res_df3)
 ```
+</div>
 
 
 ## Use with rvest
 
-## 
+##  
+
 <div class="code_block">
 ```{r}
 library(httr)
@@ -348,15 +369,8 @@ identical(dat1, dat2)
 
 ## Exercise
 
-[行政院環境保護署環境資源資料開放平台](http://opendata.epa.gov.tw/DevelopZone/Sample/UV/)
-    - [紫外線即時監測資料](http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json)
-
-<div class="code_block">
-```{r cache=TRUE}
-r = GET("http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json")
-str(r)
-```
-</div>
+[行政院環境保護署環境資源資料開放平台](http://opendata.epa.gov.tw/DevelopZone/Sample/UV/)提供了一系列的Restfuk Api供大家取用，請試著把
+[紫外線即時監測資料](http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json)的資料取回來並轉成data.frame
 
 
 ## POST
@@ -370,12 +384,21 @@ str(r)
 
 ## Ways to save your data in R
 
+- write.csv: write data.frame as csv file
 - download.file: save html, jpeg, etc
 - writeBin: write binary object into disk
 - RSQLite: SQLite connector in R
 
 
-## Download files
+## write.csv
+
+```{r}
+write.csv(res_df, "data/pchome.csv", row.names = FALSE)
+```
+
+
+## download.file
+
 
 ```{r cache = TRUE}
 dest_dir = "data/download"
@@ -384,6 +407,8 @@ dir.create(dest_dir, showWarnings = FALSE, recursive = TRUE)
 # Download whole HTML file
 download.file("https://www.r-project.org/", 
               file.path(dest_dir, "r-project.org.html"))
+
+
 
 # Download image
 download.file("https://www.r-project.org/Rlogo.png",
@@ -398,7 +423,7 @@ list.files(dest_dir)
 ```{r}
 r = GET("http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json")
 bin = content(r, "raw")
-writeBin(bin, "data/download/uv.txt")
+writeBin(bin, "data/download/uv.json")
 ```
 
 
@@ -414,14 +439,11 @@ writeBin(bin, "data/download/uv.txt")
 - A wrapper of libcurl
 
 
-
-
-
 ## Case study
 
 - https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&loop=false&delayms=60000&slide=id.g70dd955d5_0_179
 - https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies
 - https://github.com/agilearning/RCrawlers/tree/master/CaseStudies
-
+- http://whizzalan.github.io/RCrawlerCrashCourse/
 
 
