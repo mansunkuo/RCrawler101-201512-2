@@ -41,13 +41,133 @@ Reindent lines                   | Ctrl+I             | Command+I
 ## R recap
 
 - ?, ??, how to read manuel
-- vector, list，DataFrame, matrix
+- Working Environment
+- Basic Data Structure
+- function
 - str, type, class
 - for, if/else ifelse 
 - apply/lapply/sapply, unlist
 - do.call
 - [magrittr](https://github.com/smbache/magrittr)
 - [data.table](https://cran.r-project.org/web/packages/data.table/index.html)
+
+
+## How to get help
+
+- `?`: Access ducument in R console
+- `??`: Search the halp system
+- google with appropriate keyword. For example:
+    - R {package name}
+    - R {algorithm name}
+- Forum
+    - [Taiwan R user Group](http://www.meetup.com/Taiwan-R/)  
+      A free R/data analysis user group in Taiwan
+    - [Stack Overflow](http://stackoverflow.com/questions/tagged/r)  
+      A question and answer site for programmers
+    - [PTT R_Language board](https://www.ptt.cc/bbs/R_Language/index.html)  
+      A bbs forum for R in Taiwan
+
+
+## Working Environment
+
+Using `getwd`/`setwd` to get/set your working directory.
+
+```{r}
+wd = getwd()
+setwd("img")
+getwd()
+setwd(wd)
+getwd()
+```
+
+If you [using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects),
+RStudio will change working directory for you automatically.
+
+
+## Basic Data Structure
+
+Vector, Matrix, Array, List and Data frame are the most basic data structure in R.
+These data structures can be mapped into a table according to:
+
+- dimension
+- Homogeneous or Heterogeneous of data type
+
+
+<br> | Homogeneous     | Heterogeneous
+---  | --------------- |-------------
+1d   | Atomic vector   | List
+2d   | Matrix          | Data frame
+nd   | Array	
+
+
+## Function 
+
+*To understand computations in R, two slogans are helpful:*
+
+- *Everything that exists is an object.*
+- *Everything that happens is a function call."*
+
+*— John Chambers*
+
+<div class="columns-2">
+
+```{r}
+`+`
+`<-`
+`[`
+`c`
+```
+
+</div>
+
+
+## Function in R
+
+A typical function in R may look like:
+
+```{r}
+f <- function(arg1, arg2, ...) {
+    # Some magic happened
+    return()    # return something
+}
+```
+
+- If you don't use `return` to specify the return value, 
+  the return value will be the last expression inside the function.
+- Call by value by default  
+  send a copy of a object into a function and the input object won't change after execution without assignment
+- [First class object](https://en.wikipedia.org/wiki/First-class_citizen)
+     - Can be passed as arguments to other functions
+     - Can be nested
+
+
+## If
+
+The basc structure of conditional execution in R is:
+
+```r
+if (an expression returns TRUE or FALSE) {
+    # do something
+} else if (another expression returns TRUE or FALSE) {
+    # do something
+} else {
+    # do something
+}
+```
+
+## Expression
+
+Expression represents an action that can be performed by R.
+With expression you can do a lot of things that is not easy to do with other language.
+
+```{r}
+x <- 3
+square_str <- "y <- x^2"   # a string
+square_expr <- parse(text = square_str) # an expression
+square_expr
+eval(square_expr)   # evaluate an R expression
+y
+```
 
 
 ## magrittr
@@ -441,9 +561,15 @@ writeBin(bin, "data/download/uv.json")
 
 ## Case study
 
-- https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&loop=false&delayms=60000&slide=id.g70dd955d5_0_179
-- https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies
-- https://github.com/agilearning/RCrawlers/tree/master/CaseStudies
-- http://whizzalan.github.io/RCrawlerCrashCourse/
+- [中央氣象局觀測資料查詢系統](example/cwb.html)
+- [東森房屋](example/etwarm.html)
+- [公開資訊觀測站](example/mops.html)
+- [PTT Gossiping](example/ptt_gossiping.html)
+- [Seven Eleven](example/seven_eleven.html)
+- [紫外線即時監測資料](example/uv.html)
+- [Yahoo Stock](example/yahoo_stock.html)
+
+
+
 
 

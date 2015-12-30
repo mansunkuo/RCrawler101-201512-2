@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2015-12-23" />
+  <meta name="date" content="2015-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,7 +91,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2015-12-23</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2015-12-29</p>
           </hgroup>
   </slide>
 
@@ -145,7 +145,9 @@
 
 <ul>
 <li>?, ??, how to read manuel</li>
-<li>vector, list，DataFrame, matrix</li>
+<li>Working Environment</li>
+<li>Basic Data Structure</li>
+<li>function</li>
 <li>str, type, class</li>
 <li>for, if/else ifelse</li>
 <li>apply/lapply/sapply, unlist</li>
@@ -153,6 +155,150 @@
 <li><a href='https://github.com/smbache/magrittr' title=''>magrittr</a></li>
 <li><a href='https://cran.r-project.org/web/packages/data.table/index.html' title=''>data.table</a></li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>How to get help</h2></hgroup><article  id="how-to-get-help">
+
+<ul>
+<li><code>?</code>: Access ducument in R console</li>
+<li><code>??</code>: Search the halp system</li>
+<li>google with appropriate keyword. For example:
+
+<ul>
+<li>R {package name}</li>
+<li>R {algorithm name}</li>
+</ul></li>
+<li>Forum
+
+<ul>
+<li><a href='http://www.meetup.com/Taiwan-R/' title=''>Taiwan R user Group</a><br/> A free R/data analysis user group in Taiwan</li>
+<li><a href='http://stackoverflow.com/questions/tagged/r' title=''>Stack Overflow</a><br/> A question and answer site for programmers</li>
+<li><a href='https://www.ptt.cc/bbs/R_Language/index.html' title=''>PTT R_Language board</a><br/> A bbs forum for R in Taiwan</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Working Environment</h2></hgroup><article  id="working-environment">
+
+<p>Using <code>getwd</code>/<code>setwd</code> to get/set your working directory.</p>
+
+<pre class = 'prettyprint lang-r'>wd = getwd()
+setwd(&quot;img&quot;)
+getwd()</pre>
+
+<pre >## [1] &quot;/home/mansun/github/RCrawler101-201512-2/img&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>setwd(wd)
+getwd()</pre>
+
+<pre >## [1] &quot;/home/mansun/github/RCrawler101-201512-2&quot;</pre>
+
+<p>If you <a href='https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects' title=''>using Projects</a>, RStudio will change working directory for you automatically.</p>
+
+</article></slide><slide class=''><hgroup><h2>Basic Data Structure</h2></hgroup><article  id="basic-data-structure">
+
+<p>Vector, Matrix, Array, List and Data frame are the most basic data structure in R. These data structures can be mapped into a table according to:</p>
+
+<ul>
+<li>dimension</li>
+<li>Homogeneous or Heterogeneous of data type</li>
+</ul>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left"><br></th>
+<th align="left">Homogeneous</th>
+<th align="left">Heterogeneous</th>
+</tr>
+<tr class="odd">
+<td align="left">1d</td>
+<td align="left">Atomic vector</td>
+<td align="left">List</td>
+</tr>
+<tr class="even">
+<td align="left">2d</td>
+<td align="left">Matrix</td>
+<td align="left">Data frame</td>
+</tr>
+<tr class="odd">
+<td align="left">nd</td>
+<td align="left">Array</td>
+</tr>
+</table>
+
+</article></slide><slide class=''><hgroup><h2>Function</h2></hgroup><article  id="function">
+
+<p><em>To understand computations in R, two slogans are helpful:</em></p>
+
+<ul>
+<li><em>Everything that exists is an object.</em></li>
+<li><em>Everything that happens is a function call.&quot;</em></li>
+</ul>
+
+<p><em>— John Chambers</em></p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>`+`</pre>
+
+<pre >## function (e1, e2)  .Primitive(&quot;+&quot;)</pre>
+
+<pre class = 'prettyprint lang-r'>`&lt;-`</pre>
+
+<pre >## .Primitive(&quot;&lt;-&quot;)</pre>
+
+<pre class = 'prettyprint lang-r'>`[`</pre>
+
+<pre >## .Primitive(&quot;[&quot;)</pre>
+
+<pre class = 'prettyprint lang-r'>`c`</pre>
+
+<pre >## function (..., recursive = FALSE)  .Primitive(&quot;c&quot;)</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Function in R</h2></hgroup><article  id="function-in-r">
+
+<p>A typical function in R may look like:</p>
+
+<pre class = 'prettyprint lang-r'>f &lt;- function(arg1, arg2, ...) {
+    # Some magic happened
+    return()    # return something
+}</pre>
+
+<ul>
+<li>If you don&#39;t use <code>return</code> to specify the return value, the return value will be the last expression inside the function.</li>
+<li>Call by value by default<br/> send a copy of a object into a function and the input object won&#39;t change after execution without assignment</li>
+<li><a href='https://en.wikipedia.org/wiki/First-class_citizen' title=''>First class object</a>
+
+<ul>
+<li>Can be passed as arguments to other functions</li>
+<li>Can be nested</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>If</h2></hgroup><article  id="if">
+
+<p>The basc structure of conditional execution in R is:</p>
+
+<pre class = 'prettyprint lang-r'>if (an expression returns TRUE or FALSE) {
+    # do something
+} else if (another expression returns TRUE or FALSE) {
+    # do something
+} else {
+    # do something
+}</pre>
+
+</article></slide><slide class=''><hgroup><h2>Expression</h2></hgroup><article  id="expression">
+
+<p>Expression represents an action that can be performed by R. With expression you can do a lot of things that is not easy to do with other language.</p>
+
+<pre class = 'prettyprint lang-r'>x &lt;- 3
+square_str &lt;- &quot;y &lt;- x^2&quot;   # a string
+square_expr &lt;- parse(text = square_str) # an expression
+square_expr</pre>
+
+<pre >## expression(y &lt;- x^2)</pre>
+
+<pre class = 'prettyprint lang-r'>eval(square_expr)   # evaluate an R expression
+y</pre>
+
+<pre >## [1] 9</pre>
 
 </article></slide><slide class=''><hgroup><h2>magrittr</h2></hgroup><article  id="magrittr">
 
@@ -444,7 +590,7 @@ head$`content-type`</pre>
 ##  $ url        : chr &quot;https://tw.stock.yahoo.com/d/s/major_2451.html&quot;
 ##  $ status_code: int 200
 ##  $ headers    :List of 11
-##   ..$ date            : chr &quot;Tue, 22 Dec 2015 21:45:49 GMT&quot;
+##   ..$ date            : chr &quot;Tue, 29 Dec 2015 00:29:10 GMT&quot;
 ##   ..$ p3p             : chr &quot;policyref=\&quot;http://info.yahoo.com/w3c/p3p.xml\&quot;, CP=\&quot;CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAM&quot;| __truncated__
 ##   ..$ cache-control   : chr &quot;private&quot;
 ##   ..$ vary            : chr &quot;Accept-Encoding&quot;
@@ -453,7 +599,7 @@ head$`content-type`</pre>
 ##   ..$ content-type    : chr &quot;text/html; charset=Big5&quot;
 ##   ..$ age             : chr &quot;0&quot;
 ##   ..$ connection      : chr &quot;close&quot;
-##   ..$ via             : chr &quot;http/1.1 r106.finance.tw1.yahoo.com (ApacheTrafficServer [c sSf ])&quot;
+##   ..$ via             : chr &quot;http/1.1 r201.finance.tw1.yahoo.com (ApacheTrafficServer [c sSf ])&quot;
 ##   ..$ server          : chr &quot;ATS&quot;
 ##   ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;insensitive&quot; &quot;list&quot;
 ##  $ all_headers:List of 2
@@ -461,9 +607,9 @@ head$`content-type`</pre>
 ##   .. ..$ status : int 301
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 9
-##   .. .. ..$ date            : chr &quot;Tue, 22 Dec 2015 21:45:49 GMT&quot;
+##   .. .. ..$ date            : chr &quot;Tue, 29 Dec 2015 00:29:10 GMT&quot;
 ##   .. .. ..$ connection      : chr &quot;close&quot;
-##   .. .. ..$ via             : chr &quot;http/1.1 r105.finance.tw1.yahoo.com (ApacheTrafficServer [c s f ])&quot;
+##   .. .. ..$ via             : chr &quot;http/1.1 r108.finance.tw1.yahoo.com (ApacheTrafficServer [c s f ])&quot;
 ##   .. .. ..$ server          : chr &quot;ATS&quot;
 ##   .. .. ..$ cache-control   : chr &quot;no-store&quot;
 ##   .. .. ..$ location        : chr &quot;https://tw.stock.yahoo.com/d/s/major_2451.html&quot;
@@ -475,7 +621,7 @@ head$`content-type`</pre>
 ##   .. ..$ status : int 200
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 11
-##   .. .. ..$ date            : chr &quot;Tue, 22 Dec 2015 21:45:49 GMT&quot;
+##   .. .. ..$ date            : chr &quot;Tue, 29 Dec 2015 00:29:10 GMT&quot;
 ##   .. .. ..$ p3p             : chr &quot;policyref=\&quot;http://info.yahoo.com/w3c/p3p.xml\&quot;, CP=\&quot;CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAM&quot;| __truncated__
 ##   .. .. ..$ cache-control   : chr &quot;private&quot;
 ##   .. .. ..$ vary            : chr &quot;Accept-Encoding&quot;
@@ -484,7 +630,7 @@ head$`content-type`</pre>
 ##   .. .. ..$ content-type    : chr &quot;text/html; charset=Big5&quot;
 ##   .. .. ..$ age             : chr &quot;0&quot;
 ##   .. .. ..$ connection      : chr &quot;close&quot;
-##   .. .. ..$ via             : chr &quot;http/1.1 r106.finance.tw1.yahoo.com (ApacheTrafficServer [c sSf ])&quot;
+##   .. .. ..$ via             : chr &quot;http/1.1 r201.finance.tw1.yahoo.com (ApacheTrafficServer [c sSf ])&quot;
 ##   .. .. ..$ server          : chr &quot;ATS&quot;
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;insensitive&quot; &quot;list&quot;
 ##  $ cookies    :&#39;data.frame&#39;: 0 obs. of  7 variables:
@@ -496,8 +642,8 @@ head$`content-type`</pre>
 ##   ..$ name      : logi(0) 
 ##   ..$ value     : logi(0) 
 ##  $ content    : raw(0) 
-##  $ date       : POSIXct[1:1], format: &quot;2015-12-22 21:45:49&quot;
-##  $ times      : Named num [1:6] 0.0555 0.0293 0.0417 0.0842 0.0994 ...
+##  $ date       : POSIXct[1:1], format: &quot;2015-12-29 00:29:10&quot;
+##  $ times      : Named num [1:6] 0.0593 0.0308 0.0411 0.0866 0.1026 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...
 ##  $ request    :List of 7
 ##   ..$ method    : chr &quot;HEAD&quot;
@@ -527,10 +673,10 @@ res = GET(url)
 res</pre>
 
 <pre >## Response [http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc]
-##   Date: 2015-12-22 21:34
+##   Date: 2015-12-25 23:57
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 9.57 kB</pre>
+##   Size: 10.1 kB</pre>
 
 <pre class = 'prettyprint lang-r'>class(res)</pre>
 
@@ -546,15 +692,15 @@ res</pre>
 ##  $ url        : chr &quot;http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc&quot;
 ##  $ status_code: int 200
 ##  $ headers    :List of 14
-##   ..$ date            : chr &quot;Tue, 22 Dec 2015 21:34:53 GMT&quot;
-##   ..$ set-cookie      : chr &quot;U=a382262bf1a696a0626f55ed5aa8ca55ecec318c; expires=Wed, 21-Dec-2016 21:34:53 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
+##   ..$ date            : chr &quot;Fri, 25 Dec 2015 23:57:09 GMT&quot;
+##   ..$ set-cookie      : chr &quot;U=6aeb67254dbd9be5849afede07f8c6dcdbd05e75; expires=Sat, 24-Dec-2016 23:57:09 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
 ##   ..$ cache-control   : chr &quot;max-age=600, public&quot;
-##   ..$ expires         : chr &quot;Tue, 22 Dec 2015 21:44:53 GMT&quot;
-##   ..$ etag            : chr &quot;d73fde0061f088c07ed913c0e860aaf3d59e085c&quot;
+##   ..$ expires         : chr &quot;Sat, 26 Dec 2015 00:07:11 GMT&quot;
+##   ..$ etag            : chr &quot;160da2bf955531459af4dffc3749a68827c1fa19&quot;
 ##   ..$ content-encoding: chr &quot;gzip&quot;
 ##   ..$ vary            : chr &quot;Accept-Encoding&quot;
 ##   ..$ accept-ranges   : chr &quot;None&quot;
-##   ..$ content-length  : chr &quot;2207&quot;
+##   ..$ content-length  : chr &quot;2451&quot;
 ##   ..$ content-type    : chr &quot;application/json&quot;
 ##   ..$ x-frame-options : chr &quot;SAMEORIGIN&quot;
 ##   ..$ server          : chr &quot;PChome/1.0.4&quot;
@@ -566,15 +712,15 @@ res</pre>
 ##   .. ..$ status : int 200
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 14
-##   .. .. ..$ date            : chr &quot;Tue, 22 Dec 2015 21:34:53 GMT&quot;
-##   .. .. ..$ set-cookie      : chr &quot;U=a382262bf1a696a0626f55ed5aa8ca55ecec318c; expires=Wed, 21-Dec-2016 21:34:53 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
+##   .. .. ..$ date            : chr &quot;Fri, 25 Dec 2015 23:57:09 GMT&quot;
+##   .. .. ..$ set-cookie      : chr &quot;U=6aeb67254dbd9be5849afede07f8c6dcdbd05e75; expires=Sat, 24-Dec-2016 23:57:09 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
 ##   .. .. ..$ cache-control   : chr &quot;max-age=600, public&quot;
-##   .. .. ..$ expires         : chr &quot;Tue, 22 Dec 2015 21:44:53 GMT&quot;
-##   .. .. ..$ etag            : chr &quot;d73fde0061f088c07ed913c0e860aaf3d59e085c&quot;
+##   .. .. ..$ expires         : chr &quot;Sat, 26 Dec 2015 00:07:11 GMT&quot;
+##   .. .. ..$ etag            : chr &quot;160da2bf955531459af4dffc3749a68827c1fa19&quot;
 ##   .. .. ..$ content-encoding: chr &quot;gzip&quot;
 ##   .. .. ..$ vary            : chr &quot;Accept-Encoding&quot;
 ##   .. .. ..$ accept-ranges   : chr &quot;None&quot;
-##   .. .. ..$ content-length  : chr &quot;2207&quot;
+##   .. .. ..$ content-length  : chr &quot;2451&quot;
 ##   .. .. ..$ content-type    : chr &quot;application/json&quot;
 ##   .. .. ..$ x-frame-options : chr &quot;SAMEORIGIN&quot;
 ##   .. .. ..$ server          : chr &quot;PChome/1.0.4&quot;
@@ -586,12 +732,12 @@ res</pre>
 ##   ..$ flag      : logi TRUE
 ##   ..$ path      : chr &quot;/&quot;
 ##   ..$ secure    : logi FALSE
-##   ..$ expiration: POSIXct[1:1], format: &quot;2016-12-22 05:34:53&quot;
+##   ..$ expiration: POSIXct[1:1], format: &quot;2016-12-25 07:57:11&quot;
 ##   ..$ name      : chr &quot;U&quot;
-##   ..$ value     : chr &quot;a382262bf1a696a0626f55ed5aa8ca55ecec318c&quot;
-##  $ content    : raw [1:9573] 7b 22 51 54 ...
-##  $ date       : POSIXct[1:1], format: &quot;2015-12-22 21:34:53&quot;
-##  $ times      : Named num [1:6] 0 0.0308 0.0416 0.0417 0.1209 ...
+##   ..$ value     : chr &quot;6aeb67254dbd9be5849afede07f8c6dcdbd05e75&quot;
+##  $ content    : raw [1:10142] 7b 22 51 54 ...
+##  $ date       : POSIXct[1:1], format: &quot;2015-12-25 23:57:09&quot;
+##  $ times      : Named num [1:6] 0 0.0626 0.0747 0.0748 1.7087 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...
 ##  $ request    :List of 7
 ##   ..$ method    : chr &quot;GET&quot;
@@ -611,423 +757,467 @@ res</pre>
 
 <pre class = 'prettyprint lang-r'>res$content</pre>
 
-<pre >##    [1] 7b 22 51 54 69 6d 65 22 3a 34 33 2c 22 74 6f 74 61 6c 52 6f 77 73 22
-##   [24] 3a 32 37 35 39 36 2c 22 74 6f 74 61 6c 50 61 67 65 22 3a 31 33 38 30
-##   [47] 2c 22 72 61 6e 67 65 22 3a 7b 22 6d 69 6e 22 3a 32 33 2c 22 6d 61 78
-##   [70] 22 3a 36 39 39 39 30 30 7d 2c 22 63 61 74 65 4e 61 6d 65 22 3a 22 22
-##   [93] 2c 22 71 22 3a 22 73 6f 6e 79 22 2c 22 73 75 62 71 22 3a 22 22 2c 22
-##  [116] 74 6f 6b 65 6e 22 3a 5b 22 73 6f 6e 79 22 5d 2c 22 70 72 6f 64 73 22
-##  [139] 3a 5b 7b 22 49 64 22 3a 22 44 59 41 44 32 50 2d 41 39 30 30 36 4a 41
-##  [162] 4a 45 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 50 22 2c 22
-##  [185] 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c
-##  [208] 2f 69 74 65 6d 5c 2f 32 30 31 35 31 30 5c 2f 44 5c 2f 59 5c 2f 41 5c
-##  [231] 2f 44 5c 2f 32 5c 2f 50 5c 2f 73 44 59 41 44 32 50 2d 41 39 30 30 36
-##  [254] 4a 41 4a 45 30 30 30 5f 35 36 30 63 62 33 33 31 64 37 63 34 36 2e 6a
-##  [277] 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f
-##  [300] 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f
-##  [323] 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 50 5c 2f 44 59 41 44 32 50 2d 41
-##  [346] 39 30 30 36 4a 41 4a 45 30 30 30 5f 35 36 37 38 63 38 64 61 64 62 31
-##  [369] 38 32 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70
-##  [392] 65 72 69 61 20 5a 35 20 43 6f 6d 70 61 63 74 22 2c 22 64 65 73 63 72
-##  [415] 69 62 65 22 3a 22 5c 75 32 35 62 63 5c 75 39 30 30 31 5c 75 35 33 39
-##  [438] 66 5c 75 35 65 65 30 5c 75 37 36 61 65 5c 75 35 39 35 37 2b 33 32 47
-##  [461] 5c 75 35 33 36 31 5c 75 32 35 62 63 53 4f 4e 59 20 58 70 65 72 69 61
-##  [484] 20 5a 35 20 43 6f 6d 70 61 63 74 22 2c 22 70 72 69 63 65 22 3a 31 36
-##  [507] 34 39 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22
-##  [530] 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69
-##  [553] 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 49 34 39
-##  [576] 2d 41 39 30 30 36 47 4c 38 4c 22 2c 22 63 61 74 65 49 64 22 3a 22 44
-##  [599] 59 41 49 34 39 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76
-##  [622] 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f
-##  [645] 44 5c 2f 59 5c 2f 41 5c 2f 49 5c 2f 34 5c 2f 39 5c 2f 73 44 59 41 49
-##  [668] 34 39 2d 41 39 30 30 36 47 4c 38 4c 30 30 30 5f 35 35 65 38 31 64 34
-##  [691] 30 32 66 39 65 37 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70
-##  [714] 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31
-##  [737] 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 49 5c 2f 34 5c 2f 39 5c 2f
-##  [760] 44 59 41 49 34 39 2d 41 39 30 30 36 47 4c 38 4c 30 30 30 5f 35 36 37
-##  [783] 33 36 39 38 39 35 38 30 61 36 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a
-##  [806] 22 53 4f 4e 59 20 53 57 52 31 32 20 5c 75 38 35 63 64 5c 75 37 32 35
-##  [829] 39 5c 75 36 32 34 62 5c 75 37 34 62 30 22 2c 22 64 65 73 63 72 69 62
-##  [852] 65 22 3a 22 53 4f 4e 59 20 53 57 52 31 32 20 5c 75 38 35 63 64 5c 75
-##  [875] 37 32 35 39 5c 75 36 32 34 62 5c 75 37 34 62 30 22 2c 22 70 72 69 63
-##  [898] 65 22 3a 34 36 38 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72
-##  [921] 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22
-##  [944] 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59
-##  [967] 41 44 32 4f 2d 41 39 30 30 36 4a 44 51 45 22 2c 22 63 61 74 65 49 64
-##  [990] 22 3a 22 44 59 41 44 32 4f 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69
-## [1013] 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35
-## [1036] 31 30 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c 2f 73
-## [1059] 44 59 41 44 32 4f 2d 41 39 30 30 36 4a 44 51 45 30 30 30 5f 35 36 30
-## [1082] 65 30 33 37 62 30 38 64 62 32 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a
-## [1105] 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
-## [1128] 2f 32 30 31 35 31 30 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c
-## [1151] 2f 4f 5c 2f 44 59 41 44 32 4f 2d 41 39 30 30 36 4a 44 51 45 30 30 30
-## [1174] 5f 35 36 30 65 30 33 37 62 30 32 36 39 30 2e 6a 70 67 22 2c 22 6e 61
-## [1197] 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 22 2c 22 64
-## [1220] 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 62 63 5c 75 38 64 38 35 5c
-## [1243] 75 35 30 33 63 20 5c 75 39 30 30 31 33 32 47 5c 75 35 33 36 31 2b 5c
-## [1266] 75 36 32 65 64 5c 75 36 64 65 38 5c 75 35 65 30 33 2b 5c 75 35 30 62
-## [1289] 33 5c 75 38 66 33 38 5c 75 37 64 64 61 2b 5c 75 38 39 66 38 5c 75 36
-## [1312] 33 61 37 5c 75 37 62 34 36 2b 5c 75 36 32 34 62 5c 75 36 61 35 66 5c
-## [1335] 75 37 61 63 62 5c 75 36 37 62 36 5c 75 32 35 62 63 53 4f 4e 59 20 58
-## [1358] 70 65 72 69 61 20 5a 35 20 35 2e 32 5c 75 35 34 30 62 5c 75 37 66 38
-## [1381] 65 5c 75 35 37 38 62 5c 75 39 36 33 32 5c 75 36 63 33 34 5c 75 36 35
-## [1404] 64 37 5c 75 38 32 36 36 5c 75 36 61 35 66 22 2c 22 70 72 69 63 65 22
-## [1427] 3a 31 39 32 39 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61
-## [1450] 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22
-## [1473] 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 47 42
-## [1496] 54 33 30 2d 41 39 30 30 35 45 45 51 48 22 2c 22 63 61 74 65 49 64 22
-## [1519] 3a 22 44 59 41 51 41 36 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63
-## [1542] 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31
-## [1565] 31 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 54 5c 2f 33 5c 2f 30 5c 2f 73 44
-## [1588] 47 42 54 33 30 2d 41 39 30 30 35 45 45 51 48 30 30 30 5f 35 36 35 35
-## [1611] 36 36 61 64 39 39 66 37 35 2e 70 6e 67 22 2c 22 70 69 63 42 22 3a 22
-## [1634] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f
-## [1657] 32 30 31 34 30 38 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 54 5c 2f 33 5c 2f
-## [1680] 30 5c 2f 44 47 42 54 33 30 2d 41 39 30 30 35 45 45 51 48 30 30 30 5f
-## [1703] 35 33 66 66 30 33 34 38 36 64 64 61 36 22 2c 22 6e 61 6d 65 22 3a 22
-## [1726] 53 4f 4e 59 20 53 42 48 2d 35 30 20 5c 75 35 33 39 66 5c 75 35 65 65
-## [1749] 30 46 4d 20 5c 2f 20 5c 75 34 65 30 30 5c 75 35 63 30 64 5c 75 34 65
-## [1772] 38 63 5c 75 37 61 63 62 5c 75 39 61 64 34 5c 75 38 30 37 32 5c 75 38
-## [1795] 35 63 64 5c 75 37 32 35 39 5c 75 38 30 33 33 5c 75 36 61 35 66 22 2c
-## [1818] 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 35 30 34 37 5c 75 36 35 65
-## [1841] 35 5c 75 37 32 37 39 5c 75 36 30 65 30 53 4f 4e 59 20 53 42 48 2d 35
-## [1864] 30 20 5c 75 35 33 39 66 5c 75 35 65 65 30 46 4d 20 5c 2f 20 5c 75 34
-## [1887] 65 30 30 5c 75 35 63 30 64 5c 75 34 65 38 63 5c 75 37 61 63 62 5c 75
-## [1910] 39 61 64 34 5c 75 38 30 37 32 5c 75 38 35 63 64 5c 75 37 32 35 39 5c
-## [1933] 75 38 30 33 33 5c 75 36 61 35 66 22 2c 22 70 72 69 63 65 22 3a 31 36
-## [1956] 38 38 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a
-## [1979] 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73
-## [2002] 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 36 2d
-## [2025] 41 39 30 30 36 36 44 30 32 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59
-## [2048] 41 44 32 36 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
-## [2071] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44
-## [2094] 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 36 5c 2f 73 44 59 41 44 32
-## [2117] 36 2d 41 39 30 30 36 36 44 30 32 30 30 30 5f 35 35 37 65 37 30 62 33
-## [2140] 64 62 37 36 30 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69
-## [2163] 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35
-## [2186] 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 36 5c 2f 44
-## [2209] 59 41 44 32 36 2d 41 39 30 30 36 36 44 30 32 30 30 30 5f 35 36 37 37
-## [2232] 36 30 37 36 33 34 64 65 62 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22
-## [2255] 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 33 2b 20 28 45 36 35 35 33 29
-## [2278] 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 65 34 5c 75 38
-## [2301] 64 38 35 5c 75 35 30 33 63 20 5c 75 39 30 30 31 5c 75 38 38 34 63 5c
-## [2324] 75 39 36 66 62 2b 5c 75 34 66 64 64 5c 75 38 63 62 63 2b 5c 75 35 30
-## [2347] 62 33 5c 75 38 66 33 38 5c 75 37 64 64 61 2b 5c 75 36 32 65 64 5c 75
-## [2370] 36 64 65 38 5c 75 35 65 30 33 2b 5c 75 38 39 66 38 5c 75 36 33 61 37
-## [2393] 5c 75 37 62 34 36 2b 5c 75 36 66 30 32 5c 75 36 64 36 65 5c 75 38 31
-## [2416] 35 35 5c 75 35 65 33 36 5c 75 32 35 65 32 53 4f 4e 59 20 58 70 65 72
-## [2439] 69 61 20 5a 33 2b 20 28 45 36 35 35 33 29 22 2c 22 70 72 69 63 65 22
-## [2462] 3a 31 34 36 39 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61
-## [2485] 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22
-## [2508] 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 47 42
-## [2531] 4a 41 37 2d 31 39 30 30 36 4a 48 52 46 22 2c 22 63 61 74 65 49 64 22
-## [2554] 3a 22 44 47 42 4a 41 37 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63
-## [2577] 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31
-## [2600] 30 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 4a 5c 2f 41 5c 2f 37 5c 2f 73 44
-## [2623] 47 42 4a 41 37 2d 31 39 30 30 36 4a 48 52 46 30 30 30 5f 35 36 31 31
-## [2646] 66 35 31 31 36 33 66 65 66 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22
-## [2669] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f
-## [2692] 32 30 31 35 31 30 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 4a 5c 2f 41 5c 2f
-## [2715] 37 5c 2f 44 47 42 4a 41 37 2d 31 39 30 30 36 4a 48 52 46 30 30 30 5f
-## [2738] 35 36 31 31 66 35 31 31 35 65 64 37 34 2e 6a 70 67 22 2c 22 6e 61 6d
-## [2761] 65 22 3a 22 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35
-## [2784] 66 20 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37
-## [2807] 35 30 30 47 28 5c 75 35 31 62 30 5c 75 36 63 62 33 5c 75 37 36 37 64
-## [2830] 29 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 20 5c 75 35 66 33 37 5c
-## [2853] 75 36 61 39 34 5c 75 39 30 34 61 5c 75 36 32 33 32 5c 75 34 65 66 62
-## [2876] 5c 75 39 30 37 38 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36
-## [2899] 61 35 66 20 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32
-## [2922] 31 37 35 30 30 47 28 5c 75 35 31 62 30 5c 75 36 63 62 33 5c 75 37 36
-## [2945] 37 64 29 22 2c 22 70 72 69 63 65 22 3a 31 31 39 38 30 2c 22 61 75 74
-## [2968] 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62
-## [2991] 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30
-## [3014] 7d 2c 7b 22 49 64 22 3a 22 44 47 41 47 31 33 2d 41 39 30 30 36 46 52
-## [3037] 45 48 22 2c 22 63 61 74 65 49 64 22 3a 22 44 47 41 47 31 33 22 2c 22
-## [3060] 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c
-## [3083] 2f 69 74 65 6d 5c 2f 32 30 31 35 30 38 5c 2f 44 5c 2f 47 5c 2f 41 5c
-## [3106] 2f 47 5c 2f 31 5c 2f 33 5c 2f 73 44 47 41 47 31 33 2d 41 39 30 30 36
-## [3129] 46 52 45 48 30 30 30 5f 35 35 64 63 35 36 38 39 65 30 31 64 31 2e 6a
-## [3152] 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f
-## [3175] 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f
-## [3198] 47 5c 2f 41 5c 2f 47 5c 2f 31 5c 2f 33 5c 2f 44 47 41 47 31 33 2d 41
-## [3221] 39 30 30 36 46 52 45 48 30 30 30 5f 35 36 37 37 35 65 31 30 64 65 63
-## [3244] 61 30 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 31 32
-## [3267] 38 47 42 20 6d 69 63 72 6f 53 44 58 43 20 55 31 20 43 31 30 20 37 30
-## [3290] 4d 5c 2f 73 20 5c 75 38 61 31 38 5c 75 36 31 62 36 5c 75 35 33 36 31
-## [3313] 28 5c 75 39 36 34 34 53 44 5c 75 38 66 34 39 5c 75 35 33 36 31 29 22
-## [3336] 2c 22 64 65 73 63 72 69 62 65 22 3a 22 53 4f 4e 59 20 31 32 38 47 42
-## [3359] 20 6d 69 63 72 6f 53 44 58 43 20 55 31 20 43 31 30 20 37 30 4d 5c 2f
-## [3382] 73 20 5c 75 38 61 31 38 5c 75 36 31 62 36 5c 75 35 33 36 31 28 5c 75
-## [3405] 39 36 34 34 53 44 5c 75 38 66 34 39 5c 75 35 33 36 31 29 22 2c 22 70
-## [3428] 72 69 63 65 22 3a 32 39 30 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c
-## [3451] 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65
-## [3474] 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a
-## [3497] 22 44 59 41 44 32 4a 2d 41 39 30 30 36 46 4f 57 32 22 2c 22 63 61 74
-## [3520] 65 49 64 22 3a 22 44 59 41 44 32 4a 22 2c 22 70 69 63 53 22 3a 22 5c
-## [3543] 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32
-## [3566] 30 31 35 30 38 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4a
-## [3589] 5c 2f 73 44 59 41 44 32 4a 2d 41 39 30 30 36 46 4f 57 32 30 30 30 5f
-## [3612] 35 35 64 61 65 65 61 32 62 36 37 63 33 2e 6a 70 67 22 2c 22 70 69 63
-## [3635] 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74
-## [3658] 65 6d 5c 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c
-## [3681] 2f 32 5c 2f 4a 5c 2f 44 59 41 44 32 4a 2d 41 39 30 30 36 46 4f 57 32
-## [3704] 30 30 30 5f 35 36 34 39 33 64 33 32 65 30 62 63 62 2e 6a 70 67 22 2c
-## [3727] 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 43 35 20
-## [3750] 55 6c 74 72 61 20 28 45 35 35 35 33 29 22 2c 22 64 65 73 63 72 69 62
-## [3773] 65 22 3a 22 5c 75 32 35 62 63 36 5c 75 35 34 30 62 5c 75 35 39 32 37
-## [3796] 5c 75 38 37 61 32 5c 75 35 65 35 35 5c 75 32 35 62 63 53 4f 4e 59 20
-## [3819] 58 70 65 72 69 61 20 43 35 20 55 6c 74 72 61 20 5c 75 35 31 36 62 5c
-## [3842] 75 36 38 33 38 5c 75 35 66 63 33 36 5c 75 35 34 30 62 34 47 20 4c 54
-## [3865] 45 5c 75 35 39 32 37 5c 75 38 37 61 32 5c 75 35 65 35 35 5c 75 36 31
-## [3888] 36 37 5c 75 35 37 38 62 5c 75 36 32 34 62 5c 75 36 61 35 66 22 2c 22
-## [3911] 70 72 69 63 65 22 3a 38 39 39 39 2c 22 61 75 74 68 6f 72 22 3a 22 22
-## [3934] 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74
-## [3957] 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22
-## [3980] 3a 22 44 50 41 48 32 4d 2d 41 39 30 30 36 45 5a 4c 31 22 2c 22 63 61
-## [4003] 74 65 49 64 22 3a 22 44 50 41 48 32 4d 22 2c 22 70 69 63 53 22 3a 22
-## [4026] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f
-## [4049] 32 30 31 35 30 38 5c 2f 44 5c 2f 50 5c 2f 41 5c 2f 48 5c 2f 32 5c 2f
-## [4072] 4d 5c 2f 73 44 50 41 48 32 4d 2d 41 39 30 30 36 45 5a 4c 31 30 30 30
-## [4095] 5f 35 35 64 32 61 34 61 36 63 65 37 38 32 2e 6a 70 67 22 2c 22 70 69
-## [4118] 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69
-## [4141] 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 50 5c 2f 41 5c 2f 48
-## [4164] 5c 2f 32 5c 2f 4d 5c 2f 44 50 41 48 32 4d 2d 41 39 30 30 36 45 5a 4c
-## [4187] 31 30 30 30 5f 35 36 37 37 35 39 37 61 37 30 34 35 38 2e 6a 70 67 22
-## [4210] 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 53 54 52 2d 44 48 37 35 30
-## [4233] 20 37 2e 32 5c 75 38 30 37 32 5c 75 39 30 35 33 5c 75 37 34 62 30 5c
-## [4256] 75 37 65 35 65 5c 75 36 34 66 34 5c 75 35 39 32 37 5c 75 36 61 35 66
-## [4279] 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 53 4f 4e 59 20 53 54 52 2d
-## [4302] 44 48 37 35 30 20 37 2e 32 5c 75 38 30 37 32 5c 75 39 30 35 33 5c 75
-## [4325] 37 34 62 30 5c 75 37 65 35 65 5c 75 36 34 66 34 5c 75 35 39 32 37 5c
-## [4348] 75 36 61 35 66 20 20 22 2c 22 70 72 69 63 65 22 3a 31 32 39 30 30 2c
-## [4371] 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c
-## [4394] 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63
-## [4417] 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 49 34 39 2d 41 39 30
-## [4440] 30 36 47 59 37 4f 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 49 34
-## [4463] 39 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64
-## [4486] 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 59
-## [4509] 5c 2f 41 5c 2f 49 5c 2f 34 5c 2f 39 5c 2f 73 44 59 41 49 34 39 2d 41
-## [4532] 39 30 30 36 47 59 37 4f 30 30 30 5f 35 35 65 64 36 36 66 30 31 64 65
-## [4555] 34 34 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f
-## [4578] 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c
-## [4601] 2f 44 5c 2f 59 5c 2f 41 5c 2f 49 5c 2f 34 5c 2f 39 5c 2f 44 59 41 49
-## [4624] 34 39 2d 41 39 30 30 36 47 59 37 4f 30 30 30 5f 35 36 37 33 36 39 37
-## [4647] 38 37 39 32 34 33 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e
-## [4670] 59 20 53 57 52 31 32 20 5c 75 38 35 63 64 5c 75 37 32 35 39 5c 75 36
-## [4693] 32 34 62 5c 75 37 34 62 30 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22
-## [4716] 5c 75 32 36 30 35 5c 75 35 35 61 65 5c 75 35 34 63 31 5c 75 34 65 30
-## [4739] 62 5c 75 36 62 62 61 5c 75 32 36 30 35 53 4f 4e 59 20 53 57 52 31 32
-## [4762] 20 5c 75 38 35 63 64 5c 75 37 32 35 39 5c 75 36 32 34 62 5c 75 37 34
-## [4785] 62 30 22 2c 22 70 72 69 63 65 22 3a 33 39 37 39 2c 22 61 75 74 68 6f
-## [4808] 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69
-## [4831] 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c
-## [4854] 7b 22 49 64 22 3a 22 44 59 41 44 32 37 2d 41 39 30 30 36 36 4f 39 59
-## [4877] 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 37 22 2c 22 70 69
-## [4900] 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69
-## [4923] 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44
-## [4946] 5c 2f 32 5c 2f 37 5c 2f 73 44 59 41 44 32 37 2d 41 39 30 30 36 36 4f
-## [4969] 39 59 30 30 30 5f 35 35 38 32 33 30 38 34 36 38 63 30 62 2e 6a 70 67
-## [4992] 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
-## [5015] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44 5c 2f 59 5c
-## [5038] 2f 41 5c 2f 44 5c 2f 32 5c 2f 37 5c 2f 44 59 41 44 32 37 2d 41 39 30
-## [5061] 30 36 36 4f 39 59 30 30 30 5f 35 35 38 32 33 30 38 34 36 37 30 31 36
-## [5084] 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 6f 6e 79 20 58 70 65 72
-## [5107] 69 61 20 4d 34 20 41 71 75 61 20 64 75 61 6c 22 2c 22 64 65 73 63 72
-## [5130] 69 62 65 22 3a 22 5c 75 32 36 30 35 5c 75 39 30 30 31 5c 75 35 33 39
-## [5153] 66 5c 75 35 65 65 30 5c 75 35 37 30 64 5c 75 35 64 66 65 2b 5c 75 38
-## [5176] 66 66 37 5c 75 34 66 36 30 5c 75 38 31 37 33 5c 75 36 37 62 36 5c 75
-## [5199] 32 31 39 38 5c 75 32 36 30 35 53 6f 6e 79 20 58 70 65 72 69 61 20 4d
-## [5222] 34 20 41 71 75 61 20 22 2c 22 70 72 69 63 65 22 3a 37 32 35 30 2c 22
-## [5245] 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22
-## [5268] 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b
-## [5291] 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 4f 2d 41 39 30 30
-## [5314] 36 4a 38 37 56 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 4f
-## [5337] 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
-## [5360] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 59 5c
-## [5383] 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c 2f 73 44 59 41 44 32 4f 2d 41 39
-## [5406] 30 30 36 4a 38 37 56 30 30 30 5f 35 36 30 62 39 62 37 63 62 34 38 61
-## [5429] 64 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76
-## [5452] 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f
-## [5475] 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c 2f 44 59 41 44 32
-## [5498] 4f 2d 41 39 30 30 36 4a 38 37 56 30 30 30 5f 35 36 36 30 66 37 30 31
-## [5521] 33 36 33 64 65 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59
-## [5544] 20 58 70 65 72 69 61 20 5a 35 22 2c 22 64 65 73 63 72 69 62 65 22 3a
-## [5567] 22 5c 75 32 35 62 63 5c 75 39 30 30 31 5c 75 37 33 62 62 5c 75 37 34
-## [5590] 38 33 5c 75 34 66 64 64 5c 75 38 63 62 63 2b 5c 75 35 33 39 66 5c 75
-## [5613] 35 65 65 30 5c 75 37 61 63 62 5c 75 36 37 62 36 2b 5c 75 38 39 66 38
-## [5636] 5c 75 36 33 61 37 5c 75 37 62 34 36 5c 75 32 35 62 63 53 4f 4e 59 20
-## [5659] 58 70 65 72 69 61 20 5a 35 22 2c 22 70 72 69 63 65 22 3a 31 39 31 35
-## [5682] 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22
-## [5705] 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50
-## [5728] 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 52 2d 41
-## [5751] 39 30 30 36 4f 4a 55 57 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41
-## [5774] 44 32 52 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c
-## [5797] 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c
-## [5820] 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 73 44 59 41 44 32 52
-## [5843] 2d 41 39 30 30 36 4f 4a 55 57 30 30 30 5f 35 36 35 63 66 64 63 62 33
-## [5866] 34 39 32 62 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63
-## [5889] 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31
-## [5912] 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 44 59
-## [5935] 41 44 32 52 2d 41 39 30 30 36 4f 4a 55 57 30 30 30 5f 35 36 36 65 32
-## [5958] 65 61 33 34 64 39 35 63 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53
-## [5981] 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65 6d 69 75 6d 22 2c
-## [6004] 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 62 63 5c 75 39 30 30
-## [6027] 31 36 34 47 2b 5c 75 38 38 34 63 5c 75 39 36 66 62 5c 75 32 35 62 63
-## [6050] 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65 6d 69 75 6d 22
-## [6073] 2c 22 70 72 69 63 65 22 3a 32 33 39 39 30 2c 22 61 75 74 68 6f 72 22
-## [6096] 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68
-## [6119] 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22
-## [6142] 49 64 22 3a 22 44 59 41 44 32 52 2d 41 39 30 30 36 4c 55 54 38 22 2c
-## [6165] 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 52 22 2c 22 70 69 63 53
-## [6188] 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65
-## [6211] 6d 5c 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f
-## [6234] 32 5c 2f 52 5c 2f 73 44 59 41 44 32 52 2d 41 39 30 30 36 4c 55 54 38
-## [6257] 30 30 30 5f 35 36 33 37 32 30 65 39 38 65 36 66 35 2e 6a 70 67 22 2c
-## [6280] 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
-## [6303] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41
-## [6326] 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 44 59 41 44 32 52 2d 41 39 30 30 36
-## [6349] 4c 55 54 38 30 30 30 5f 35 36 35 66 66 33 35 36 61 31 38 62 62 2e 6a
-## [6372] 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61
-## [6395] 20 5a 35 20 50 72 65 6d 69 75 6d 22 2c 22 64 65 73 63 72 69 62 65 22
-## [6418] 3a 22 5c 75 32 35 62 63 5c 75 39 30 30 31 38 47 5c 75 35 33 36 31 2b
-## [6441] 5c 75 37 33 62 62 5c 75 37 34 38 33 5c 75 34 66 64 64 5c 75 38 63 62
-## [6464] 63 2b 5c 75 37 36 61 65 5c 75 35 39 35 37 2b 5c 75 35 33 39 66 5c 75
-## [6487] 35 65 65 30 5c 75 37 61 63 62 5c 75 36 37 62 36 5c 75 32 35 62 63 53
-## [6510] 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65 6d 69 75 6d 22 2c
-## [6533] 22 70 72 69 63 65 22 3a 32 33 33 38 30 2c 22 61 75 74 68 6f 72 22 3a
-## [6556] 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44
-## [6579] 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49
-## [6602] 64 22 3a 22 44 59 41 44 32 4a 2d 41 39 30 30 36 46 52 53 4e 22 2c 22
-## [6625] 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 4a 22 2c 22 70 69 63 53 22
-## [6648] 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d
-## [6671] 5c 2f 32 30 31 35 30 38 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32
-## [6694] 5c 2f 4a 5c 2f 73 44 59 41 44 32 4a 2d 41 39 30 30 36 46 52 53 4e 30
-## [6717] 30 30 5f 35 35 64 63 33 33 61 32 32 36 65 37 36 2e 6a 70 67 22 2c 22
-## [6740] 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c
-## [6763] 2f 69 74 65 6d 5c 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59 5c 2f 41 5c
-## [6786] 2f 44 5c 2f 32 5c 2f 4a 5c 2f 44 59 41 44 32 4a 2d 41 39 30 30 36 46
-## [6809] 52 53 4e 30 30 30 5f 35 36 34 39 33 63 61 35 61 61 39 61 32 2e 6a 70
-## [6832] 67 22 2c 22 6e 61 6d 65 22 3a 22 53 6f 6e 79 20 58 70 65 72 69 61 20
-## [6855] 43 35 20 55 6c 74 72 61 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c
-## [6878] 75 39 30 30 31 5c 75 35 31 62 30 5c 75 36 64 63 37 5c 75 36 64 63 62
-## [6901] 5c 75 35 32 33 38 26 5c 75 39 36 66 62 5c 75 35 66 37 31 5c 75 37 39
-## [6924] 36 38 53 6f 6e 79 20 58 70 65 72 69 61 20 43 35 20 55 6c 74 72 61 22
-## [6947] 2c 22 70 72 69 63 65 22 3a 39 31 39 30 2c 22 61 75 74 68 6f 72 22 3a
-## [6970] 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44
-## [6993] 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49
-## [7016] 64 22 3a 22 44 43 41 51 32 31 2d 41 39 30 30 35 4d 49 43 32 22 2c 22
-## [7039] 63 61 74 65 49 64 22 3a 22 44 43 41 51 32 31 22 2c 22 70 69 63 53 22
-## [7062] 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d
-## [7085] 5c 2f 32 30 31 34 31 31 5c 2f 44 5c 2f 43 5c 2f 41 5c 2f 51 5c 2f 32
-## [7108] 5c 2f 31 5c 2f 73 44 43 41 51 32 31 2d 41 39 30 30 35 4d 49 43 32 30
-## [7131] 30 30 5f 35 34 36 63 35 61 31 66 39 62 63 34 64 2e 6a 70 67 22 2c 22
-## [7154] 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c
-## [7177] 2f 69 74 65 6d 5c 2f 32 30 31 34 31 31 5c 2f 44 5c 2f 43 5c 2f 41 5c
-## [7200] 2f 51 5c 2f 32 5c 2f 31 5c 2f 44 43 41 51 32 31 2d 41 39 30 30 35 4d
-## [7223] 49 43 32 30 30 30 5f 35 34 36 63 35 61 31 66 39 39 39 31 62 2e 6a 70
-## [7246] 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 35 30 30 30 6d 41 68
-## [7269] 20 43 50 2d 56 35 20 5c 75 38 38 34 63 5c 75 35 32 64 35 5c 75 39 36
-## [7292] 66 62 5c 75 36 65 39 30 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c
-## [7315] 75 32 35 65 34 5c 75 37 64 35 30 5c 75 35 65 33 33 5c 75 34 65 61 62
-## [7338] 5c 75 36 32 39 38 5c 75 36 32 36 33 5c 75 32 35 65 32 5c 75 35 33 39
-## [7361] 66 5c 75 35 65 65 30 5c 75 35 31 36 63 5c 75 35 33 66 38 5c 75 38 63
-## [7384] 61 38 53 4f 4e 59 20 35 30 30 30 6d 41 68 20 43 50 2d 56 35 20 5c 75
-## [7407] 38 38 34 63 5c 75 35 32 64 35 5c 75 39 36 66 62 5c 75 36 65 39 30 22
-## [7430] 2c 22 70 72 69 63 65 22 3a 39 39 30 2c 22 61 75 74 68 6f 72 22 3a 22
-## [7453] 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61
-## [7476] 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64
-## [7499] 22 3a 22 44 47 42 4a 41 37 2d 31 39 30 30 36 50 57 52 53 22 2c 22 63
-## [7522] 61 74 65 49 64 22 3a 22 44 47 42 4a 41 37 22 2c 22 70 69 63 53 22 3a
-## [7545] 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
-## [7568] 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 4a 5c 2f 41 5c
-## [7591] 2f 37 5c 2f 73 44 47 42 4a 41 37 2d 31 39 30 30 36 50 57 52 53 30 30
-## [7614] 30 5f 35 36 37 31 32 62 30 62 38 35 35 34 36 2e 6a 70 67 22 2c 22 70
-## [7637] 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f
-## [7660] 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f
-## [7683] 4a 5c 2f 41 5c 2f 37 5c 2f 44 47 42 4a 41 37 2d 31 39 30 30 36 50 57
-## [7706] 52 53 30 30 30 5f 35 36 37 31 32 62 30 62 38 34 32 39 30 2e 6a 70 67
-## [7729] 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 50 53 34 5c 75 34 65 33
-## [7752] 62 5c 75 36 61 35 66 20 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62
-## [7775] 5c 75 35 32 31 37 35 30 30 47 28 5c 75 36 39 37 35 5c 75 38 31 66 34
-## [7798] 5c 75 39 65 64 31 29 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 20 5c
-## [7821] 75 39 36 64 39 5c 75 36 32 34 62 5c 75 36 32 38 61 2b 5c 75 38 63 36
-## [7844] 61 5c 75 38 33 65 66 5c 75 35 34 36 38 5c 75 39 30 38 61 5c 75 37 64
-## [7867] 34 34 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35 66 20
-## [7890] 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37 35 30
-## [7913] 30 47 28 5c 75 36 39 37 35 5c 75 38 31 66 34 5c 75 39 65 64 31 29 22
-## [7936] 2c 22 70 72 69 63 65 22 3a 31 32 39 38 30 2c 22 61 75 74 68 6f 72 22
-## [7959] 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68
-## [7982] 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22
-## [8005] 49 64 22 3a 22 44 59 41 44 32 4a 2d 41 39 30 30 36 49 30 38 35 22 2c
-## [8028] 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 4a 22 2c 22 70 69 63 53
-## [8051] 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65
-## [8074] 6d 5c 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f
-## [8097] 32 5c 2f 4a 5c 2f 73 44 59 41 44 32 4a 2d 41 39 30 30 36 49 30 38 35
-## [8120] 30 30 30 5f 35 35 66 37 66 33 34 61 62 64 35 63 39 2e 6a 70 67 22 2c
-## [8143] 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
-## [8166] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 59 5c 2f 41
-## [8189] 5c 2f 44 5c 2f 32 5c 2f 4a 5c 2f 44 59 41 44 32 4a 2d 41 39 30 30 36
-## [8212] 49 30 38 35 30 30 30 5f 35 35 66 37 66 33 34 61 62 61 33 32 34 2e 6a
-## [8235] 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 6f 6e 79 20 58 70 65 72 69 61
-## [8258] 20 43 35 20 55 6c 74 72 61 20 45 35 35 35 33 20 36 5c 75 35 34 30 62
-## [8281] 5c 75 35 31 36 62 5c 75 36 38 33 38 5c 75 38 31 65 61 5c 75 36 32 63
-## [8304] 64 5c 75 36 61 35 66 20 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c
-## [8327] 75 39 30 30 31 5c 75 34 66 64 64 5c 75 38 62 37 37 5c 75 35 39 35 37
-## [8350] 2b 5c 75 37 33 62 62 5c 75 37 34 38 33 5c 75 34 66 64 64 5c 75 38 63
-## [8373] 62 63 53 6f 6e 79 20 58 70 65 72 69 61 20 43 35 20 55 6c 74 72 61 20
-## [8396] 45 35 35 35 33 20 36 5c 75 35 34 30 62 5c 75 35 31 36 62 5c 75 36 38
-## [8419] 33 38 5c 75 38 31 65 61 5c 75 36 32 63 64 5c 75 36 61 35 66 20 22 2c
-## [8442] 22 70 72 69 63 65 22 3a 39 33 38 30 2c 22 61 75 74 68 6f 72 22 3a 22
-## [8465] 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61
-## [8488] 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64
-## [8511] 22 3a 22 44 47 42 56 30 38 2d 41 39 30 30 35 51 51 58 5a 22 2c 22 63
-## [8534] 61 74 65 49 64 22 3a 22 44 59 41 4d 31 4c 22 2c 22 70 69 63 53 22 3a
-## [8557] 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
-## [8580] 2f 32 30 31 34 31 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 56 5c 2f 30 5c
-## [8603] 2f 38 5c 2f 73 44 47 42 56 30 38 2d 41 39 30 30 35 51 51 58 5a 30 30
-## [8626] 30 5f 35 34 38 35 32 36 34 61 61 63 30 34 62 2e 70 6e 67 22 2c 22 70
-## [8649] 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f
-## [8672] 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f
-## [8695] 56 5c 2f 30 5c 2f 38 5c 2f 44 47 42 56 30 38 2d 41 39 30 30 35 51 51
-## [8718] 58 5a 30 30 30 5f 35 36 37 37 36 32 39 38 64 32 62 64 35 2e 6a 70 67
-## [8741] 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 20
-## [8764] 5a 33 20 54 61 62 6c 65 74 20 43 6f 6d 70 61 63 74 20 38 5c 75 35 34
-## [8787] 30 62 5c 75 35 36 64 62 5c 75 36 38 33 38 5c 75 39 36 33 32 5c 75 36
-## [8810] 63 33 34 5c 75 35 65 37 33 5c 75 36 37 37 66 28 4c 54 45 5c 75 37 32
-## [8833] 34 38 5c 2f 31 36 47 5c 2f 5c 75 37 36 37 64 29 22 2c 22 64 65 73 63
-## [8856] 72 69 62 65 22 3a 22 5c 75 39 30 30 31 38 47 42 5c 75 38 61 31 38 5c
-## [8879] 75 36 31 62 36 5c 75 35 33 36 31 2b 5a 33 20 5c 75 35 63 30 38 5c 75
-## [8902] 37 35 32 38 5c 75 34 66 64 64 5c 75 38 62 37 37 5c 75 38 63 62 63 2b
-## [8925] 5c 75 35 31 36 39 5c 75 34 65 66 36 5c 75 35 66 30 66 5c 75 38 63 66
-## [8948] 63 5c 75 37 32 36 39 5c 75 38 38 38 62 5c 75 36 35 33 36 5c 75 37 64
-## [8971] 30 64 5c 75 37 64 34 34 53 4f 4e 59 20 58 70 65 72 69 61 20 20 5a 33
-## [8994] 20 54 61 62 6c 65 74 20 43 6f 6d 70 61 63 74 20 38 5c 75 35 34 30 62
-## [9017] 5c 75 35 36 64 62 5c 75 36 38 33 38 5c 75 39 36 33 32 5c 75 36 63 33
-## [9040] 34 5c 75 35 65 37 33 5c 75 36 37 37 66 28 4c 54 45 5c 75 37 32 34 38
-## [9063] 5c 2f 31 36 47 5c 2f 5c 75 37 36 37 64 29 20 20 53 47 50 36 34 31 22
-## [9086] 2c 22 70 72 69 63 65 22 3a 31 33 32 30 35 2c 22 61 75 74 68 6f 72 22
-## [9109] 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68
-## [9132] 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22
-## [9155] 49 64 22 3a 22 44 59 41 44 32 52 2d 41 39 30 30 36 4c 4d 38 59 22 2c
-## [9178] 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 52 22 2c 22 70 69 63 53
-## [9201] 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65
-## [9224] 6d 5c 2f 32 30 31 35 31 30 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f
-## [9247] 32 5c 2f 52 5c 2f 73 44 59 41 44 32 52 2d 41 39 30 30 36 4c 4d 38 59
-## [9270] 30 30 30 5f 35 36 33 32 66 30 31 63 35 36 30 64 34 2e 6a 70 67 22 2c
-## [9293] 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
-## [9316] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41
-## [9339] 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 44 59 41 44 32 52 2d 41 39 30 30 36
-## [9362] 4c 4d 38 59 30 30 30 5f 35 36 35 66 66 33 38 31 62 36 35 33 38 2e 6a
-## [9385] 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61
-## [9408] 20 5a 35 20 50 72 65 6d 69 75 6d 22 2c 22 64 65 73 63 72 69 62 65 22
-## [9431] 3a 22 5c 75 32 35 62 63 5c 75 39 30 30 31 36 34 47 5c 75 35 33 36 31
-## [9454] 2b 4c 49 4e 45 5c 75 35 30 62 33 5c 75 38 66 33 38 5c 75 37 64 64 61
-## [9477] 5c 75 32 35 62 63 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72
-## [9500] 65 6d 69 75 6d 22 2c 22 70 72 69 63 65 22 3a 32 33 33 38 30 2c 22 61
-## [9523] 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70
-## [9546] 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22
-## [9569] 3a 30 7d 5d 7d</pre>
+<pre >##     [1] 7b 22 51 54 69 6d 65 22 3a 31 35 39 36 2c 22 74 6f 74 61 6c 52 6f
+##    [23] 77 73 22 3a 32 37 36 30 37 2c 22 74 6f 74 61 6c 50 61 67 65 22 3a
+##    [45] 31 33 38 31 2c 22 72 61 6e 67 65 22 3a 7b 22 6d 69 6e 22 3a 32 33
+##    [67] 2c 22 6d 61 78 22 3a 36 39 39 39 30 30 7d 2c 22 63 61 74 65 4e 61
+##    [89] 6d 65 22 3a 22 22 2c 22 71 22 3a 22 73 6f 6e 79 22 2c 22 73 75 62
+##   [111] 71 22 3a 22 22 2c 22 74 6f 6b 65 6e 22 3a 5b 22 73 6f 6e 79 22 5d
+##   [133] 2c 22 70 72 6f 64 73 22 3a 5b 7b 22 49 64 22 3a 22 44 59 41 44 32
+##   [155] 37 2d 41 39 30 30 36 36 4f 39 59 22 2c 22 63 61 74 65 49 64 22 3a
+##   [177] 22 44 59 41 44 32 37 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63
+##   [199] 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35
+##   [221] 30 36 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 37 5c 2f
+##   [243] 73 44 59 41 44 32 37 2d 41 39 30 30 36 36 4f 39 59 30 30 30 5f 35
+##   [265] 35 38 32 33 30 38 34 36 38 63 30 62 2e 6a 70 67 22 2c 22 70 69 63
+##   [287] 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69
+##   [309] 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f
+##   [331] 44 5c 2f 32 5c 2f 37 5c 2f 44 59 41 44 32 37 2d 41 39 30 30 36 36
+##   [353] 4f 39 59 30 30 30 5f 35 35 38 32 33 30 38 34 36 37 30 31 36 2e 6a
+##   [375] 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 6f 6e 79 20 58 70 65 72 69
+##   [397] 61 20 4d 34 20 41 71 75 61 20 64 75 61 6c 22 2c 22 64 65 73 63 72
+##   [419] 69 62 65 22 3a 22 5c 75 32 36 30 35 5c 75 39 30 30 31 5c 75 37 33
+##   [441] 62 62 5c 75 37 34 38 33 5c 75 34 66 64 64 5c 75 38 63 62 63 5c 75
+##   [463] 32 31 39 38 5c 75 32 36 30 35 53 6f 6e 79 20 58 70 65 72 69 61 20
+##   [485] 4d 34 20 41 71 75 61 20 22 2c 22 70 72 69 63 65 22 3a 37 32 35 30
+##   [507] 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22
+##   [529] 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73
+##   [551] 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 4f
+##   [573] 2d 41 39 30 30 36 4a 44 51 45 22 2c 22 63 61 74 65 49 64 22 3a 22
+##   [595] 44 59 41 44 32 4f 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c
+##   [617] 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31
+##   [639] 30 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c 2f 73
+##   [661] 44 59 41 44 32 4f 2d 41 39 30 30 36 4a 44 51 45 30 30 30 5f 35 36
+##   [683] 30 65 30 33 37 62 30 38 64 62 32 2e 6a 70 67 22 2c 22 70 69 63 42
+##   [705] 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74
+##   [727] 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44
+##   [749] 5c 2f 32 5c 2f 4f 5c 2f 44 59 41 44 32 4f 2d 41 39 30 30 36 4a 44
+##   [771] 51 45 30 30 30 5f 35 36 37 62 63 37 61 33 63 65 32 39 35 2e 6a 70
+##   [793] 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61
+##   [815] 20 5a 35 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 62
+##   [837] 63 5c 75 36 62 63 66 5c 75 36 35 65 35 5c 75 35 66 33 37 5c 75 36
+##   [859] 61 39 34 5c 75 32 30 32 37 5c 75 38 66 35 66 5c 75 36 62 62 61 5c
+##   [881] 75 37 32 37 39 5c 75 38 63 65 33 5c 75 32 35 62 63 53 4f 4e 59 20
+##   [903] 58 70 65 72 69 61 20 5a 35 20 35 2e 32 5c 75 35 34 30 62 5c 75 37
+##   [925] 66 38 65 5c 75 35 37 38 62 5c 75 39 36 33 32 5c 75 36 63 33 34 5c
+##   [947] 75 36 35 64 37 5c 75 38 32 36 36 5c 75 36 61 35 66 22 2c 22 70 72
+##   [969] 69 63 65 22 3a 31 38 35 39 30 2c 22 61 75 74 68 6f 72 22 3a 22 22
+##   [991] 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61
+##  [1013] 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49
+##  [1035] 64 22 3a 22 44 47 41 47 31 33 2d 41 39 30 30 36 36 4c 42 37 22 2c
+##  [1057] 22 63 61 74 65 49 64 22 3a 22 44 47 41 47 31 33 22 2c 22 70 69 63
+##  [1079] 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69
+##  [1101] 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44 5c 2f 47 5c 2f 41 5c 2f
+##  [1123] 47 5c 2f 31 5c 2f 33 5c 2f 73 44 47 41 47 31 33 2d 41 39 30 30 36
+##  [1145] 36 4c 42 37 30 30 30 5f 35 35 38 64 30 30 66 62 37 30 63 33 37 2e
+##  [1167] 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
+##  [1189] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f
+##  [1211] 44 5c 2f 47 5c 2f 41 5c 2f 47 5c 2f 31 5c 2f 33 5c 2f 44 47 41 47
+##  [1233] 31 33 2d 41 39 30 30 36 36 4c 42 37 30 30 30 5f 35 35 38 64 30 30
+##  [1255] 66 62 36 61 36 61 33 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53
+##  [1277] 4f 4e 59 20 33 32 47 42 20 53 44 48 43 20 55 31 20 43 6c 61 73 73
+##  [1299] 31 30 20 37 30 4d 5c 2f 73 20 5c 75 39 61 64 38 5c 75 39 30 31 66
+##  [1321] 5c 75 38 61 31 38 5c 75 36 31 62 36 5c 75 35 33 36 31 22 2c 22 64
+##  [1343] 65 73 63 72 69 62 65 22 3a 22 53 4f 4e 59 20 33 32 47 42 20 53 44
+##  [1365] 48 43 20 55 31 20 43 6c 61 73 73 31 30 20 37 30 4d 5c 2f 73 20 5c
+##  [1387] 75 39 61 64 38 5c 75 39 30 31 66 5c 75 38 61 31 38 5c 75 36 31 62
+##  [1409] 36 5c 75 35 33 36 31 22 2c 22 70 72 69 63 65 22 3a 36 32 30 2c 22
+##  [1431] 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c
+##  [1453] 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69
+##  [1475] 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 45 42 42 31 42 2d 41
+##  [1497] 39 30 30 36 4f 55 46 53 22 2c 22 63 61 74 65 49 64 22 3a 22 44 45
+##  [1519] 42 42 31 42 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76
+##  [1541] 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c
+##  [1563] 2f 44 5c 2f 45 5c 2f 42 5c 2f 42 5c 2f 31 5c 2f 42 5c 2f 73 44 45
+##  [1585] 42 42 31 42 2d 41 39 30 30 36 4f 55 46 53 30 30 30 5f 35 36 36 30
+##  [1607] 30 63 36 34 33 65 61 62 35 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a
+##  [1629] 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d
+##  [1651] 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 45 5c 2f 42 5c 2f 42 5c 2f
+##  [1673] 31 5c 2f 42 5c 2f 44 45 42 42 31 42 2d 41 39 30 30 36 4f 55 46 53
+##  [1695] 30 30 30 5f 35 36 37 62 63 35 37 30 37 32 30 63 38 2e 6a 70 67 22
+##  [1717] 2c 22 6e 61 6d 65 22 3a 22 5c 75 35 31 36 38 5c 75 38 39 39 36 5c
+##  [1739] 75 37 64 64 61 20 44 56 37 35 30 30 20 31 30 38 30 50 20 5c 75 38
+##  [1761] 30 36 66 5c 75 38 61 36 30 39 36 36 35 35 20 53 4f 4e 59 5c 75 36
+##  [1783] 31 31 66 5c 75 35 31 34 39 5c 75 35 31 34 33 5c 75 34 65 66 36 20
+##  [1805] 5c 75 36 35 65 35 5c 75 36 37 32 63 41 5c 75 37 64 31 61 5c 75 39
+##  [1827] 33 34 64 5c 75 38 31 39 63 5c 75 37 33 62 62 5c 75 37 34 38 33 5c
+##  [1849] 75 39 33 65 31 5c 75 39 38 32 64 20 5c 75 38 38 34 63 5c 75 38 65
+##  [1871] 63 61 5c 75 38 61 31 38 5c 75 39 33 30 34 5c 75 35 36 36 38 22 2c
+##  [1893] 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 62 63 5c 75 36 62
+##  [1915] 63 66 5c 75 36 35 65 35 5c 75 35 66 33 37 5c 75 36 61 39 34 5c 75
+##  [1937] 32 30 32 37 5c 75 38 66 35 66 5c 75 36 62 62 61 5c 75 37 32 37 39
+##  [1959] 5c 75 38 63 65 33 5c 75 32 35 62 63 5c 75 35 31 36 38 5c 75 38 39
+##  [1981] 39 36 5c 75 37 64 64 61 20 44 56 37 35 30 30 20 31 30 38 30 50 20
+##  [2003] 5c 75 38 30 36 66 5c 75 38 61 36 30 39 36 36 35 35 20 53 4f 4e 59
+##  [2025] 5c 75 36 31 31 66 5c 75 35 31 34 39 5c 75 35 31 34 33 5c 75 34 65
+##  [2047] 66 36 20 5c 75 36 35 65 35 5c 75 36 37 32 63 41 5c 75 37 64 31 61
+##  [2069] 5c 75 39 33 34 64 5c 75 38 31 39 63 5c 75 37 33 62 62 5c 75 37 34
+##  [2091] 38 33 5c 75 39 33 65 31 5c 75 39 38 32 64 20 5c 75 38 38 34 63 5c
+##  [2113] 75 38 65 63 61 5c 75 38 61 31 38 5c 75 39 33 30 34 5c 75 35 36 36
+##  [2135] 38 5c 75 39 30 30 31 31 36 47 20 54 46 5c 75 35 33 36 31 22 2c 22
+##  [2157] 70 72 69 63 65 22 3a 32 39 38 30 2c 22 61 75 74 68 6f 72 22 3a 22
+##  [2179] 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44
+##  [2201] 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22
+##  [2223] 49 64 22 3a 22 44 43 41 42 43 38 2d 41 39 30 30 36 32 4d 32 39 22
+##  [2245] 2c 22 63 61 74 65 49 64 22 3a 22 44 43 41 42 33 43 22 2c 22 70 69
+##  [2267] 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f
+##  [2289] 69 74 65 6d 5c 2f 32 30 31 35 30 35 5c 2f 44 5c 2f 43 5c 2f 41 5c
+##  [2311] 2f 42 5c 2f 43 5c 2f 38 5c 2f 73 44 43 41 42 43 38 2d 41 39 30 30
+##  [2333] 36 32 4d 32 39 30 30 30 5f 35 35 34 63 32 64 64 37 63 61 33 37 36
+##  [2355] 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76
+##  [2377] 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c
+##  [2399] 2f 44 5c 2f 43 5c 2f 41 5c 2f 42 5c 2f 43 5c 2f 38 5c 2f 44 43 41
+##  [2421] 42 43 38 2d 41 39 30 30 36 32 4d 32 39 30 30 30 5f 35 36 37 62 63
+##  [2443] 38 64 30 35 37 62 34 39 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22
+##  [2465] 53 4f 4e 59 5c 75 36 37 30 30 5c 75 36 35 62 30 5c 75 34 66 34 65
+##  [2487] 5c 75 38 31 65 61 5c 75 36 35 33 65 5c 75 37 64 39 33 5c 75 36 66
+##  [2509] 64 66 5c 75 35 37 38 62 5c 75 35 31 34 35 5c 75 39 36 66 62 5c 75
+##  [2531] 37 64 34 34 28 5c 75 36 34 32 64 5c 75 39 31 34 64 5c 75 34 66 34
+##  [2553] 65 5c 75 38 31 65 61 5c 75 36 35 33 65 33 5c 75 38 36 35 66 34 5c
+##  [2575] 75 35 31 36 35 29 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75
+##  [2597] 32 35 62 63 5c 75 36 62 63 66 5c 75 36 35 65 35 5c 75 35 66 33 37
+##  [2619] 5c 75 36 61 39 34 5c 75 32 30 32 37 5c 75 38 66 35 66 5c 75 36 62
+##  [2641] 62 61 5c 75 37 32 37 39 5c 75 38 63 65 33 5c 75 32 35 62 63 5c 75
+##  [2663] 32 36 30 35 5c 75 36 35 62 30 5c 75 35 32 39 62 5c 75 35 33 39 66
+##  [2685] 5c 75 35 65 65 30 5c 75 35 31 36 63 5c 75 35 33 66 38 5c 75 38 63
+##  [2707] 61 38 5c 75 32 36 30 35 53 4f 4e 59 5c 75 36 37 30 30 5c 75 36 35
+##  [2729] 62 30 5c 75 34 66 34 65 5c 75 38 31 65 61 5c 75 36 35 33 65 5c 75
+##  [2751] 37 64 39 33 5c 75 36 66 64 66 5c 75 35 37 38 62 5c 75 35 31 34 35
+##  [2773] 5c 75 39 36 66 62 5c 75 37 64 34 34 28 5c 75 36 34 32 64 5c 75 39
+##  [2795] 31 34 64 5c 75 34 66 34 65 5c 75 38 31 65 61 5c 75 36 35 33 65 33
+##  [2817] 5c 75 38 36 35 66 34 5c 75 35 31 36 35 29 22 2c 22 70 72 69 63 65
+##  [2839] 22 3a 38 38 38 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61
+##  [2861] 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22
+##  [2883] 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44
+##  [2905] 49 41 43 38 50 2d 41 39 30 30 36 4a 37 4a 51 22 2c 22 63 61 74 65
+##  [2927] 49 64 22 3a 22 44 49 41 43 38 50 22 2c 22 70 69 63 53 22 3a 22 5c
+##  [2949] 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f
+##  [2971] 32 30 31 35 31 30 5c 2f 44 5c 2f 49 5c 2f 41 5c 2f 43 5c 2f 38 5c
+##  [2993] 2f 50 5c 2f 73 44 49 41 43 38 50 2d 41 39 30 30 36 4a 37 4a 51 30
+##  [3015] 30 30 5f 35 36 31 62 37 35 36 65 32 32 66 36 34 2e 6a 70 67 22 2c
+##  [3037] 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74
+##  [3059] 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 49 5c
+##  [3081] 2f 41 5c 2f 43 5c 2f 38 5c 2f 50 5c 2f 44 49 41 43 38 50 2d 41 39
+##  [3103] 30 30 36 4a 37 4a 51 30 30 30 5f 35 36 37 63 61 37 64 61 39 37 31
+##  [3125] 30 38 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 53
+##  [3147] 6d 61 72 74 57 61 74 63 68 20 33 20 53 57 52 35 30 20 5c 75 39 36
+##  [3169] 33 32 5c 75 36 63 33 34 5c 75 36 36 37 61 5c 75 36 31 36 37 5c 75
+##  [3191] 36 32 34 62 5c 75 39 33 33 36 22 2c 22 64 65 73 63 72 69 62 65 22
+##  [3213] 3a 22 5c 75 32 35 62 63 5c 75 36 62 63 66 5c 75 36 35 65 35 5c 75
+##  [3235] 35 66 33 37 5c 75 36 61 39 34 5c 75 32 30 32 37 5c 75 38 66 35 66
+##  [3257] 5c 75 36 62 62 61 5c 75 37 32 37 39 5c 75 38 63 65 33 5c 75 32 35
+##  [3279] 62 63 53 4f 4e 59 20 53 6d 61 72 74 57 61 74 63 68 20 33 20 53 57
+##  [3301] 52 35 30 20 5c 75 39 36 33 32 5c 75 36 63 33 34 5c 75 36 36 37 61
+##  [3323] 5c 75 36 31 36 37 5c 75 36 32 34 62 5c 75 39 33 33 36 20 20 5c 75
+##  [3345] 36 33 61 31 5c 75 37 35 32 38 20 41 6e 64 72 6f 69 64 20 57 65 61
+##  [3367] 72 20 5c 75 36 32 38 30 5c 75 38 38 35 33 22 2c 22 70 72 69 63 65
+##  [3389] 22 3a 38 34 30 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72
+##  [3411] 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a
+##  [3433] 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22
+##  [3455] 44 47 42 4a 41 37 2d 31 39 30 30 36 4a 48 52 46 22 2c 22 63 61 74
+##  [3477] 65 49 64 22 3a 22 44 47 42 4a 41 37 22 2c 22 70 69 63 53 22 3a 22
+##  [3499] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
+##  [3521] 2f 32 30 31 35 31 30 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 4a 5c 2f 41
+##  [3543] 5c 2f 37 5c 2f 73 44 47 42 4a 41 37 2d 31 39 30 30 36 4a 48 52 46
+##  [3565] 30 30 30 5f 35 36 31 31 66 35 31 31 36 33 66 65 66 2e 6a 70 67 22
+##  [3587] 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
+##  [3609] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 30 5c 2f 44 5c 2f 47
+##  [3631] 5c 2f 42 5c 2f 4a 5c 2f 41 5c 2f 37 5c 2f 44 47 42 4a 41 37 2d 31
+##  [3653] 39 30 30 36 4a 48 52 46 30 30 30 5f 35 36 31 31 66 35 31 31 35 65
+##  [3675] 64 37 34 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20
+##  [3697] 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35 66 20 43 55 48 2d 31 32
+##  [3719] 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37 35 30 30 47 28 5c 75
+##  [3741] 35 31 62 30 5c 75 36 63 62 33 5c 75 37 36 37 64 29 22 2c 22 64 65
+##  [3763] 73 63 72 69 62 65 22 3a 22 20 5c 75 35 66 33 37 5c 75 36 61 39 34
+##  [3785] 5c 75 39 30 34 61 5c 75 36 32 33 32 5c 75 34 65 66 62 5c 75 39 30
+##  [3807] 37 38 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35 66
+##  [3829] 20 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37
+##  [3851] 35 30 30 47 28 5c 75 35 31 62 30 5c 75 36 63 62 33 5c 75 37 36 37
+##  [3873] 64 29 22 2c 22 70 72 69 63 65 22 3a 31 31 39 38 30 2c 22 61 75 74
+##  [3895] 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75
+##  [3917] 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22
+##  [3939] 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 52 2d 41 39 30 30
+##  [3961] 36 4c 4d 38 59 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32
+##  [3983] 52 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f
+##  [4005] 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 30 5c 2f 44 5c
+##  [4027] 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 73 44 59 41 44 32
+##  [4049] 52 2d 41 39 30 30 36 4c 4d 38 59 30 30 30 5f 35 36 33 32 66 30 31
+##  [4071] 63 35 36 30 64 34 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f
+##  [4093] 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32
+##  [4115] 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f
+##  [4137] 52 5c 2f 44 59 41 44 32 52 2d 41 39 30 30 36 4c 4d 38 59 30 30 30
+##  [4159] 5f 35 36 35 66 66 33 38 31 62 36 35 33 38 2e 6a 70 67 22 2c 22 6e
+##  [4181] 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50
+##  [4203] 72 65 6d 69 75 6d 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75
+##  [4225] 32 35 62 63 5c 75 39 30 30 31 36 34 47 5c 75 35 33 36 31 2b 4c 49
+##  [4247] 4e 45 5c 75 35 30 62 33 5c 75 38 66 33 38 5c 75 37 64 64 61 5c 75
+##  [4269] 32 35 62 63 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65
+##  [4291] 6d 69 75 6d 22 2c 22 70 72 69 63 65 22 3a 32 33 33 38 30 2c 22 61
+##  [4313] 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22
+##  [4335] 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63
+##  [4357] 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 4a 2d 41 39
+##  [4379] 30 30 36 46 4f 57 32 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41
+##  [4401] 44 32 4a 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
+##  [4423] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 38 5c 2f
+##  [4445] 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4a 5c 2f 73 44 59 41
+##  [4467] 44 32 4a 2d 41 39 30 30 36 46 4f 57 32 30 30 30 5f 35 35 64 61 65
+##  [4489] 65 61 32 62 36 37 63 33 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22
+##  [4511] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
+##  [4533] 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32
+##  [4555] 5c 2f 4a 5c 2f 44 59 41 44 32 4a 2d 41 39 30 30 36 46 4f 57 32 30
+##  [4577] 30 30 5f 35 36 34 39 33 64 33 32 65 30 62 63 62 2e 6a 70 67 22 2c
+##  [4599] 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 43 35
+##  [4621] 20 55 6c 74 72 61 20 28 45 35 35 35 33 29 22 2c 22 64 65 73 63 72
+##  [4643] 69 62 65 22 3a 22 5c 75 32 35 62 63 36 5c 75 35 34 30 62 5c 75 35
+##  [4665] 39 32 37 5c 75 38 37 61 32 5c 75 35 65 35 35 5c 75 32 35 62 63 53
+##  [4687] 4f 4e 59 20 58 70 65 72 69 61 20 43 35 20 55 6c 74 72 61 20 5c 75
+##  [4709] 35 31 36 62 5c 75 36 38 33 38 5c 75 35 66 63 33 36 5c 75 35 34 30
+##  [4731] 62 34 47 20 4c 54 45 5c 75 35 39 32 37 5c 75 38 37 61 32 5c 75 35
+##  [4753] 65 35 35 5c 75 36 31 36 37 5c 75 35 37 38 62 5c 75 36 32 34 62 5c
+##  [4775] 75 36 61 35 66 22 2c 22 70 72 69 63 65 22 3a 38 39 39 39 2c 22 61
+##  [4797] 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22
+##  [4819] 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63
+##  [4841] 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 49 34 39 2d 41 39
+##  [4863] 30 30 36 47 4c 38 4c 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41
+##  [4885] 49 34 39 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
+##  [4907] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f
+##  [4929] 44 5c 2f 59 5c 2f 41 5c 2f 49 5c 2f 34 5c 2f 39 5c 2f 73 44 59 41
+##  [4951] 49 34 39 2d 41 39 30 30 36 47 4c 38 4c 30 30 30 5f 35 35 65 38 31
+##  [4973] 64 34 30 32 66 39 65 37 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22
+##  [4995] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
+##  [5017] 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 49 5c 2f 34
+##  [5039] 5c 2f 39 5c 2f 44 59 41 49 34 39 2d 41 39 30 30 36 47 4c 38 4c 30
+##  [5061] 30 30 5f 35 36 37 33 36 39 38 39 35 38 30 61 36 2e 6a 70 67 22 2c
+##  [5083] 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 53 57 52 31 32 20 5c 75 38
+##  [5105] 35 63 64 5c 75 37 32 35 39 5c 75 36 32 34 62 5c 75 37 34 62 30 22
+##  [5127] 2c 22 64 65 73 63 72 69 62 65 22 3a 22 53 4f 4e 59 20 53 57 52 31
+##  [5149] 32 20 5c 75 38 35 63 64 5c 75 37 32 35 39 5c 75 36 32 34 62 5c 75
+##  [5171] 37 34 62 30 22 2c 22 70 72 69 63 65 22 3a 34 36 38 30 2c 22 61 75
+##  [5193] 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70
+##  [5215] 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b
+##  [5237] 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 36 2d 41 39 30
+##  [5259] 30 36 36 44 30 32 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44
+##  [5281] 32 36 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c
+##  [5303] 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 36 5c 2f 44
+##  [5325] 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 36 5c 2f 73 44 59 41 44
+##  [5347] 32 36 2d 41 39 30 30 36 36 44 30 32 30 30 30 5f 35 35 37 65 37 30
+##  [5369] 62 33 64 62 37 36 30 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c
+##  [5391] 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f
+##  [5413] 32 30 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c
+##  [5435] 2f 36 5c 2f 44 59 41 44 32 36 2d 41 39 30 30 36 36 44 30 32 30 30
+##  [5457] 30 5f 35 36 37 37 36 30 37 36 33 34 64 65 62 2e 6a 70 67 22 2c 22
+##  [5479] 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 33 2b
+##  [5501] 20 28 45 36 35 35 33 29 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22
+##  [5523] 5c 75 32 35 65 34 5c 75 36 62 36 31 5c 75 36 31 37 36 5c 75 38 30
+##  [5545] 35 36 5c 75 38 61 39 35 20 5c 75 38 64 38 35 5c 75 35 30 33 63 5c
+##  [5567] 75 39 30 30 31 5c 75 34 66 64 64 5c 75 38 62 37 37 5c 75 38 63 62
+##  [5589] 63 2b 5c 75 36 66 30 32 5c 75 36 64 36 65 5c 75 38 31 35 35 5c 75
+##  [5611] 35 65 33 36 5c 75 32 35 65 32 53 4f 4e 59 20 58 70 65 72 69 61 20
+##  [5633] 5a 33 2b 20 28 45 36 35 35 33 29 22 2c 22 70 72 69 63 65 22 3a 31
+##  [5655] 33 39 39 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e
+##  [5677] 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22
+##  [5699] 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 47
+##  [5721] 42 50 32 49 2d 41 38 30 33 32 32 34 34 35 22 2c 22 63 61 74 65 49
+##  [5743] 64 22 3a 22 44 59 41 46 30 36 22 2c 22 70 69 63 53 22 3a 22 5c 2f
+##  [5765] 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32
+##  [5787] 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 50 5c 2f 32 5c 2f
+##  [5809] 49 5c 2f 73 44 47 42 50 32 49 2d 41 38 30 33 32 32 34 34 35 30 30
+##  [5831] 30 5f 35 36 37 63 61 35 35 30 64 64 35 36 64 2e 6a 70 67 22 2c 22
+##  [5853] 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
+##  [5875] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f
+##  [5897] 42 5c 2f 50 5c 2f 32 5c 2f 49 5c 2f 44 47 42 50 32 49 2d 41 38 30
+##  [5919] 33 32 32 34 34 35 30 30 30 5f 35 36 37 63 61 35 35 30 64 63 31 61
+##  [5941] 64 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 44 53
+##  [5963] 43 2d 51 58 31 30 20 5c 75 35 39 31 36 5c 75 36 33 61 35 5c 75 35
+##  [5985] 66 30 66 5c 75 39 33 65 31 5c 75 39 38 32 64 5c 75 37 36 66 38 5c
+##  [6007] 75 36 61 35 66 2d 5c 75 39 65 64 31 5c 75 38 32 37 32 22 2c 22 64
+##  [6029] 65 73 63 72 69 62 65 22 3a 22 20 5c 75 39 36 34 64 5c 75 35 30 66
+##  [6051] 39 5c 75 35 31 38 64 5c 75 39 30 30 31 5c 75 35 33 39 66 5c 75 35
+##  [6073] 65 65 30 5c 75 39 36 64 39 5c 75 35 39 37 64 5c 75 37 39 61 65 53
+##  [6095] 4f 4e 59 20 44 53 43 2d 51 58 31 30 20 5c 75 35 39 31 36 5c 75 36
+##  [6117] 33 61 35 5c 75 35 66 30 66 5c 75 39 33 65 31 5c 75 39 38 32 64 5c
+##  [6139] 75 37 36 66 38 5c 75 36 61 35 66 2d 5c 75 39 65 64 31 5c 75 38 32
+##  [6161] 37 32 22 2c 22 70 72 69 63 65 22 3a 34 39 39 39 2c 22 61 75 74 68
+##  [6183] 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62
+##  [6205] 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a
+##  [6227] 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 4f 32 38 2d 31 39 30 30 36
+##  [6249] 51 4c 48 38 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 4f 32 38
+##  [6271] 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64
+##  [6293] 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f
+##  [6315] 59 5c 2f 41 5c 2f 4f 5c 2f 32 5c 2f 38 5c 2f 73 44 59 41 4f 32 38
+##  [6337] 2d 31 39 30 30 36 51 4c 48 38 30 30 30 5f 35 36 37 63 61 33 66 62
+##  [6359] 36 36 37 38 66 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70
+##  [6381] 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30
+##  [6403] 31 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 4f 5c 2f 32 5c 2f 38
+##  [6425] 5c 2f 44 59 41 4f 32 38 2d 31 39 30 30 36 51 4c 48 38 30 30 30 5f
+##  [6447] 35 36 37 63 61 33 66 62 35 66 37 33 37 2e 6a 70 67 22 2c 22 6e 61
+##  [6469] 6d 65 22 3a 22 53 4f 4e 59 20 31 30 30 30 30 6d 41 68 20 5c 75 39
+##  [6491] 36 64 39 55 53 42 5c 75 38 66 31 35 5c 75 38 35 38 34 5c 75 36 36
+##  [6513] 34 32 5c 75 35 63 31 61 5c 75 39 32 63 31 5c 75 35 34 30 38 5c 75
+##  [6535] 39 31 64 31 5c 75 38 38 34 63 5c 75 35 32 64 35 5c 75 39 36 66 62
+##  [6557] 5c 75 36 65 39 30 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75
+##  [6579] 32 35 62 63 5c 75 36 62 63 66 5c 75 36 35 65 35 5c 75 35 66 33 37
+##  [6601] 5c 75 36 61 39 34 5c 75 32 30 32 37 5c 75 38 66 35 66 5c 75 36 62
+##  [6623] 62 61 5c 75 37 32 37 39 5c 75 38 63 65 33 5c 75 32 35 62 63 53 4f
+##  [6645] 4e 59 20 31 30 30 30 30 6d 41 68 20 5c 75 39 36 64 39 55 53 42 5c
+##  [6667] 75 38 66 31 35 5c 75 38 35 38 34 5c 75 36 36 34 32 5c 75 35 63 31
+##  [6689] 61 5c 75 39 32 63 31 5c 75 35 34 30 38 5c 75 39 31 64 31 5c 75 38
+##  [6711] 38 34 63 5c 75 35 32 64 35 5c 75 39 36 66 62 5c 75 36 65 39 30 22
+##  [6733] 2c 22 70 72 69 63 65 22 3a 31 35 39 30 2c 22 61 75 74 68 6f 72 22
+##  [6755] 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73
+##  [6777] 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c
+##  [6799] 7b 22 49 64 22 3a 22 44 47 42 4a 41 37 2d 31 39 30 30 36 50 57 52
+##  [6821] 53 22 2c 22 63 61 74 65 49 64 22 3a 22 44 47 42 4a 41 37 22 2c 22
+##  [6843] 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
+##  [6865] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f
+##  [6887] 42 5c 2f 4a 5c 2f 41 5c 2f 37 5c 2f 73 44 47 42 4a 41 37 2d 31 39
+##  [6909] 30 30 36 50 57 52 53 30 30 30 5f 35 36 37 31 32 62 30 62 38 35 35
+##  [6931] 34 36 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c
+##  [6953] 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31
+##  [6975] 32 5c 2f 44 5c 2f 47 5c 2f 42 5c 2f 4a 5c 2f 41 5c 2f 37 5c 2f 44
+##  [6997] 47 42 4a 41 37 2d 31 39 30 30 36 50 57 52 53 30 30 30 5f 35 36 37
+##  [7019] 31 32 62 30 62 38 34 32 39 30 2e 6a 70 67 22 2c 22 6e 61 6d 65 22
+##  [7041] 3a 22 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35 66
+##  [7063] 20 43 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37
+##  [7085] 35 30 30 47 28 5c 75 36 39 37 35 5c 75 38 31 66 34 5c 75 39 65 64
+##  [7107] 31 29 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 20 5c 75 39 36 64
+##  [7129] 39 5c 75 36 32 34 62 5c 75 36 32 38 61 2b 5c 75 38 63 36 61 5c 75
+##  [7151] 38 33 65 66 5c 75 35 34 36 38 5c 75 39 30 38 61 5c 75 37 64 34 34
+##  [7173] 53 4f 4e 59 20 50 53 34 5c 75 34 65 33 62 5c 75 36 61 35 66 20 43
+##  [7195] 55 48 2d 31 32 30 37 41 5c 75 37 63 66 62 5c 75 35 32 31 37 35 30
+##  [7217] 30 47 28 5c 75 36 39 37 35 5c 75 38 31 66 34 5c 75 39 65 64 31 29
+##  [7239] 22 2c 22 70 72 69 63 65 22 3a 31 32 39 38 30 2c 22 61 75 74 68 6f
+##  [7261] 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c
+##  [7283] 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30
+##  [7305] 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 52 2d 41 39 30 30 36 4c
+##  [7327] 55 54 38 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 52 22
+##  [7349] 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
+##  [7371] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59
+##  [7393] 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 52 5c 2f 73 44 59 41 44 32 52 2d
+##  [7415] 41 39 30 30 36 4c 55 54 38 30 30 30 5f 35 36 33 37 32 30 65 39 38
+##  [7437] 65 36 66 35 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69
+##  [7459] 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31
+##  [7481] 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 52 5c
+##  [7503] 2f 44 59 41 44 32 52 2d 41 39 30 30 36 4c 55 54 38 30 30 30 5f 35
+##  [7525] 36 35 66 66 33 35 36 61 31 38 62 62 2e 6a 70 67 22 2c 22 6e 61 6d
+##  [7547] 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65
+##  [7569] 6d 69 75 6d 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35
+##  [7591] 62 63 5c 75 39 30 30 31 38 47 5c 75 35 33 36 31 2b 5c 75 37 33 62
+##  [7613] 62 5c 75 37 34 38 33 5c 75 34 66 64 64 5c 75 38 63 62 63 2b 5c 75
+##  [7635] 37 36 61 65 5c 75 35 39 35 37 2b 5c 75 35 33 39 66 5c 75 35 65 65
+##  [7657] 30 5c 75 37 61 63 62 5c 75 36 37 62 36 2b 53 4f 4e 59 5c 75 38 63
+##  [7679] 63 30 5c 75 36 36 32 35 5c 75 37 38 63 31 5c 75 39 34 33 35 5c 75
+##  [7701] 32 35 62 63 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 20 50 72 65
+##  [7723] 6d 69 75 6d 22 2c 22 70 72 69 63 65 22 3a 32 33 33 38 30 2c 22 61
+##  [7745] 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22
+##  [7767] 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63
+##  [7789] 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 47 41 44 30 31 2d 41 39
+##  [7811] 30 30 35 34 52 59 56 22 2c 22 63 61 74 65 49 64 22 3a 22 44 47 41
+##  [7833] 44 30 31 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
+##  [7855] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 34 30 35 5c 2f
+##  [7877] 44 5c 2f 47 5c 2f 41 5c 2f 44 5c 2f 30 5c 2f 31 5c 2f 73 44 47 41
+##  [7899] 44 30 31 2d 41 39 30 30 35 34 52 59 56 30 30 30 5f 35 33 37 35 64
+##  [7921] 33 32 35 31 39 36 33 62 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22
+##  [7943] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
+##  [7965] 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 47 5c 2f 41 5c 2f 44 5c 2f 30
+##  [7987] 5c 2f 31 5c 2f 44 47 41 44 30 31 2d 41 39 30 30 35 34 52 59 56 30
+##  [8009] 30 30 5f 35 35 65 63 65 66 33 63 62 66 61 33 63 2e 6a 70 67 22 2c
+##  [8031] 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 20 44 53 43 2d 52 58 31 30 30
+##  [8053] 4d 33 28 5c 75 35 31 36 63 5c 75 35 33 66 38 5c 75 38 63 61 38 29
+##  [8075] 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 46 31 2e 38 5c 75 32 36
+##  [8097] 30 35 33 32 47 5c 75 35 33 36 31 2b 5c 75 39 36 66 62 5c 75 36 63
+##  [8119] 36 30 5c 75 37 64 34 34 53 4f 4e 59 20 44 53 43 2d 52 58 31 30 30
+##  [8141] 4d 33 28 5c 75 35 31 36 63 5c 75 35 33 66 38 5c 75 38 63 61 38 29
+##  [8163] 22 2c 22 70 72 69 63 65 22 3a 32 32 39 38 30 2c 22 61 75 74 68 6f
+##  [8185] 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c
+##  [8207] 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30
+##  [8229] 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 4f 2d 41 39 30 30 36 4a
+##  [8251] 38 37 56 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41 44 32 4f 22
+##  [8273] 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
+##  [8295] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 39 5c 2f 44 5c 2f 59
+##  [8317] 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c 2f 73 44 59 41 44 32 4f 2d
+##  [8339] 41 39 30 30 36 4a 38 37 56 30 30 30 5f 35 36 30 62 39 62 37 63 62
+##  [8361] 34 38 61 64 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69
+##  [8383] 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31
+##  [8405] 35 31 32 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4f 5c
+##  [8427] 2f 44 59 41 44 32 4f 2d 41 39 30 30 36 4a 38 37 56 30 30 30 5f 35
+##  [8449] 36 36 30 66 37 30 31 33 36 33 64 65 2e 6a 70 67 22 2c 22 6e 61 6d
+##  [8471] 65 22 3a 22 53 4f 4e 59 20 58 70 65 72 69 61 20 5a 35 22 2c 22 64
+##  [8493] 65 73 63 72 69 62 65 22 3a 22 5c 75 32 35 62 63 5c 75 39 30 30 31
+##  [8515] 5c 75 35 33 39 66 5c 75 35 65 65 30 5c 75 37 61 63 62 5c 75 36 37
+##  [8537] 62 36 2b 5c 75 38 39 66 38 5c 75 36 33 61 37 5c 75 37 62 34 36 2b
+##  [8559] 53 4f 4e 59 5c 75 38 63 63 30 5c 75 36 36 32 35 5c 75 37 38 63 31
+##  [8581] 5c 75 39 34 33 35 5c 75 32 35 62 63 53 4f 4e 59 20 58 70 65 72 69
+##  [8603] 61 20 5a 35 22 2c 22 70 72 69 63 65 22 3a 31 39 31 35 30 2c 22 61
+##  [8625] 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22
+##  [8647] 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63
+##  [8669] 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 59 41 44 32 4a 2d 41 39
+##  [8691] 30 30 36 46 52 53 4e 22 2c 22 63 61 74 65 49 64 22 3a 22 44 59 41
+##  [8713] 44 32 4a 22 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31
+##  [8735] 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 38 5c 2f
+##  [8757] 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32 5c 2f 4a 5c 2f 73 44 59 41
+##  [8779] 44 32 4a 2d 41 39 30 30 36 46 52 53 4e 30 30 30 5f 35 35 64 63 33
+##  [8801] 33 61 32 32 36 65 37 36 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22
+##  [8823] 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c
+##  [8845] 2f 32 30 31 35 31 31 5c 2f 44 5c 2f 59 5c 2f 41 5c 2f 44 5c 2f 32
+##  [8867] 5c 2f 4a 5c 2f 44 59 41 44 32 4a 2d 41 39 30 30 36 46 52 53 4e 30
+##  [8889] 30 30 5f 35 36 34 39 33 63 61 35 61 61 39 61 32 2e 6a 70 67 22 2c
+##  [8911] 22 6e 61 6d 65 22 3a 22 53 6f 6e 79 20 58 70 65 72 69 61 20 43 35
+##  [8933] 20 55 6c 74 72 61 22 2c 22 64 65 73 63 72 69 62 65 22 3a 22 5c 75
+##  [8955] 39 30 30 31 5c 75 35 31 62 30 5c 75 36 64 63 37 5c 75 36 64 63 62
+##  [8977] 5c 75 35 32 33 38 26 5c 75 39 36 66 62 5c 75 35 66 37 31 5c 75 37
+##  [8999] 39 36 38 53 6f 6e 79 20 58 70 65 72 69 61 20 43 35 20 55 6c 74 72
+##  [9021] 61 22 2c 22 70 72 69 63 65 22 3a 39 31 39 30 2c 22 61 75 74 68 6f
+##  [9043] 72 22 3a 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c
+##  [9065] 69 73 68 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30
+##  [9087] 7d 2c 7b 22 49 64 22 3a 22 44 50 41 44 30 36 2d 41 39 30 30 36 33
+##  [9109] 57 43 31 22 2c 22 63 61 74 65 49 64 22 3a 22 44 50 41 44 30 36 22
+##  [9131] 2c 22 70 69 63 53 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61
+##  [9153] 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 30 35 5c 2f 44 5c 2f 50
+##  [9175] 5c 2f 41 5c 2f 44 5c 2f 30 5c 2f 36 5c 2f 73 44 50 41 44 30 36 2d
+##  [9197] 41 39 30 30 36 33 57 43 31 30 30 30 5f 35 35 35 64 39 37 66 61 36
+##  [9219] 64 62 66 37 2e 6a 70 67 22 2c 22 70 69 63 42 22 3a 22 5c 2f 70 69
+##  [9241] 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32 30 31
+##  [9263] 35 31 30 5c 2f 44 5c 2f 50 5c 2f 41 5c 2f 44 5c 2f 30 5c 2f 36 5c
+##  [9285] 2f 44 50 41 44 30 36 2d 41 39 30 30 36 33 57 43 31 30 30 30 5f 35
+##  [9307] 36 32 34 34 38 65 38 61 33 36 39 33 2e 6a 70 67 22 2c 22 6e 61 6d
+##  [9329] 65 22 3a 22 53 4f 4e 59 20 4b 44 4c 2d 34 30 57 37 30 30 43 20 34
+##  [9351] 30 5c 75 35 37 38 62 20 4c 45 44 5c 75 36 64 62 32 5c 75 36 36 37
+##  [9373] 36 5c 75 39 36 66 62 5c 75 38 39 39 36 22 2c 22 64 65 73 63 72 69
+##  [9395] 62 65 22 3a 22 53 4f 4e 59 20 4b 44 4c 2d 34 30 57 37 30 30 43 20
+##  [9417] 34 30 5c 75 35 37 38 62 20 4c 45 44 5c 75 36 64 62 32 5c 75 36 36
+##  [9439] 37 36 5c 75 39 36 66 62 5c 75 38 39 39 36 20 20 5c 75 36 39 37 35
+##  [9461] 5c 75 37 37 61 63 5c 75 36 64 34 31 5c 75 37 64 64 61 5c 75 35 66
+##  [9483] 37 31 5c 75 35 30 63 66 2b 58 2d 52 65 61 6c 69 74 79 20 50 72 6f
+##  [9505] 5c 75 36 39 37 35 5c 75 37 37 31 66 5c 75 35 66 37 31 5c 75 35 30
+##  [9527] 63 66 5c 75 35 31 36 37 5c 75 35 65 66 61 57 69 66 69 2b 5c 75 37
+##  [9549] 64 62 32 5c 75 38 64 65 66 5c 75 35 61 31 62 5c 75 36 61 30 32 5c
+##  [9571] 75 35 65 37 33 5c 75 35 33 66 30 22 2c 22 70 72 69 63 65 22 3a 31
+##  [9593] 39 39 30 30 2c 22 61 75 74 68 6f 72 22 3a 22 22 2c 22 62 72 61 6e
+##  [9615] 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68 44 61 74 65 22 3a 22 22
+##  [9637] 2c 22 69 73 50 69 63 6b 22 3a 30 7d 2c 7b 22 49 64 22 3a 22 44 47
+##  [9659] 41 46 33 4c 2d 41 39 30 30 36 50 59 43 48 22 2c 22 63 61 74 65 49
+##  [9681] 64 22 3a 22 44 47 41 46 33 4c 22 2c 22 70 69 63 53 22 3a 22 5c 2f
+##  [9703] 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61 5c 2f 69 74 65 6d 5c 2f 32
+##  [9725] 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f 41 5c 2f 46 5c 2f 33 5c 2f
+##  [9747] 4c 5c 2f 73 44 47 41 46 33 4c 2d 41 39 30 30 36 50 59 43 48 30 30
+##  [9769] 30 5f 35 36 37 32 32 35 61 31 61 32 33 66 36 2e 6a 70 67 22 2c 22
+##  [9791] 70 69 63 42 22 3a 22 5c 2f 70 69 63 5c 2f 76 31 5c 2f 64 61 74 61
+##  [9813] 5c 2f 69 74 65 6d 5c 2f 32 30 31 35 31 32 5c 2f 44 5c 2f 47 5c 2f
+##  [9835] 41 5c 2f 46 5c 2f 33 5c 2f 4c 5c 2f 44 47 41 46 33 4c 2d 41 39 30
+##  [9857] 30 36 50 59 43 48 30 30 30 5f 35 36 37 32 32 35 61 31 61 30 38 39
+##  [9879] 63 2e 6a 70 67 22 2c 22 6e 61 6d 65 22 3a 22 53 4f 4e 59 5c 75 35
+##  [9901] 62 38 63 5c 75 37 66 38 65 5c 75 37 31 32 36 5c 75 39 65 64 65 5c
+##  [9923] 75 39 33 30 34 5c 75 39 37 66 33 5c 75 37 62 34 36 34 47 42 20 49
+##  [9945] 43 44 2d 55 58 35 36 30 46 22 2c 22 64 65 73 63 72 69 62 65 22 3a
+##  [9967] 22 5c 75 39 30 30 31 55 53 42 5c 75 35 31 34 35 5c 75 39 36 66 62
+##  [9989] 5c 75 35 36 36 38 53 4f 4e 59 5c 75 35 62 38 63 5c 75 37 66 38 65
+## [10011] 5c 75 37 31 32 36 5c 75 39 65 64 65 5c 75 39 33 30 34 5c 75 39 37
+## [10033] 66 33 5c 75 37 62 34 36 34 47 42 20 49 43 44 2d 55 58 35 36 30 46
+## [10055] 28 5c 75 35 31 36 63 5c 75 35 33 66 38 5c 75 38 63 61 38 29 22 2c
+## [10077] 22 70 72 69 63 65 22 3a 33 39 39 30 2c 22 61 75 74 68 6f 72 22 3a
+## [10099] 22 22 2c 22 62 72 61 6e 64 22 3a 22 22 2c 22 70 75 62 6c 69 73 68
+## [10121] 44 61 74 65 22 3a 22 22 2c 22 69 73 50 69 63 6b 22 3a 30 7d 5d 7d</pre>
 
 <pre class = 'prettyprint lang-r'>res$request</pre>
 
@@ -1043,10 +1233,10 @@ res</pre>
 <pre class = 'prettyprint lang-r'>res</pre>
 
 <pre >## Response [http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc]
-##   Date: 2015-12-22 21:34
+##   Date: 2015-12-25 23:57
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 9.57 kB</pre></div>
+##   Size: 10.1 kB</pre></div>
 
 </article></slide><slide class=''><hgroup><h2>Query</h2></hgroup><article  id="query">
 
@@ -1085,13 +1275,13 @@ res_df = content(res, as = &quot;text&quot;) %&gt;%
 str(res_df)</pre>
 
 <pre >## &#39;data.frame&#39;:    20 obs. of  11 variables:
-##  $ Id         : chr  &quot;DYAD2P-A9006JAJE&quot; &quot;DYAI49-A9006GL8L&quot; &quot;DYAD2O-A9006JDQE&quot; &quot;DGBT30-A9005EEQH&quot; ...
-##  $ cateId     : chr  &quot;DYAD2P&quot; &quot;DYAI49&quot; &quot;DYAD2O&quot; &quot;DYAQA6&quot; ...
-##  $ picS       : chr  &quot;/pic/v1/data/item/201510/D/Y/A/D/2/P/sDYAD2P-A9006JAJE000_560cb331d7c46.jpg&quot; &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GL8L000_55e81d402f9e7.jpg&quot; &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot; &quot;/pic/v1/data/item/201511/D/G/B/T/3/0/sDGBT30-A9005EEQH000_565566ad99f75.png&quot; ...
-##  $ picB       : chr  &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/DYAD2P-A9006JAJE000_5678c8dadb182.jpg&quot; &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GL8L000_56736989580a6.jpg&quot; &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_560e037b02690.jpg&quot; &quot;/pic/v1/data/item/201408/D/G/B/T/3/0/DGBT30-A9005EEQH000_53ff03486dda6&quot; ...
-##  $ name       : chr  &quot;SONY Xperia Z5 Compact&quot; &quot;SONY SWR12 藍牙手環&quot; &quot;SONY Xperia Z5&quot; &quot;SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot; ...
-##  $ describe   : chr  &quot;▼送原廠皮套+32G卡▼SONY Xperia Z5 Compact&quot; &quot;SONY SWR12 藍牙手環&quot; &quot;▼超值 送32G卡+拭淨布+傳輸線+觸控筆+手機立架▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot; &quot;假日特惠SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot; ...
-##  $ price      : int  16490 4680 19290 1688 14690 11980 2900 8999 12900 3979 ...
+##  $ Id         : chr  &quot;DYAD27-A90066O9Y&quot; &quot;DYAD2O-A9006JDQE&quot; &quot;DGAG13-A90066LB7&quot; &quot;DEBB1B-A9006OUFS&quot; ...
+##  $ cateId     : chr  &quot;DYAD27&quot; &quot;DYAD2O&quot; &quot;DGAG13&quot; &quot;DEBB1B&quot; ...
+##  $ picS       : chr  &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/sDYAD27-A90066O9Y000_5582308468c0b.jpg&quot; &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot; &quot;/pic/v1/data/item/201506/D/G/A/G/1/3/sDGAG13-A90066LB7000_558d00fb70c37.jpg&quot; &quot;/pic/v1/data/item/201512/D/E/B/B/1/B/sDEBB1B-A9006OUFS000_56600c643eab5.jpg&quot; ...
+##  $ picB       : chr  &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/DYAD27-A90066O9Y000_5582308467016.jpg&quot; &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_567bc7a3ce295.jpg&quot; &quot;/pic/v1/data/item/201506/D/G/A/G/1/3/DGAG13-A90066LB7000_558d00fb6a6a3.jpg&quot; &quot;/pic/v1/data/item/201512/D/E/B/B/1/B/DEBB1B-A9006OUFS000_567bc570720c8.jpg&quot; ...
+##  $ name       : chr  &quot;Sony Xperia M4 Aqua dual&quot; &quot;SONY Xperia Z5&quot; &quot;SONY 32GB SDHC U1 Class10 70M/s 高速記憶卡&quot; &quot;全視線 DV7500 1080P 聯詠96655 SONY感光元件 日本A級鍍膜玻璃鏡頭 行車記錄器&quot; ...
+##  $ describe   : chr  &quot;★送玻璃保貼↘★Sony Xperia M4 Aqua &quot; &quot;▼每日強檔‧轟殺特賣▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot; &quot;SONY 32GB SDHC U1 Class10 70M/s 高速記憶卡&quot; &quot;▼每日強檔‧轟殺特賣▼全視線 DV7500 1080P 聯詠96655 SONY感光元件 日本A級鍍膜玻璃鏡頭 行車記錄器送16G TF卡&quot; ...
+##  $ price      : int  7250 18590 620 2980 888 8400 11980 23380 8999 4680 ...
 ##  $ author     : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
 ##  $ brand      : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
 ##  $ publishDate: chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
@@ -1104,13 +1294,13 @@ str(res_df)</pre>
 str(res_list$prods[[1]])</pre>
 
 <pre >## List of 11
-##  $ Id         : chr &quot;DYAD2P-A9006JAJE&quot;
-##  $ cateId     : chr &quot;DYAD2P&quot;
-##  $ picS       : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/P/sDYAD2P-A9006JAJE000_560cb331d7c46.jpg&quot;
-##  $ picB       : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/DYAD2P-A9006JAJE000_5678c8dadb182.jpg&quot;
-##  $ name       : chr &quot;SONY Xperia Z5 Compact&quot;
-##  $ describe   : chr &quot;▼送原廠皮套+32G卡▼SONY Xperia Z5 Compact&quot;
-##  $ price      : int 16490
+##  $ Id         : chr &quot;DYAD27-A90066O9Y&quot;
+##  $ cateId     : chr &quot;DYAD27&quot;
+##  $ picS       : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/sDYAD27-A90066O9Y000_5582308468c0b.jpg&quot;
+##  $ picB       : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/DYAD27-A90066O9Y000_5582308467016.jpg&quot;
+##  $ name       : chr &quot;Sony Xperia M4 Aqua dual&quot;
+##  $ describe   : chr &quot;★送玻璃保貼↘★Sony Xperia M4 Aqua &quot;
+##  $ price      : int 7250
 ##  $ author     : chr &quot;&quot;
 ##  $ brand      : chr &quot;&quot;
 ##  $ publishDate: chr &quot;&quot;
@@ -1138,152 +1328,152 @@ identical(res_df, res_df3)</pre>
 
 <pre >## &#39;data.frame&#39;:    20 obs. of  11 variables:
 ##  $ Id         :List of 20
-##   ..$ : chr &quot;DYAD2P-A9006JAJE&quot;
-##   ..$ : chr &quot;DYAI49-A9006GL8L&quot;
-##   ..$ : chr &quot;DYAD2O-A9006JDQE&quot;
-##   ..$ : chr &quot;DGBT30-A9005EEQH&quot;
-##   ..$ : chr &quot;DYAD26-A90066D02&quot;
-##   ..$ : chr &quot;DGBJA7-19006JHRF&quot;
-##   ..$ : chr &quot;DGAG13-A9006FREH&quot;
-##   ..$ : chr &quot;DYAD2J-A9006FOW2&quot;
-##   ..$ : chr &quot;DPAH2M-A9006EZL1&quot;
-##   ..$ : chr &quot;DYAI49-A9006GY7O&quot;
 ##   ..$ : chr &quot;DYAD27-A90066O9Y&quot;
-##   ..$ : chr &quot;DYAD2O-A9006J87V&quot;
-##   ..$ : chr &quot;DYAD2R-A9006OJUW&quot;
-##   ..$ : chr &quot;DYAD2R-A9006LUT8&quot;
-##   ..$ : chr &quot;DYAD2J-A9006FRSN&quot;
-##   ..$ : chr &quot;DCAQ21-A9005MIC2&quot;
-##   ..$ : chr &quot;DGBJA7-19006PWRS&quot;
-##   ..$ : chr &quot;DYAD2J-A9006I085&quot;
-##   ..$ : chr &quot;DGBV08-A9005QQXZ&quot;
+##   ..$ : chr &quot;DYAD2O-A9006JDQE&quot;
+##   ..$ : chr &quot;DGAG13-A90066LB7&quot;
+##   ..$ : chr &quot;DEBB1B-A9006OUFS&quot;
+##   ..$ : chr &quot;DCABC8-A90062M29&quot;
+##   ..$ : chr &quot;DIAC8P-A9006J7JQ&quot;
+##   ..$ : chr &quot;DGBJA7-19006JHRF&quot;
 ##   ..$ : chr &quot;DYAD2R-A9006LM8Y&quot;
+##   ..$ : chr &quot;DYAD2J-A9006FOW2&quot;
+##   ..$ : chr &quot;DYAI49-A9006GL8L&quot;
+##   ..$ : chr &quot;DYAD26-A90066D02&quot;
+##   ..$ : chr &quot;DGBP2I-A80322445&quot;
+##   ..$ : chr &quot;DYAO28-19006QLH8&quot;
+##   ..$ : chr &quot;DGBJA7-19006PWRS&quot;
+##   ..$ : chr &quot;DYAD2R-A9006LUT8&quot;
+##   ..$ : chr &quot;DGAD01-A90054RYV&quot;
+##   ..$ : chr &quot;DYAD2O-A9006J87V&quot;
+##   ..$ : chr &quot;DYAD2J-A9006FRSN&quot;
+##   ..$ : chr &quot;DPAD06-A90063WC1&quot;
+##   ..$ : chr &quot;DGAF3L-A9006PYCH&quot;
 ##  $ cateId     :List of 20
-##   ..$ : chr &quot;DYAD2P&quot;
-##   ..$ : chr &quot;DYAI49&quot;
-##   ..$ : chr &quot;DYAD2O&quot;
-##   ..$ : chr &quot;DYAQA6&quot;
-##   ..$ : chr &quot;DYAD26&quot;
-##   ..$ : chr &quot;DGBJA7&quot;
-##   ..$ : chr &quot;DGAG13&quot;
-##   ..$ : chr &quot;DYAD2J&quot;
-##   ..$ : chr &quot;DPAH2M&quot;
-##   ..$ : chr &quot;DYAI49&quot;
 ##   ..$ : chr &quot;DYAD27&quot;
 ##   ..$ : chr &quot;DYAD2O&quot;
-##   ..$ : chr &quot;DYAD2R&quot;
-##   ..$ : chr &quot;DYAD2R&quot;
-##   ..$ : chr &quot;DYAD2J&quot;
-##   ..$ : chr &quot;DCAQ21&quot;
+##   ..$ : chr &quot;DGAG13&quot;
+##   ..$ : chr &quot;DEBB1B&quot;
+##   ..$ : chr &quot;DCAB3C&quot;
+##   ..$ : chr &quot;DIAC8P&quot;
 ##   ..$ : chr &quot;DGBJA7&quot;
-##   ..$ : chr &quot;DYAD2J&quot;
-##   ..$ : chr &quot;DYAM1L&quot;
 ##   ..$ : chr &quot;DYAD2R&quot;
+##   ..$ : chr &quot;DYAD2J&quot;
+##   ..$ : chr &quot;DYAI49&quot;
+##   ..$ : chr &quot;DYAD26&quot;
+##   ..$ : chr &quot;DYAF06&quot;
+##   ..$ : chr &quot;DYAO28&quot;
+##   ..$ : chr &quot;DGBJA7&quot;
+##   ..$ : chr &quot;DYAD2R&quot;
+##   ..$ : chr &quot;DGAD01&quot;
+##   ..$ : chr &quot;DYAD2O&quot;
+##   ..$ : chr &quot;DYAD2J&quot;
+##   ..$ : chr &quot;DPAD06&quot;
+##   ..$ : chr &quot;DGAF3L&quot;
 ##  $ picS       :List of 20
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/P/sDYAD2P-A9006JAJE000_560cb331d7c46.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GL8L000_55e81d402f9e7.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/G/B/T/3/0/sDGBT30-A9005EEQH000_565566ad99f75.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/6/sDYAD26-A90066D02000_557e70b3db760.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/sDGBJA7-19006JHRF000_5611f51163fef.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/G/A/G/1/3/sDGAG13-A9006FREH000_55dc5689e01d1.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FOW2000_55daeea2b67c3.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/P/A/H/2/M/sDPAH2M-A9006EZL1000_55d2a4a6ce782.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GY7O000_55ed66f01de44.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/sDYAD27-A90066O9Y000_5582308468c0b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/O/sDYAD2O-A9006J87V000_560b9b7cb48ad.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/sDYAD2R-A9006OJUW000_565cfdcb3492b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/R/sDYAD2R-A9006LUT8000_563720e98e6f5.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FRSN000_55dc33a226e76.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201411/D/C/A/Q/2/1/sDCAQ21-A9005MIC2000_546c5a1f9bc4d.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/sDGBJA7-19006PWRS000_56712b0b85546.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/J/sDYAD2J-A9006I085000_55f7f34abd5c9.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201412/D/G/B/V/0/8/sDGBV08-A9005QQXZ000_5485264aac04b.png&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201506/D/G/A/G/1/3/sDGAG13-A90066LB7000_558d00fb70c37.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/E/B/B/1/B/sDEBB1B-A9006OUFS000_56600c643eab5.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201505/D/C/A/B/C/8/sDCABC8-A90062M29000_554c2dd7ca376.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/I/A/C/8/P/sDIAC8P-A9006J7JQ000_561b756e22f64.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/sDGBJA7-19006JHRF000_5611f51163fef.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/R/sDYAD2R-A9006LM8Y000_5632f01c560d4.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FOW2000_55daeea2b67c3.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GL8L000_55e81d402f9e7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/6/sDYAD26-A90066D02000_557e70b3db760.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/P/2/I/sDGBP2I-A80322445000_567ca550dd56d.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/O/2/8/sDYAO28-19006QLH8000_567ca3fb6678f.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/sDGBJA7-19006PWRS000_56712b0b85546.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/R/sDYAD2R-A9006LUT8000_563720e98e6f5.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201405/D/G/A/D/0/1/sDGAD01-A90054RYV000_5375d3251963b.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/O/sDYAD2O-A9006J87V000_560b9b7cb48ad.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FRSN000_55dc33a226e76.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201505/D/P/A/D/0/6/sDPAD06-A90063WC1000_555d97fa6dbf7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/A/F/3/L/sDGAF3L-A9006PYCH000_567225a1a23f6.jpg&quot;
 ##  $ picB       :List of 20
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/DYAD2P-A9006JAJE000_5678c8dadb182.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GL8L000_56736989580a6.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_560e037b02690.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201408/D/G/B/T/3/0/DGBT30-A9005EEQH000_53ff03486dda6&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/6/DYAD26-A90066D02000_5677607634deb.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/DGBJA7-19006JHRF000_5611f5115ed74.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/A/G/1/3/DGAG13-A9006FREH000_56775e10deca0.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FOW2000_56493d32e0bcb.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/P/A/H/2/M/DPAH2M-A9006EZL1000_5677597a70458.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GY7O000_5673697879243.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/DYAD27-A90066O9Y000_5582308467016.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006J87V000_5660f701363de.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006OJUW000_566e2ea34d95c.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LUT8000_565ff356a18bb.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FRSN000_56493ca5aa9a2.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201411/D/C/A/Q/2/1/DCAQ21-A9005MIC2000_546c5a1f9991b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/DGBJA7-19006PWRS000_56712b0b84290.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/J/DYAD2J-A9006I085000_55f7f34aba324.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/V/0/8/DGBV08-A9005QQXZ000_56776298d2bd5.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_567bc7a3ce295.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201506/D/G/A/G/1/3/DGAG13-A90066LB7000_558d00fb6a6a3.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/E/B/B/1/B/DEBB1B-A9006OUFS000_567bc570720c8.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/C/A/B/C/8/DCABC8-A90062M29000_567bc8d057b49.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/I/A/C/8/P/DIAC8P-A9006J7JQ000_567ca7da97108.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/DGBJA7-19006JHRF000_5611f5115ed74.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LM8Y000_565ff381b6538.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FOW2000_56493d32e0bcb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GL8L000_56736989580a6.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/6/DYAD26-A90066D02000_5677607634deb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/P/2/I/DGBP2I-A80322445000_567ca550dc1ad.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/O/2/8/DYAO28-19006QLH8000_567ca3fb5f737.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/DGBJA7-19006PWRS000_56712b0b84290.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LUT8000_565ff356a18bb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/G/A/D/0/1/DGAD01-A90054RYV000_55ecef3cbfa3c.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006J87V000_5660f701363de.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FRSN000_56493ca5aa9a2.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/P/A/D/0/6/DPAD06-A90063WC1000_562448e8a3693.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/A/F/3/L/DGAF3L-A9006PYCH000_567225a1a089c.jpg&quot;
 ##  $ name       :List of 20
-##   ..$ : chr &quot;SONY Xperia Z5 Compact&quot;
-##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
-##   ..$ : chr &quot;SONY Xperia Z5&quot;
-##   ..$ : chr &quot;SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot;
-##   ..$ : chr &quot;SONY Xperia Z3+ (E6553)&quot;
-##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
-##   ..$ : chr &quot;SONY 128GB microSDXC U1 C10 70M/s 記憶卡(附SD轉卡)&quot;
-##   ..$ : chr &quot;SONY Xperia C5 Ultra (E5553)&quot;
-##   ..$ : chr &quot;SONY STR-DH750 7.2聲道環繞擴大機&quot;
-##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
 ##   ..$ : chr &quot;Sony Xperia M4 Aqua dual&quot;
 ##   ..$ : chr &quot;SONY Xperia Z5&quot;
+##   ..$ : chr &quot;SONY 32GB SDHC U1 Class10 70M/s 高速記憶卡&quot;
+##   ..$ : chr &quot;全視線 DV7500 1080P 聯詠96655 SONY感光元件 日本A級鍍膜玻璃鏡頭 行車記錄器&quot;
+##   ..$ : chr &quot;SONY最新低自放經濟型充電組(搭配低自放3號4入)&quot;
+##   ..$ : chr &quot;SONY SmartWatch 3 SWR50 防水智慧手錶&quot;
+##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
 ##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot;Sony Xperia C5 Ultra&quot;
-##   ..$ : chr &quot;SONY 5000mAh CP-V5 行動電源&quot;
-##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
-##   ..$ : chr &quot;Sony Xperia C5 Ultra E5553 6吋八核自拍機 &quot;
-##   ..$ : chr &quot;SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)&quot;
-##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
-##  $ describe   :List of 20
-##   ..$ : chr &quot;▼送原廠皮套+32G卡▼SONY Xperia Z5 Compact&quot;
+##   ..$ : chr &quot;SONY Xperia C5 Ultra (E5553)&quot;
 ##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
-##   ..$ : chr &quot;▼超值 送32G卡+拭淨布+傳輸線+觸控筆+手機立架▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot;
-##   ..$ : chr &quot;假日特惠SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot;
-##   ..$ : chr &quot;◤超值 送行電+保貼+傳輸線+拭淨布+觸控筆+漂浮腕帶◢SONY Xperia Z3+ (E6553)&quot;
+##   ..$ : chr &quot;SONY Xperia Z3+ (E6553)&quot;
+##   ..$ : chr &quot;SONY DSC-QX10 外接式鏡頭相機-黑色&quot;
+##   ..$ : chr &quot;SONY 10000mAh 雙USB輕薄時尚鋁合金行動電源&quot;
+##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
+##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;SONY DSC-RX100M3(公司貨)&quot;
+##   ..$ : chr &quot;SONY Xperia Z5&quot;
+##   ..$ : chr &quot;Sony Xperia C5 Ultra&quot;
+##   ..$ : chr &quot;SONY KDL-40W700C 40型 LED液晶電視&quot;
+##   ..$ : chr &quot;SONY完美焦點錄音筆4GB ICD-UX560F&quot;
+##  $ describe   :List of 20
+##   ..$ : chr &quot;★送玻璃保貼↘★Sony Xperia M4 Aqua &quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot;
+##   ..$ : chr &quot;SONY 32GB SDHC U1 Class10 70M/s 高速記憶卡&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼全視線 DV7500 1080P 聯詠96655 SONY感光元件 日本A級鍍膜玻璃鏡頭 行車記錄器送16G TF卡&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼★新力原廠公司貨★SONY最新低自放經濟型充電組(搭配低自放3號4入)&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼SONY SmartWatch 3 SWR50 防水智慧手錶  採用 Android Wear 技術&quot;
 ##   ..$ : chr &quot; 強檔遊戲任選SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
-##   ..$ : chr &quot;SONY 128GB microSDXC U1 C10 70M/s 記憶卡(附SD轉卡)&quot;
-##   ..$ : chr &quot;▼6吋大螢幕▼SONY Xperia C5 Ultra 八核心6吋4G LTE大螢幕慧型手機&quot;
-##   ..$ : chr &quot;SONY STR-DH750 7.2聲道環繞擴大機  &quot;
-##   ..$ : chr &quot;★單品下殺★SONY SWR12 藍牙手環&quot;
-##   ..$ : chr &quot;★送原廠圍巾+迷你腳架↘★Sony Xperia M4 Aqua &quot;
-##   ..$ : chr &quot;▼送玻璃保貼+原廠立架+觸控筆▼SONY Xperia Z5&quot;
-##   ..$ : chr &quot;▼送64G+行電▼SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot;▼送8G卡+玻璃保貼+皮套+原廠立架▼SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot;送冰淇淋券&amp;電影票Sony Xperia C5 Ultra&quot;
-##   ..$ : chr &quot;◤結帳享折扣◢原廠公司貨SONY 5000mAh CP-V5 行動電源&quot;
-##   ..$ : chr &quot; 雙手把+豪華周邊組SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
-##   ..$ : chr &quot;送保護套+玻璃保貼Sony Xperia C5 Ultra E5553 6吋八核自拍機 &quot;
-##   ..$ : chr &quot;送8GB記憶卡+Z3 專用保護貼+兩件式購物袋收納組SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)  SGP641&quot;
 ##   ..$ : chr &quot;▼送64G卡+LINE傳輸線▼SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;▼6吋大螢幕▼SONY Xperia C5 Ultra 八核心6吋4G LTE大螢幕慧型手機&quot;
+##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
+##   ..$ : chr &quot;◤歡慶聖誕 超值送保護貼+漂浮腕帶◢SONY Xperia Z3+ (E6553)&quot;
+##   ..$ : chr &quot; 降價再送原廠雙好禮SONY DSC-QX10 外接式鏡頭相機-黑色&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼SONY 10000mAh 雙USB輕薄時尚鋁合金行動電源&quot;
+##   ..$ : chr &quot; 雙手把+豪華周邊組SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
+##   ..$ : chr &quot;▼送8G卡+玻璃保貼+皮套+原廠立架+SONY賀春磁鐵▼SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;F1.8★32G卡+電池組SONY DSC-RX100M3(公司貨)&quot;
+##   ..$ : chr &quot;▼送原廠立架+觸控筆+SONY賀春磁鐵▼SONY Xperia Z5&quot;
+##   ..$ : chr &quot;送冰淇淋券&amp;電影票Sony Xperia C5 Ultra&quot;
+##   ..$ : chr &quot;SONY KDL-40W700C 40型 LED液晶電視  極瞬流線影像+X-Reality Pro極真影像內建Wifi+網路娛樂平台&quot;
+##   ..$ : chr &quot;送USB充電器SONY完美焦點錄音筆4GB ICD-UX560F(公司貨)&quot;
 ##  $ price      :List of 20
-##   ..$ : int 16490
-##   ..$ : int 4680
-##   ..$ : int 19290
-##   ..$ : int 1688
-##   ..$ : int 14690
-##   ..$ : int 11980
-##   ..$ : int 2900
-##   ..$ : int 8999
-##   ..$ : int 12900
-##   ..$ : int 3979
 ##   ..$ : int 7250
-##   ..$ : int 19150
-##   ..$ : int 23990
+##   ..$ : int 18590
+##   ..$ : int 620
+##   ..$ : int 2980
+##   ..$ : int 888
+##   ..$ : int 8400
+##   ..$ : int 11980
 ##   ..$ : int 23380
-##   ..$ : int 9190
-##   ..$ : int 990
+##   ..$ : int 8999
+##   ..$ : int 4680
+##   ..$ : int 13990
+##   ..$ : int 4999
+##   ..$ : int 1590
 ##   ..$ : int 12980
-##   ..$ : int 9380
-##   ..$ : int 13205
 ##   ..$ : int 23380
+##   ..$ : int 22980
+##   ..$ : int 19150
+##   ..$ : int 9190
+##   ..$ : int 19900
+##   ..$ : int 3990
 ##  $ author     :List of 20
 ##   ..$ : chr &quot;&quot;
 ##   ..$ : chr &quot;&quot;
@@ -1398,22 +1588,22 @@ class(dat1)</pre>
 <pre class = 'prettyprint lang-r'>dat1</pre>
 
 <pre >## [[1]]
-##      買超券商 買進 賣出 買超 賣超券商 買進 賣出 賣超
-## 1    國票證券  100    6   94 元大證券   14   70  -56
-## 2  新加坡商瑞   87    0   87 凱基證券    5   44  -39
-## 3  台灣東方匯   45    0   45 美商高盛    0   31  -31
-## 4  台灣摩根士   37    5   32 摩根大通    0   30  -30
-## 5    瑞士信貸   20    0   20 港商野村    0   18  -18
-## 6  永豐金證券   34   16   18 玉山證券    1   18  -17
-## 7  港商德意志   27   15   12 國泰證券    2   19  -17
-## 8        亞東   10    5    5 華南永昌    0   15  -15
-## 9    富邦證券   13    9    4 群益金鼎    5   19  -14
-## 10   大慶證券    2    0    2 台灣企銀    0   12  -12
-## 11   中信銀證    1    0    1 兆豐證券    0   11  -11
-## 12     第一金    2    1    1     美林   19   28   -9
-## 13   大眾證券    1    0    1     元富    0    6   -6
-## 14   富隆證券    0    0    0 日盛證券    0    5   -5
-## 15   台中商銀    0    0    0     高橋    0    5   -5</pre>
+##      買超券商 買進 賣出 買超   賣超券商 買進 賣出 賣超
+## 1  新加坡商瑞   66    4   62   美商高盛    2   61  -59
+## 2    瑞士信貸   71   27   44   元大證券    6   30  -24
+## 3    日盛證券   39    3   36   凱基證券   17   40  -23
+## 4  港商麥格里   11    0   11   華南永昌    0   18  -18
+## 5    玉山證券   10    1    9 港商德意志    1   17  -16
+## 6    富邦證券   12    6    6   兆豐證券    0   16  -16
+## 7      第一金    3    1    2   群益金鼎    2   13  -11
+## 8        亞東    1    0    1   台灣企銀    0   10  -10
+## 9        盈溢    0    0    0 永豐金證券   11   21  -10
+## 10   永全證券    0    0    0   富隆證券    0   10  -10
+## 11       台安    0    0    0       臺銀    0    5   -5
+## 12   中農證券    0    0    0   康和證券    0    3   -3
+## 13   國泰證券    1    1    0       高橋    0    2   -2
+## 14       彰銀    0    0    0       美林   28   30   -2
+## 15   港商聯昌    0    0    0 台灣摩根士   10   12   -2</pre>
 
 <pre class = 'prettyprint lang-r'>dat2 = read_html(Target_URL, encoding = &quot;big5&quot;) %&gt;% 
     html_nodes(xpath = &quot;//table[1]//table[2]&quot;) %&gt;% 
@@ -1483,10 +1673,13 @@ writeBin(bin, &quot;data/download/uv.json&quot;)</pre>
 </article></slide><slide class=''><hgroup><h2>Case study</h2></hgroup><article  id="case-study">
 
 <ul>
-<li><a href='https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&amp;loop=false&amp;delayms=60000&amp;slide=id.g70dd955d5_0_179' title=''>https://docs.google.com/presentation/d/15ly6dUAQYatNMgquAxwqS205WYK3jxPnFbNlMfbk3nI/embed?start=false&amp;loop=false&amp;delayms=60000&amp;slide=id.g70dd955d5_0_179</a></li>
-<li><a href='https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies' title=''>https://github.com/datasci-info/PyCrawler101-201510/tree/master/pycrawler101/case_studies</a></li>
-<li><a href='https://github.com/agilearning/RCrawlers/tree/master/CaseStudies' title=''>https://github.com/agilearning/RCrawlers/tree/master/CaseStudies</a></li>
-<li><a href='http://whizzalan.github.io/RCrawlerCrashCourse/' title=''>http://whizzalan.github.io/RCrawlerCrashCourse/</a></li>
+<li><a href='example/cwb.html' title=''>中央氣象局觀測資料查詢系統</a></li>
+<li><a href='example/etwarm.html' title=''>東森房屋</a></li>
+<li><a href='example/mops.html' title=''>公開資訊觀測站</a></li>
+<li><a href='example/ptt_gossiping.html' title=''>PTT Gossiping</a></li>
+<li><a href='example/seven_eleven.html' title=''>Seven Eleven</a></li>
+<li><a href='example/uv.html' title=''>紫外線即時監測資料</a></li>
+<li><a href='example/yahoo_stock.html' title=''>Yahoo Stock</a></li>
 </ul></article></slide>
 
 

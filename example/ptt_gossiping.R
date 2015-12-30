@@ -1,11 +1,20 @@
 #' ---
-#' title: "PTT Crawler Live Demo"
+#' title: "PTT Gossiping"
 #' author: "Agilelearning, Mansun Kuo"
 #' date: "`r Sys.Date()`"
+#' output: 
+#'   html_document: 
+#'     toc: yes
 #' ---
 
+#' [PTT Gossiping](https://www.ptt.cc/bbs/Gossiping/index.html)
+#'
+
 #' ## rvest example
+#'
+
 #' ### Get links of index pages
+
 library(rvest)
 library(httr)
 library(stringr)
@@ -47,7 +56,7 @@ library(XML)
 library(stringr)
 
 
-#' ## Get links of index pages
+#' ### Get links of index pages
 url <- "https://www.ptt.cc/bbs/Gossiping/index.html"
 res <- GET(url, config=set_cookies('over18'='1'))
 res <- content(res, 'text', encoding = 'utf8')
@@ -62,7 +71,7 @@ tmpIndex <- as.numeric(tmpIndex)+1
 sprintf("https://www.ptt.cc/bbs/Gossiping/index%s.html",(tmpIndex-10):tmpIndex)
 
 
-#' ## Crawler example 
+#' ### Crawler example 
 # url <- "https://www.ptt.cc/bbs/Gossiping/M.1431338763.A.1BF.html"
 url <- "https://www.ptt.cc/bbs/Gossiping/M.1434384024.A.711.html"
 res <- GET(url, config=set_cookies('over18'='1'))

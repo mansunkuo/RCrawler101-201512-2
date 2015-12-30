@@ -14,7 +14,15 @@ library(rvest)
 
 ## Connector
 
-res <- POST("http://mops.twse.com.tw/mops/web/ajax_t51sb01",body = "encodeURIComponent=1&step=1&firstin=1&TYPEK=sii&code=")
+# res <- POST("http://mops.twse.com.tw/mops/web/ajax_t51sb01",
+#             body = "encodeURIComponent=1&step=1&firstin=1&TYPEK=sii&code=")
+url = "http://mops.twse.com.tw/mops/web/ajax_t51sb01"
+body = list(encodeURIComponent="1",
+            step="1",
+            firstin="1",
+            TYPEK="sii")
+res = POST(url, body)
+
 doc_str <- content(res, "text", encoding = "utf8")
 write(doc_str, file = "mops.html")
 
@@ -29,3 +37,5 @@ if (.Platform$OS.type == "windows"){
     data_table <- doc_str %>% read_html(encoding = "big-5") %>% html_nodes(xpath = "//table[2]") %>% html_table(header=TRUE)
     data_table <- data_table[[1]]
 }
+
+data_table
