@@ -7,4 +7,4 @@ A tutorial of Crawler in R.
 
 ## Environment
 
-[R Installation Guide](install_R.html)
+[R Installation Guide](http://mansunkuo.github.io/RCrawler101-201512-2/install_R.html)
