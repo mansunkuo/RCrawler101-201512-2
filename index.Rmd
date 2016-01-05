@@ -100,6 +100,25 @@ These data structures can be mapped into a table according to:
 nd   | Array	
 
 
+## Data structure
+
+All data structures above are objects.
+They apply different methods and saved as different type internally.
+
+```{r echo = FALSE}
+x <- data.frame(object = c('c(1, 2.5, 3)', 
+                           'c("male", "female", "female", "male")',
+                           'factor(c("male", "female", "female", "male"))', 
+                           'matrix(1:9, nrow = 3)',
+                           'list(a = 1:10, b = c("apple", "banana"))',
+                           'data.frame(a = 1, b = "z")'))
+x$type <- sapply(parse(text = sprintf("typeof(%s)", x$object)), eval)
+x$class <- sapply(parse(text = sprintf("class(%s)", x$object)), eval)
+knitr::kable(x)
+```
+
+
+
 ## Function 
 
 *To understand computations in R, two slogans are helpful:*
@@ -154,6 +173,38 @@ if (an expression returns TRUE or FALSE) {
     # do something
 }
 ```
+
+
+## for
+
+```{r}
+# nested loop
+m <- matrix(numeric(), nrow = 2, ncol = 2)
+for (i in 1:nrow(m)) {
+    for (j in 1:ncol(m)) {
+        m[i, j] <- i * j
+    }
+}
+m
+```
+
+
+## tryCache
+
+tryCache let you deal with error handling in R.
+
+```r
+tryCatch({
+    result <- expr
+}, warning = function(w) {
+    # warning handling 
+}, error = function(e) {
+    # error handling 
+}, finally {
+    #  finally
+})
+```
+
 
 ## Expression
 
@@ -296,17 +347,6 @@ doc %>%
 ```
 
 
-## Case study: 東森房屋
-
-- [Result](example/etwarm.html)
-- [Code](example/etwarm.R)
-
-
-## Exercise
-
-Modify previous example to get the price of ouse
-
-
 ## Extract name of tag
 
 ```{r}
@@ -337,6 +377,68 @@ students
 ```
 
 
+## The secret of URL
+
+```
+URL?val1=val1&val2=val2
+```
+
+- The query string is sent in the URL of a
+[GET](http://www.w3schools.com/tags/ref_httpmethods.asp) request
+- non ASCI-character and some preserved caracter need to be encode with 
+[URL Encode](http://www.w3schools.com/tags/ref_urlencode.asp)
+- In most situation, you may need to manipulate the query string when you 
+write a crawler
+
+
+## Url Encoding in R
+
+```{r}
+URLencode(" ")
+greeting = "你好嗎我很好"
+greeting_enc = URLencode(greeting)
+greeting_enc
+URLdecode(greeting_enc)
+```
+
+
+## Concatenate strings / String formatting
+
+```{r}
+paste0("hihi", greeting)
+paste0("hihi", greeting, 1:3)
+paste("hihi", greeting, 1:3, sep = " ", collapse = ",")
+sprintf("%s,%s嗎?", "hihi", greeting)
+```
+
+
+## Case study: 東森房屋
+
+- [Result](example/etwarm.html)
+
+
+## Exercise
+
+Try to get some houses's information in 台北縣.
+
+
+## HTTP request
+
+A valid HTTP request includes four things:
+
+- **URL**: a unique address for a thing
+- **Method**:
+    - **GET**: to retrieve a resource
+    - **POST**: to create a new resource
+    - **PUT**: to edit/update an existing resource
+    - **DELETE**: to delete a resource
+- **Headers**: Meta-information about a request
+    - **User-Agent**
+    - **Cookie**
+- **Body**: 
+    - Form data
+
+
 ## httr
 
 - Basic Features:
@@ -351,7 +453,7 @@ students
 
 ## Take a look at header
 
-Try to use TAB to explore object in  
+Try to use TAB to explore object
 
 <div class="code_block">
 ```{r}
@@ -372,7 +474,7 @@ str(res)
 
 ## Basic
 
-Use `GET()` to make a request
+Use `GET()` to request data from a specific resource
 
 <div class="code_block">
 ```{r cache=TRUE}
@@ -383,7 +485,7 @@ res
 class(res)
 typeof(res)
 str(res)
-res$content
+# res$content
 res$request
 res
 ```
@@ -405,7 +507,9 @@ identical(res$content, res2$content)
 
 ```{r}
 library(whisker)
-url_template = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q={{q}}&page={{page}}&sort={{sort}}"
+
+url_template = paste0("http://ecshweb.pchome.com.tw/search/v3.3/all/results?",
+                      "q={{q}}&page={{page}}&sort={{sort}}", collapse = "")
 url3 = whisker.render(url_template, list(q="sony", page="1", sort="rnk/dc"))
 url3
 res3 = GET(url3)
@@ -431,7 +535,7 @@ str(res_df)
 </div>
 
 
-## Parsed with loop
+## Parse with loop
 
 <div class="code_block">
 ```{r}
@@ -448,7 +552,7 @@ identical(res_df, res_df2)
 </div>
 
 
-##
+## Parse with do.call
 
 <div class="code_block">
 ```{r}
@@ -460,8 +564,6 @@ str(res_df3)
 
 
 ## Use with rvest
-
-##  
 
 <div class="code_block">
 ```{r}
@@ -485,6 +587,7 @@ dat2 = read_html(Target_URL, encoding = "big5") %>%
     html_table(header=TRUE)
 identical(dat1, dat2)
 ```
+</div>
 
 
 ## Exercise
@@ -493,11 +596,28 @@ identical(dat1, dat2)
 [紫外線即時監測資料](http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json)的資料取回來並轉成data.frame
 
 
+## Answer
+
+[紫外線即時監測資料](example/uv.html)
+
+
 ## POST
 
-## Exercise: postGuestBook
+- Submits data to be processed to a specified resource
+- The query string (name/value pairs) is sent in the HTTP message body
 
 
+## Example: Guestbook
+
+[Guestbook](example/guestbook.html)
+
+<img src="img/postGuestBook.png" width=800>
+
+
+## Exercise: Guestbook
+
+Try to post a message in 
+[App Engine GuestBook](http://apt-bonbon-93413.appspot.com/)
 
 
 # Save your data
@@ -513,12 +633,23 @@ identical(dat1, dat2)
 ## write.csv
 
 ```{r}
+library(jsonlite)
+library(httr)
+url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
+res_df = GET(url) %>% 
+    content(res, as = "text") %>% 
+    fromJSON() %>% 
+    .$prods     # equivelent to (function(x) {x$prods})
 write.csv(res_df, "data/pchome.csv", row.names = FALSE)
 ```
 
 
 ## download.file
 
+To download a file from the Internet.
+download.file takes advantage of internet utilities such as
+curl or wget and may fail if you don't 
+have any of these utilities in your system.
 
 ```{r cache = TRUE}
 dest_dir = "data/download"
@@ -527,8 +658,6 @@ dir.create(dest_dir, showWarnings = FALSE, recursive = TRUE)
 # Download whole HTML file
 download.file("https://www.r-project.org/", 
               file.path(dest_dir, "r-project.org.html"))
-
-
 
 # Download image
 download.file("https://www.r-project.org/Rlogo.png",
@@ -540,17 +669,25 @@ list.files(dest_dir)
 
 ## writeBin
 
+To write binary data to your local disk.
+
 ```{r}
 r = GET("http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json")
-bin = content(r, "raw")
+# Set as = "raw" to prevent any character encoding
+bin = content(r, as = "raw")
 writeBin(bin, "data/download/uv.json")
 ```
 
 
+## Database
 
-## RSQLite
-
-
+- RSQLite: A light-weight database engine interface in R   
+    - [PChome Example](example/pchome.html)
+- Other relational database connector in R
+    - [RODBC](https://cran.r-project.org/web/packages/RODBC/index.html)
+    - [RJDBC](https://cran.r-project.org/web/packages/RJDBC/index.html)
+    - [RMySQL](https://cran.r-project.org/web/packages/RMySQL/index.html)
+    - ...
 
 
 ## RCurl
@@ -561,15 +698,24 @@ writeBin(bin, "data/download/uv.json")
 
 ## Case study
 
-- [中央氣象局觀測資料查詢系統](example/cwb.html)
 - [東森房屋](example/etwarm.html)
+- [Guestbook](example/guestbook.html)
+- [PChome](example/pchome.html)
+- [中央氣象局觀測資料查詢系統](example/cwb.html)
 - [公開資訊觀測站](example/mops.html)
 - [PTT Gossiping](example/ptt_gossiping.html)
 - [Seven Eleven](example/seven_eleven.html)
 - [紫外線即時監測資料](example/uv.html)
 - [Yahoo Stock](example/yahoo_stock.html)
+- [Starbucks](example/starbucks.html)
 
 
+## References
 
-
-
+- [rvest](https://github.com/hadley/rvest)
+- [httr](https://cran.r-project.org/web/packages/httr/index.html)
+- [HTTP Methods](http://www.w3schools.com/tags/ref_httpmethods.asp)
+- [An Introduction to APIs](https://zapier.com/learn/apis/)
+- [Advanced R](http://adv-r.had.co.nz/)
+- [data.table](https://github.com/Rdatatable/data.table)
+- [RSQLite](https://cran.r-project.org/web/packages/RSQLite/index.html)
