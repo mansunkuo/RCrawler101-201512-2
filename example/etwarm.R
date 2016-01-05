@@ -7,6 +7,11 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [東森房屋](http://www.etwarm.com.tw/object_list)
 
 

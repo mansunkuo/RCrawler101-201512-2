@@ -7,6 +7,11 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [PTT Gossiping](https://www.ptt.cc/bbs/Gossiping/index.html)
 #'
 

@@ -7,6 +7,10 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
 
 #' [紫外線即時監測資料](http://opendata.epa.gov.tw/Data/Contents/UV/)
 

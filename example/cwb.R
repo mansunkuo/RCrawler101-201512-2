@@ -7,6 +7,11 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [觀測資料查詢系統](http://e-service.cwb.gov.tw/HistoryDataQuery/)
 
 

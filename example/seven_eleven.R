@@ -7,6 +7,11 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [7-11](http://emap.pcsc.com.tw/)  
 
 library(httr)

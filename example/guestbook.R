@@ -7,6 +7,11 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [Guestbook](http://apt-bonbon-93413.appspot.com/)
 
 library(httr)

@@ -7,6 +7,10 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
 
 #' [Yahoo Stock](http://tw.stock.yahoo.com/d/s/major_2451.html)
 

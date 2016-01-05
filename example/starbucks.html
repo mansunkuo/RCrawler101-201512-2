@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2016-01-03" />
+<meta name="date" content="2016-01-06" />
 
 <title>Starbucks</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">Starbucks</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2016-01-03</em></h4>
+<h4 class="date"><em>2016-01-06</em></h4>
 </div>
 
 <div id="TOC">
@@ -77,15 +77,8 @@ img {
 <p><a href="http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx">Starbucks</a></p>
 <pre class="r"><code>library(httr)
 library(XML)
-library(rvest)</code></pre>
-<pre><code>## Loading required package: xml2
-## 
-## Attaching package: 'rvest'
-## 
-## The following object is masked from 'package:XML':
-## 
-##     xml</code></pre>
-<pre class="r"><code>library(jsonlite)</code></pre>
+library(rvest)
+library(jsonlite)</code></pre>
 <div id="region" class="section level2">
 <h2>Region</h2>
 <pre class="r"><code>url = &quot;http://www.starbucks.com.tw/store/region.serx&quot;
@@ -130,7 +123,7 @@ str(regions)</code></pre>
 </div>
 <div id="store" class="section level2">
 <h2>Store</h2>
-<pre class="r"><code>fileName = &quot;example/starbucks.txt&quot;
+<pre class="r"><code>fileName = &quot;data/starbucks.txt&quot;
 viewstate = readChar(fileName, nchar = file.info(fileName)$size)
 url = &quot;http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx&quot;
 body = readChar(fileName, nchar = file.info(fileName)$size)

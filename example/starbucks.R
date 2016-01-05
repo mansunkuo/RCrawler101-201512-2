@@ -7,6 +7,9 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
 
 #' [Starbucks](http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx)
  
@@ -44,7 +47,7 @@ regions$region[[1]]
 
 #' ## Store 
 
-fileName = "example/starbucks.txt"
+fileName = "data/starbucks.txt"
 viewstate = readChar(fileName, nchar = file.info(fileName)$size)
 url = "http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx"
 body = readChar(fileName, nchar = file.info(fileName)$size)

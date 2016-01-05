@@ -17,6 +17,7 @@ knitr::opts_chunk$set(warning = TRUE,
                       message = TRUE,
                       fig.align='center',
                       cache=FALSE)
+knitr::opts_knit$set(root.dir = '.')
 ```
 
 ## Hello RStudio

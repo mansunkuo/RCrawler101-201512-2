@@ -7,9 +7,13 @@
 #'     toc: yes
 #' ---
 
+#+ include=FALSE
+# set root dir when rendering
+knitr::opts_knit$set(root.dir = '..')
+
+
 #' [PCHome](http://ecshweb.pchome.com.tw/search/v3.3/)
 
-library(DBI)
 library(RSQLite)
 library(jsonlite)
 library(httr)
@@ -22,8 +26,7 @@ res_df = GET(url) %>%
     fromJSON() %>% 
     .$prods     # equivelent to (function(x) {x$prods})
 
-#' Create an ephemeral in-memory RSQLite database
-# con = dbConnect(SQLite(), ":memory:")
+#' Create a RSQLite database
 con = dbConnect(SQLite(), "data/pchome.sqlite")
 
 dbListTables(con)
@@ -44,16 +47,25 @@ dbListFields(con, "pchome")
 
 #' Read Whole Table
 pchome = dbReadTable(con, "pchome")
-if (interactive()) {
-    print(pchome)
-} else {
-    datatable(pchome)
+
+# solve encoding issue in Windows
+if (.Platform$OS.type == "windows"){
+    pchome = apply(pchome, 2, iconv, from = "UTF-8", to = "UTF-8")
 }
+
+# if (interactive()) {
+# print(pchome)
+# } else {
+datatable(pchome)
+# }
 
 #' You can fetch results with SQL statement
 res = dbSendQuery(con, "SELECT * FROM pchome WHERE price > 10000")
-pchome = dbFetch(res)
-str(pchome)
+pchome2 = dbFetch(res)
+if (.Platform$OS.type == "windows"){
+    pchome2 = apply(pchome2, 2, iconv, from = "UTF-8", to = "UTF-8")
+}
+str(pchome2)
 dbClearResult(res)
 
 #' Or a chunk at a time

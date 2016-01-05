@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2015-12-29" />
+<meta name="date" content="2016-01-06" />
 
 <title>PTT Gossiping</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">PTT Gossiping</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2015-12-29</em></h4>
+<h4 class="date"><em>2016-01-06</em></h4>
 </div>
 
 <div id="TOC">
@@ -85,9 +85,8 @@ img {
 <h2>rvest example</h2>
 <div id="get-links-of-index-pages" class="section level3">
 <h3>Get links of index pages</h3>
-<pre class="r"><code>library(rvest)</code></pre>
-<pre><code>## Loading required package: xml2</code></pre>
-<pre class="r"><code>library(httr)
+<pre class="r"><code>library(rvest)
+library(httr)
 library(stringr)
 url = &quot;https://www.ptt.cc/bbs/Gossiping/index.html&quot;
 res = GET(url, config=set_cookies('over18'='1')) %&gt;% 
@@ -98,24 +97,24 @@ res_href = res %&gt;%
     html_nodes(xpath = '//*[@id=&quot;action-bar-container&quot;]/div/div[2]/a[2]') %&gt;% 
     html_attr(&quot;href&quot;)
 res_href</code></pre>
-<pre><code>## [1] &quot;/bbs/Gossiping/index10121.html&quot;</code></pre>
+<pre><code>## [1] &quot;/bbs/Gossiping/index10055.html&quot;</code></pre>
 <pre class="r"><code>tmpIndex = res_href %&gt;% 
     str_extract('[0-9]+') %&gt;% 
     (function(x){as.numeric(x)+1})
 (tmpIndex-10):tmpIndex</code></pre>
-<pre><code>##  [1] 10112 10113 10114 10115 10116 10117 10118 10119 10120 10121 10122</code></pre>
+<pre><code>##  [1] 10046 10047 10048 10049 10050 10051 10052 10053 10054 10055 10056</code></pre>
 <pre class="r"><code>sprintf(&quot;https://www.ptt.cc/bbs/Gossiping/index%s.html&quot;,(tmpIndex-10):tmpIndex)</code></pre>
-<pre><code>##  [1] &quot;https://www.ptt.cc/bbs/Gossiping/index10112.html&quot;
-##  [2] &quot;https://www.ptt.cc/bbs/Gossiping/index10113.html&quot;
-##  [3] &quot;https://www.ptt.cc/bbs/Gossiping/index10114.html&quot;
-##  [4] &quot;https://www.ptt.cc/bbs/Gossiping/index10115.html&quot;
-##  [5] &quot;https://www.ptt.cc/bbs/Gossiping/index10116.html&quot;
-##  [6] &quot;https://www.ptt.cc/bbs/Gossiping/index10117.html&quot;
-##  [7] &quot;https://www.ptt.cc/bbs/Gossiping/index10118.html&quot;
-##  [8] &quot;https://www.ptt.cc/bbs/Gossiping/index10119.html&quot;
-##  [9] &quot;https://www.ptt.cc/bbs/Gossiping/index10120.html&quot;
-## [10] &quot;https://www.ptt.cc/bbs/Gossiping/index10121.html&quot;
-## [11] &quot;https://www.ptt.cc/bbs/Gossiping/index10122.html&quot;</code></pre>
+<pre><code>##  [1] &quot;https://www.ptt.cc/bbs/Gossiping/index10046.html&quot;
+##  [2] &quot;https://www.ptt.cc/bbs/Gossiping/index10047.html&quot;
+##  [3] &quot;https://www.ptt.cc/bbs/Gossiping/index10048.html&quot;
+##  [4] &quot;https://www.ptt.cc/bbs/Gossiping/index10049.html&quot;
+##  [5] &quot;https://www.ptt.cc/bbs/Gossiping/index10050.html&quot;
+##  [6] &quot;https://www.ptt.cc/bbs/Gossiping/index10051.html&quot;
+##  [7] &quot;https://www.ptt.cc/bbs/Gossiping/index10052.html&quot;
+##  [8] &quot;https://www.ptt.cc/bbs/Gossiping/index10053.html&quot;
+##  [9] &quot;https://www.ptt.cc/bbs/Gossiping/index10054.html&quot;
+## [10] &quot;https://www.ptt.cc/bbs/Gossiping/index10055.html&quot;
+## [11] &quot;https://www.ptt.cc/bbs/Gossiping/index10056.html&quot;</code></pre>
 </div>
 <div id="crawler-example" class="section level3">
 <h3>Crawler example</h3>
@@ -157,14 +156,8 @@ head(res_text[!str_detect(res_text, '作者|看板|標題|時間')])</code></pre
 <div id="xml-example" class="section level2">
 <h2>XML example</h2>
 <pre class="r"><code>library(httr)
-library(XML)</code></pre>
-<pre><code>## 
-## Attaching package: 'XML'
-## 
-## The following object is masked from 'package:rvest':
-## 
-##     xml</code></pre>
-<pre class="r"><code>library(stringr)</code></pre>
+library(XML)
+library(stringr)</code></pre>
 <div id="get-links-of-index-pages-1" class="section level3">
 <h3>Get links of index pages</h3>
 <pre class="r"><code>url &lt;- &quot;https://www.ptt.cc/bbs/Gossiping/index.html&quot;
@@ -177,19 +170,19 @@ tmpIndex &lt;- str_extract(tmpIndex, '[0-9]+')
 tmpIndex &lt;- as.numeric(tmpIndex)+1
 
 (tmpIndex-10):tmpIndex</code></pre>
-<pre><code>##  [1] 10112 10113 10114 10115 10116 10117 10118 10119 10120 10121 10122</code></pre>
+<pre><code>##  [1] 10046 10047 10048 10049 10050 10051 10052 10053 10054 10055 10056</code></pre>
 <pre class="r"><code>sprintf(&quot;https://www.ptt.cc/bbs/Gossiping/index%s.html&quot;,(tmpIndex-10):tmpIndex)</code></pre>
-<pre><code>##  [1] &quot;https://www.ptt.cc/bbs/Gossiping/index10112.html&quot;
-##  [2] &quot;https://www.ptt.cc/bbs/Gossiping/index10113.html&quot;
-##  [3] &quot;https://www.ptt.cc/bbs/Gossiping/index10114.html&quot;
-##  [4] &quot;https://www.ptt.cc/bbs/Gossiping/index10115.html&quot;
-##  [5] &quot;https://www.ptt.cc/bbs/Gossiping/index10116.html&quot;
-##  [6] &quot;https://www.ptt.cc/bbs/Gossiping/index10117.html&quot;
-##  [7] &quot;https://www.ptt.cc/bbs/Gossiping/index10118.html&quot;
-##  [8] &quot;https://www.ptt.cc/bbs/Gossiping/index10119.html&quot;
-##  [9] &quot;https://www.ptt.cc/bbs/Gossiping/index10120.html&quot;
-## [10] &quot;https://www.ptt.cc/bbs/Gossiping/index10121.html&quot;
-## [11] &quot;https://www.ptt.cc/bbs/Gossiping/index10122.html&quot;</code></pre>
+<pre><code>##  [1] &quot;https://www.ptt.cc/bbs/Gossiping/index10046.html&quot;
+##  [2] &quot;https://www.ptt.cc/bbs/Gossiping/index10047.html&quot;
+##  [3] &quot;https://www.ptt.cc/bbs/Gossiping/index10048.html&quot;
+##  [4] &quot;https://www.ptt.cc/bbs/Gossiping/index10049.html&quot;
+##  [5] &quot;https://www.ptt.cc/bbs/Gossiping/index10050.html&quot;
+##  [6] &quot;https://www.ptt.cc/bbs/Gossiping/index10051.html&quot;
+##  [7] &quot;https://www.ptt.cc/bbs/Gossiping/index10052.html&quot;
+##  [8] &quot;https://www.ptt.cc/bbs/Gossiping/index10053.html&quot;
+##  [9] &quot;https://www.ptt.cc/bbs/Gossiping/index10054.html&quot;
+## [10] &quot;https://www.ptt.cc/bbs/Gossiping/index10055.html&quot;
+## [11] &quot;https://www.ptt.cc/bbs/Gossiping/index10056.html&quot;</code></pre>
 </div>
 <div id="crawler-example-1" class="section level3">
 <h3>Crawler example</h3>
