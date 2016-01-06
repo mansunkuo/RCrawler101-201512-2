@@ -593,7 +593,7 @@ identical(dat1, dat2)
 
 ## Exercise
 
-[行政院環境保護署環境資源資料開放平台](http://opendata.epa.gov.tw/DevelopZone/Sample/UV/)提供了一系列的Restfuk Api供大家取用，請試著把
+[行政院環境保護署環境資源資料開放平台](http://opendata.epa.gov.tw/DevelopZone/Sample/UV/)提供了一系列的RESTful Api供大家取用，請試著把
 [紫外線即時監測資料](http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json)的資料取回來並轉成data.frame
 
 

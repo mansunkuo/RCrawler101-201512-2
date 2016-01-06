@@ -22,6 +22,12 @@ Download R-x.x.x.pkg and install it.
 
 - https://cran.r-project.org/bin/macosx/
 
+You may need to install libxml2 with [Homebrew](http://brew.sh/):
+
+```bash
+brew install libxml2
+```
+
 ### Linux
 
 - [Ubuntu](https://cran.r-project.org/bin/linux/ubuntu/README.html)
@@ -59,8 +65,5 @@ pkgs = c("httr", "rvest", "DT", "rmarkdown", "XML", "whisker",
          "jsonlite", "magrittr", "data.table", "RSQLite", "knitr")
 install.packages(pkgs)
 ```
-
-
-
 
 
