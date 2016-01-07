@@ -61,8 +61,8 @@ Download and install RStudio desktop.
 Open R console and execute following code:
 
 ```r
-pkgs = c("httr", "rvest", "DT", "rmarkdown", "XML", "whisker", 
-         "jsonlite", "magrittr", "data.table", "RSQLite", "knitr")
+pkgs = c("httr", "rvest", "DT", "rmarkdown", "XML", "whisker", "googleVis",
+         "jsonlite", "magrittr", "data.table", "RSQLite", "knitr", "stringr")
 install.packages(pkgs)
 ```
 

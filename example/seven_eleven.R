@@ -16,68 +16,113 @@ knitr::opts_knit$set(root.dir = '..')
 
 library(httr)
 library(XML)
+library(stringr)
 library(DT)
+library(data.table)
+library(googleVis)
 
-#' ## Get StoreData via POST city and town
 
-# connector
-res = POST("http://emap.pcsc.com.tw/EMapSDK.aspx",
-           body=list(commandid="SearchStore",city="台北市",town="大安區"))
+#' ## Get Stories
 
-# parser
-node = xmlParse(content(res,as="text"))
-df = xmlToDataFrame(node["//GeoPosition"])
-if (interactive()) {
-    View(df)
-} else {
-    datatable(df)
+get_stories = function(city, town) {
+    res = POST("http://emap.pcsc.com.tw/EMapSDK.aspx",
+               body = list(commandid="SearchStore", 
+                           city = city,
+                           town = town))
+    stores = xmlParse(content(res, as = "text")) %>% 
+        .["//GeoPosition"] %>% 
+        xmlToDataFrame %>% 
+        data.table
+    return(stores)
 }
 
+stores = get_stories("台北市", "大安區")
+stores
 
-#' ## Get Town via POST cityid
 
-# connector
-res = POST("http://emap.pcsc.com.tw/EMapSDK.aspx",
-           body=list(commandid="GetTown",cityid="01"))
+#' ## Get Towns
 
-# parser
-node = xmlParse(content(res,as="text"))
-df = xmlToDataFrame(node["//GeoPosition"])
-if (interactive()) {
-    View(df)
-} else {
-    datatable(df)
+get_towns = function(cityid) {
+    res = POST("http://emap.pcsc.com.tw/EMapSDK.aspx",
+               body=list(commandid = "GetTown", cityid = cityid))
+    towns = xmlParse(content(res, as = "text")) %>% 
+        .["//GeoPosition"] %>% 
+        xmlToDataFrame %>% 
+        data.table
+    return(towns)
 }
 
+towns = get_towns('01')
+towns
 
-#' ## Get CityCodes via POST cityid
+
+#' ## Get Cities
 
 res = GET("http://emap.pcsc.com.tw/lib/areacode.js")
-resText = content(res,"text",encoding = "utf8")
-matches = gregexpr("AreaNode[(][^,]+(,[^,]+){3}",resText)
-unlist(regmatches(resText,matches))
-cityCodesStr = unlist(regmatches(resText,matches))
+res_text = content(res,"text",encoding = "utf8")
+cityreg = "new AreaNode\\(\\'(.*)\\'.*new bu.* \\'(.*)\\'"
+cities = res_text %>% 
+    str_match_all(cityreg)%>% 
+    .[[1]] %>% 
+    .[, c(2, 3)] %>% 
+    data.table()
+setnames(cities, colnames(cities), c("cityname", "citycode"))
+cities
 
-string = cityCodesStr[2]
-string
-matches = gregexpr("[']([^']+)[']",string)
-unlist(regmatches(string,matches))
 
-cityCodes = lapply(cityCodesStr,function(string){
-    matches = gregexpr("[']([^']+)[']",string)
-    return(unlist(regmatches(string,matches)))
-})
+#' ## Get All Stores
 
-cityCodes = lapply(cityCodesStr[2:length(cityCodesStr)],function(string){
-    matches = gregexpr("[']([^']+)[']",string)
-    return(gsub("'","",unlist(regmatches(string,matches))))
-})
-
-cityCodesDf = data.frame(do.call(rbind,cityCodes),stringsAsFactors = FALSE)
-colnames(cityCodesDf) = c("cityName","cityCode")
-if (interactive()) {
-    View(cityCodesDf)
-} else {
-    datatable(cityCodesDf)
+stores = list()
+# for (i in 2:nrow(cities)) {
+for (i in 2:2) {
+    cityname = cities$cityname[i]
+    citycode = cities$citycode[i]
+    towns = get_towns(citycode)
+    for (townname in towns$TownName) {
+        stores[[paste0(cityname, townname)]] = get_stories(cityname, townname)
+        citytown = paste0(cityname, townname)
+        message(citytown)
+        if (nrow(stores[[citytown]]) > 0 ) {
+            stores[[citytown]]$cityname = cityname
+            stores[[citytown]]$townname = townname   
+        }
+        Sys.sleep(abs(rnorm(1, 0)))
+    }
 }
+stores = rbindlist(stores)
+
+#' ## GoogleMap
+
+# Convert unit of lat and lon
+stores[, c("X", "Y") := lapply(.SD, 
+                               function(x) {
+                                   as.numeric(as.character(x))*10^(-6)
+                               }),
+       .SDcols = c("X", "Y")]
+
+# prepare fields for gvisMap
+stores[, `:=`(latlon = paste0(Y, ":", X),
+              tips = sprintf("<p>%s</p><p>%s</p><p>%s</p>",
+                             POIName, Telno, Address)
+              )]
+
+gmap = gvisMap(stores, "latlon", "tips",
+        options=list(showTip=TRUE, 
+                     enableScrollWheel=T,
+                     height=600,
+                     useMapTypeControl=T,
+                     mapType='normal'
+        )
+)
+
+#+ results='asis'
+if (interactive()) {
+    if (.Platform$OS.type == "windows") {
+        gmap$html$header = gsub("utf-8", "Big5", gmap$html$header)
+    }
+    plot(gmap)
+} else {
+    print(gmap, "chart")
+}
+    
 
