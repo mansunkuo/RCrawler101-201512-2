@@ -1,8 +1,10 @@
-# RCrawler101-201512-2
+# RCrawler101-201512 Week2
 
 A tutorial of Crawler in R.
 
-[slides](http://mansunkuo.github.io/RCrawler101-201512-2/)
+- [Slides](http://mansunkuo.github.io/RCrawler101-201512-2/)
+
+- [The entire series of course](https://github.com/datasci-info/RCrawler101-201512)
 
 
 ## Environment
