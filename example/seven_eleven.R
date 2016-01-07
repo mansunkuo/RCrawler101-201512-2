@@ -19,7 +19,8 @@ library(XML)
 library(stringr)
 library(DT)
 library(data.table)
-library(googleVis)
+suppressPackageStartupMessages(library(googleVis))
+library(leaflet)
 
 
 #' ## Get Stories
@@ -37,7 +38,7 @@ get_stories = function(city, town) {
 }
 
 stores = get_stories("台北市", "大安區")
-stores
+datatable(stores)
 
 
 #' ## Get Towns
@@ -91,7 +92,7 @@ for (i in 2:2) {
 }
 stores = rbindlist(stores)
 
-#' ## GoogleMap
+#' ## Draw a Map
 
 # Convert unit of lat and lon
 stores[, c("X", "Y") := lapply(.SD, 
@@ -100,16 +101,25 @@ stores[, c("X", "Y") := lapply(.SD,
                                }),
        .SDcols = c("X", "Y")]
 
-# prepare fields for gvisMap
+# prepare some meta information
 stores[, `:=`(latlon = paste0(Y, ":", X),
               tips = sprintf("<p>%s</p><p>%s</p><p>%s</p>",
                              POIName, Telno, Address)
               )]
 
+#' ### leaflet
+
+leaflet(data = stores, height = 600, width = 800) %>% 
+    addTiles() %>%
+    addMarkers(~X, ~Y, popup = ~as.character(tips))
+
+
+#' ### gvisMap
 gmap = gvisMap(stores, "latlon", "tips",
         options=list(showTip=TRUE, 
                      enableScrollWheel=T,
                      height=600,
+                     width = 800,
                      useMapTypeControl=T,
                      mapType='normal'
         )
