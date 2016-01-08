@@ -1,6 +1,6 @@
 #' ---
 #' title: "Seven Eleven"
-#' author: "Agilelearning"
+#' author: "Agilelearning, Mansun Kuo"
 #' date: "`r Sys.Date()`"
 #' output: 
 #'   html_document: 
@@ -131,8 +131,7 @@ if (interactive()) {
         gmap$html$header = gsub("utf-8", "Big5", gmap$html$header)
     }
     plot(gmap)
-} else {
-    print(gmap, "chart")
-}
+} 
+print(gmap, "chart")
     
 

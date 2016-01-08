@@ -1,6 +1,6 @@
 #' ---
 #' title: "公開資訊觀測站(Market Observation Post System)"
-#' author: "Agilelearning"
+#' author: "Agilelearning, Mansun Kuo "
 #' date: "`r Sys.Date()`"
 #' output: 
 #'   html_document: 

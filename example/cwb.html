@@ -10,7 +10,7 @@
 
 <meta name="author" content="Mansun Kuo" />
 
-<meta name="date" content="2016-01-06" />
+<meta name="date" content="2016-01-08" />
 
 <title>CWB</title>
 
@@ -64,13 +64,19 @@ img {
 <div id="header">
 <h1 class="title">CWB</h1>
 <h4 class="author"><em>Mansun Kuo</em></h4>
-<h4 class="date"><em>2016-01-06</em></h4>
+<h4 class="date"><em>2016-01-08</em></h4>
 </div>
 
 
 <p><a href="http://e-service.cwb.gov.tw/HistoryDataQuery/">觀測資料查詢系統</a></p>
-<pre class="r"><code>library(XML)
-library(whisker)
+<pre class="r"><code>library(XML)</code></pre>
+<pre><code>## 
+## Attaching package: 'XML'
+## 
+## The following object is masked from 'package:rvest':
+## 
+##     xml</code></pre>
+<pre class="r"><code>library(whisker)
 library(data.table)
 stations = list(Taipei = &quot;466920&quot;, 
                 Taichung = &quot;467490&quot;,
@@ -154,16 +160,16 @@ get_table = function(station, station_name, datetime, crawler_type, en,
 
 get_data(stations, datestart = datestart, dateend = dateend)</code></pre>
 <pre><code>## [1] &quot;http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&amp;station=466920&amp;datepicker=2015-11-01&quot;
-## [1] 1.705925
+## [1] 2.455198
 ## [1] &quot;data/daily/Taipei_2015-11-01.csv&quot;
 ## [1] &quot;http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&amp;station=467490&amp;datepicker=2015-11-01&quot;
-## [1] 2.994866
+## [1] 2.820777
 ## [1] &quot;data/daily/Taichung_2015-11-01.csv&quot;
 ## [1] &quot;http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&amp;station=467440&amp;datepicker=2015-11-01&quot;
-## [1] 4.47659
+## [1] 1.47765
 ## [1] &quot;data/daily/Kaohsiung_2015-11-01.csv&quot;
 ## [1] &quot;http://e-service.cwb.gov.tw/HistoryDataQuery/DayDataController.do?command=viewMain&amp;station=466990&amp;datepicker=2015-11-01&quot;
-## [1] 1.610724
+## [1] 1.455385
 ## [1] &quot;data/daily/Hualien_2015-11-01.csv&quot;</code></pre>
 
 

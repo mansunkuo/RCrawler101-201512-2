@@ -1,6 +1,6 @@
 #' ---
 #' title: "Seven Eleven"
-#' author: "Agilelearning"
+#' author: "Agilelearning, Mansun Kuo"
 #' date: "`r Sys.Date()`"
 #' output: 
 #'   html_document: 
@@ -16,6 +16,7 @@ knitr::opts_knit$set(root.dir = '..')
 
 library(httr)
 library(rvest)
+library(DT)
 
 
 ## Connector
@@ -38,9 +39,4 @@ if (.Platform$OS.type == "windows"){
     df <- df[[1]]
 }
 
-if (interactive()) {
-    View(df)
-} else {
-    library(DT)
-    datatable(df)
-}
+datatable(df)

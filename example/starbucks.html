@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2016-01-06" />
+<meta name="date" content="2016-01-08" />
 
 <title>Starbucks</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">Starbucks</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2016-01-06</em></h4>
+<h4 class="date"><em>2016-01-08</em></h4>
 </div>
 
 <div id="TOC">
@@ -123,23 +123,21 @@ str(regions)</code></pre>
 </div>
 <div id="store" class="section level2">
 <h2>Store</h2>
-<pre class="r"><code>fileName = &quot;data/starbucks.txt&quot;
-viewstate = readChar(fileName, nchar = file.info(fileName)$size)
-url = &quot;http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx&quot;
-body = readChar(fileName, nchar = file.info(fileName)$size)
+<pre class="r"><code>url = &quot;http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx&quot;
+body = upload_file(&quot;data/starbucks.txt&quot;)
 header = c(
-    &quot;Accept&quot; = &quot;*/*&quot;,
-    &quot;Accept-Encoding&quot; = &quot;gzip, deflate&quot;,
-    &quot;Accept-Language&quot; = &quot;zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4,zh-CN;q=0.2&quot;,
-    &quot;Connection&quot; = &quot;keep-alive&quot;,
-    &quot;Content-Length&quot; = 29110, 
-    &quot;Content-Type&quot; = &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,
-    &quot;Cookie&quot; = &quot;citrix_ns_id=xRVZEEJoDMo7memBaPa/NnRypKIA020; JSESSIONID=F9408BEF289C374601018E306A7E870C; citrix_ns_id_.starbucks.com.tw_%2F_wat=SlNFU1NJT05JRF9f?U8jwSOlGNbieBO9tjD53BlNQP8EA&amp;; _ga=GA1.3.1117139448.1446024192&quot;,
-    &quot;Host&quot; = &quot;www.starbucks.com.tw&quot;,
-    &quot;Origin&quot; = &quot;http://www.starbucks.com.tw&quot;,
-    &quot;Referer&quot; = &quot;http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx&quot;,
-    &quot;User-Agent&quot; = &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36&quot;
-    )
+    # &quot;Accept&quot; = &quot;*/*&quot;,
+    # &quot;Accept-Encoding&quot; = &quot;gzip, deflate&quot;,
+    # &quot;Accept-Language&quot; = &quot;zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4,zh-CN;q=0.2&quot;,
+    # &quot;Connection&quot; = &quot;keep-alive&quot;,
+    # &quot;Content-Length&quot; = 29110, 
+    &quot;Content-Type&quot; = &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;#,
+    # &quot;Cookie&quot; = &quot;citrix_ns_id=xRVZEEJoDMo7memBaPa/NnRypKIA020; JSESSIONID=F9408BEF289C374601018E306A7E870C; citrix_ns_id_.starbucks.com.tw_%2F_wat=SlNFU1NJT05JRF9f?U8jwSOlGNbieBO9tjD53BlNQP8EA&amp;; _ga=GA1.3.1117139448.1446024192&quot;,
+    # &quot;Host&quot; = &quot;www.starbucks.com.tw&quot;,
+    # &quot;Origin&quot; = &quot;http://www.starbucks.com.tw&quot;,
+    # &quot;Referer&quot; = &quot;http://www.starbucks.com.tw/stores/storesearch/stores_storesearch.jspx&quot;,
+    # &quot;User-Agent&quot; = &quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36&quot;
+)
 res = POST(url, body = body, add_headers(header))
 
 # Save as raw
@@ -149,27 +147,27 @@ writeBin(bin, &quot;example/starbucks_stores.html&quot;)
 # Extract stories
 result = content(res, as = &quot;text&quot;)
 read_html(result, encoding = &quot;utf-8&quot;) %&gt;% 
-    html_nodes(xpath = &quot;//div[@class='searchstore_name']&quot;)</code></pre>
-<pre><code>## {xml_nodeset (19)}
-##  [1] &lt;div class=&quot;searchstore_name&quot;&gt;1. 仁愛延吉門市  Renai Yanji&lt;/div&gt;
-##  [2] &lt;div class=&quot;searchstore_name&quot;&gt;2. 師大雲和門市  Shida Yunhe&lt;/div&gt;
-##  [3] &lt;div class=&quot;searchstore_name&quot;&gt;3. 崇興門市  BR4 SOGO&lt;/div&gt;
-##  [4] &lt;div class=&quot;searchstore_name&quot;&gt;4. 通化門市  Tonghua&lt;/div&gt;
-##  [5] &lt;div class=&quot;searchstore_name&quot;&gt;5. 復安門市  Fu An&lt;/div&gt;
-##  [6] &lt;div class=&quot;searchstore_name&quot;&gt;6. 敦和門市  Dun He&lt;/div&gt;
-##  [7] &lt;div class=&quot;searchstore_name&quot;&gt;7. 敦誠門市  Eslite Dun Nan-GF Entrance-T ...
-##  [8] &lt;div class=&quot;searchstore_name&quot;&gt;8. 同領門市  TONG LING&lt;/div&gt;
-##  [9] &lt;div class=&quot;searchstore_name&quot;&gt;9. 辛亥門市  Xin Hai&lt;/div&gt;
-## [10] &lt;div class=&quot;searchstore_name&quot;&gt;10. 和平門市  He Ping&lt;/div&gt;
-## [11] &lt;div class=&quot;searchstore_name&quot;&gt;11. 建和門市  Jian He&lt;/div&gt;
-## [12] &lt;div class=&quot;searchstore_name&quot;&gt;12. 崇光門市  SOGO Taipei&lt;/div&gt;
-## [13] &lt;div class=&quot;searchstore_name&quot;&gt;13. 敦南門市  Dun Nan&lt;/div&gt;
-## [14] &lt;div class=&quot;searchstore_name&quot;&gt;14. 敦富門市  Dun Fu&lt;/div&gt;
-## [15] &lt;div class=&quot;searchstore_name&quot;&gt;15. 華視門市  CTS&lt;/div&gt;
-## [16] &lt;div class=&quot;searchstore_name&quot;&gt;16. 興和門市  Xin He&lt;/div&gt;
-## [17] &lt;div class=&quot;searchstore_name&quot;&gt;17. 興南門市  Xing Nan&lt;/div&gt;
-## [18] &lt;div class=&quot;searchstore_name&quot;&gt;18. 龍門門市  Long Men&lt;/div&gt;
-## [19] &lt;div class=&quot;searchstore_name&quot;&gt;19. 羅斯福門市  Roosevelt&lt;/div&gt;</code></pre>
+    html_nodes(xpath = &quot;//div[@class='searchstore_name']&quot;) %&gt;% 
+    iconv(from = &quot;UTF-8&quot;, to = &quot;UTF-8&quot;) # solve encoding issue in Windows</code></pre>
+<pre><code>##  [1] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;1. 仁愛延吉門市  Renai Yanji&lt;/div&gt;&quot;                  
+##  [2] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;2. 師大雲和門市  Shida Yunhe&lt;/div&gt;&quot;                  
+##  [3] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;3. 崇興門市  BR4 SOGO&lt;/div&gt;&quot;                         
+##  [4] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;4. 通化門市  Tonghua&lt;/div&gt;&quot;                          
+##  [5] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;5. 復安門市  Fu An&lt;/div&gt;&quot;                            
+##  [6] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;6. 敦和門市  Dun He&lt;/div&gt;&quot;                           
+##  [7] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;7. 敦誠門市  Eslite Dun Nan-GF Entrance-Taipei&lt;/div&gt;&quot;
+##  [8] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;8. 同領門市  TONG LING&lt;/div&gt;&quot;                        
+##  [9] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;9. 辛亥門市  Xin Hai&lt;/div&gt;&quot;                          
+## [10] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;10. 和平門市  He Ping&lt;/div&gt;&quot;                         
+## [11] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;11. 建和門市  Jian He&lt;/div&gt;&quot;                         
+## [12] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;12. 崇光門市  SOGO Taipei&lt;/div&gt;&quot;                     
+## [13] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;13. 敦南門市  Dun Nan&lt;/div&gt;&quot;                         
+## [14] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;14. 敦富門市  Dun Fu&lt;/div&gt;&quot;                          
+## [15] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;15. 華視門市  CTS&lt;/div&gt;&quot;                             
+## [16] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;16. 興和門市  Xin He&lt;/div&gt;&quot;                          
+## [17] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;17. 興南門市  Xing Nan&lt;/div&gt;&quot;                        
+## [18] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;18. 龍門門市  Long Men&lt;/div&gt;&quot;                        
+## [19] &quot;&lt;div class=\&quot;searchstore_name\&quot;&gt;19. 羅斯福門市  Roosevelt&lt;/div&gt;&quot;</code></pre>
 <pre class="r"><code># XML
 htmlParse(res, encoding = 'utf8') %&gt;% 
     xpathSApply(&quot;//div[@class='searchstore_name']&quot;, xmlValue)</code></pre>
