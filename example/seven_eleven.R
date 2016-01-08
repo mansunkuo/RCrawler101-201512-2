@@ -111,17 +111,18 @@ stores[, `:=`(latlon = paste0(Y, ":", X),
 
 leaflet(data = stores, height = 600, width = "auto") %>% 
     addTiles() %>%
-    addMarkers(~X, ~Y, popup = ~as.character(tips))
-
+    addMarkers(~X, ~Y, popup = ~as.character(tips),
+               icon = list(iconUrl = "img/pc_logo.gif",
+                           iconSize = c(20, 20)))
 
 #' ### gvisMap
 gmap = gvisMap(stores, "latlon", "tips",
-        options=list(showTip=TRUE, 
-                     enableScrollWheel=T,
-                     height=600,
-                     useMapTypeControl=T,
-                     mapType='normal'
-        )
+               options=list(showTip=TRUE, 
+                            enableScrollWheel=T,
+                            height=600,
+                            useMapTypeControl=T,
+                            mapType='normal'
+               )
 )
 
 #+ results='asis'
