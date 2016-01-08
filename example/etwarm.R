@@ -14,6 +14,8 @@ knitr::opts_knit$set(root.dir = '..')
 
 #' [東森房屋](http://www.etwarm.com.tw/object_list)
 
+#'
+#' ## Crawler
 
 library(httr)
 library(rvest)
@@ -23,18 +25,21 @@ library(data.table)
 city = "台北市"
 url = sprintf("http://www.etwarm.com.tw/object_list.php?city=%s", 
               URLencode(city))
-max_index = 
-    read_html(url) %>% 
+
+# Get the max index
+max_index = read_html(url) %>% 
     html_nodes(xpath = "//div[@class='page']/a") %>%
     html_text %>%
     str_extract("[0-9]+") %>%
     as.integer %>% 
     max(na.rm = TRUE)
 
+# Construct all urls
 urls = sprintf("http://www.etwarm.com.tw/object_list?city=%s&page=",
                URLencode(city))
 urls = paste0(urls, 1:max_index)
 
+# Get data
 houses = data.table()
 # for (i in 1:length(urls)) {
 for (i in 1:3) {
@@ -42,7 +47,7 @@ for (i in 1:3) {
     district = res %>% 
         html_nodes(xpath = "//li[@class='obj_item']/div[@class='obj_info']/h3/a") %>% 
         html_text %>%
-        iconv(from = "UTF-8", to = "UTF-8") %>% # to comparable in Wondows  
+        iconv(from = "UTF-8", to = "UTF-8") %>% # to compatible in Wondows  
         str_extract(sprintf("%s.*區", city))
     price = res %>% 
         html_nodes(xpath = "//div[@class='price']") %>% 
@@ -55,13 +60,17 @@ for (i in 1:3) {
     Sys.sleep(abs(rnorm(1)))
     print(urls[i])
 }
+houses
 
-# Count number of element in each district
+#' ## Play with data.table
+
+# Count number of element and mean price in each district
 houses_agg = houses[, .(count = .N, 
-                          mean_price = mean(price)), 
-                      by = "district"]
+                        mean_price = mean(price)), 
+                    by = "district"]
+houses_agg
 
-# Add number of element in original data.table
+# Encoding in our data.table
 head(apply(houses, 2, Encoding))
 head(apply(houses_agg, 2, Encoding))
 

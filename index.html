@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2016-01-06" />
+  <meta name="date" content="2016-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -91,7 +91,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2016-01-06</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2016-01-08</p>
           </hgroup>
   </slide>
 
@@ -144,13 +144,12 @@
 </article></slide><slide class=''><hgroup><h2>R recap</h2></hgroup><article  id="r-recap">
 
 <ul>
-<li>?, ??, how to read manuel</li>
+<li>How to get help</li>
 <li>Working Environment</li>
 <li>Basic Data Structure</li>
-<li>function</li>
-<li>str, type, class</li>
-<li>for, if/else ifelse</li>
-<li>apply/lapply/sapply, unlist</li>
+<li>Function</li>
+<li>if/else, for<br/></li>
+<li>apply/lapply/sapply</li>
 <li>do.call</li>
 <li><a href='https://github.com/smbache/magrittr' title=''>magrittr</a></li>
 <li><a href='https://cran.r-project.org/web/packages/data.table/index.html' title=''>data.table</a></li>
@@ -224,7 +223,345 @@ getwd()</pre>
 </tr>
 </table>
 
-</article></slide><slide class=''><hgroup><h2>Data structure</h2></hgroup><article  id="data-structure">
+</article></slide><slide class=''><hgroup><h2>Vector</h2></hgroup><article  id="vector">
+
+<p>Vector is a basic data structure in R. A scalar is a vector of length 1.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>v1 &lt;- c(1:10)
+v1</pre>
+
+<pre >##  [1]  1  2  3  4  5  6  7  8  9 10</pre>
+
+<pre class = 'prettyprint lang-r'>is.vector(v1)</pre>
+
+<pre >## [1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>length(v1)</pre>
+
+<pre >## [1] 10</pre>
+
+<pre class = 'prettyprint lang-r'>s1 &lt;- 2
+s1</pre>
+
+<pre >## [1] 2</pre>
+
+<pre class = 'prettyprint lang-r'>is.vector(s1)</pre>
+
+<pre >## [1] TRUE</pre>
+
+<pre class = 'prettyprint lang-r'>length(s1)</pre>
+
+<pre >## [1] 1</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Type of Vector</h2></hgroup><article  id="type-of-vector">
+
+<p>Vector can contains several kinds of type. Type describes how the object is stored in memory. Elements in a vector will convert into looser types.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>logical_v = c(TRUE, FALSE, T, F)
+typeof(logical_v)</pre>
+
+<pre >## [1] &quot;logical&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>int_v &lt;- c(2L, 3L, 4L)
+typeof(int_v)</pre>
+
+<pre >## [1] &quot;integer&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>numeric_v &lt;- c(2.5, 3, pi)
+typeof(numeric_v)</pre>
+
+<pre >## [1] &quot;double&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>character_v = c(&quot;apple&quot;, &quot;banana&quot;, 1)
+typeof(character_v)</pre>
+
+<pre >## [1] &quot;character&quot;</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Calculation with vector</h2></hgroup><article  id="calculation-with-vector">
+
+<p>Vectors can be calculated in the sense of <a href='https://en.wikipedia.org/wiki/Array_programming' title=''>Array Programming</a>.</p>
+
+<pre class = 'prettyprint lang-r'>x &lt;- 9.8
+v1 &lt;- 1:10
+v1 * x</pre>
+
+<pre >##  [1]  9.8 19.6 29.4 39.2 49.0 58.8 68.6 78.4 88.2 98.0</pre>
+
+<pre class = 'prettyprint lang-r'>v2 &lt;- c(rep(2, 5), rep(3,5))
+v2</pre>
+
+<pre >##  [1] 2 2 2 2 2 3 3 3 3 3</pre>
+
+<pre class = 'prettyprint lang-r'>v1 + v2</pre>
+
+<pre >##  [1]  3  4  5  6  7  9 10 11 12 13</pre>
+
+</article></slide><slide class=''><hgroup><h2>Recycle</h2></hgroup><article  id="recycle">
+
+<p>If you calculate tow vectors with different length, the shorter vector will be recycled with the longer vector.</p>
+
+<pre class = 'prettyprint lang-r'>v3 &lt;- c(2, 3)
+v1^v3</pre>
+
+<pre >##  [1]    1    8    9   64   25  216   49  512   81 1000</pre>
+
+<pre class = 'prettyprint lang-r'>v4 &lt;- c(2, 3, 4)
+v1*v4</pre>
+
+<pre >## Warning in v1 * v4: longer object length is not a multiple of shorter
+## object length</pre>
+
+<pre >##  [1]  2  6 12  8 15 24 14 24 36 20</pre>
+
+</article></slide><slide class=''><hgroup><h2>Factor</h2></hgroup><article  id="factor">
+
+<p>A factor is a vector that can contain only predefined values, and is used to store categorical data. Factors are widely used in various statically function(Ex: Regression, graphics, table) in R.</p>
+
+<pre class = 'prettyprint lang-r'>gender &lt;- c(&quot;Male&quot;, &quot;Female&quot;, &quot;Female&quot;, &quot;Male&quot;)
+gender &lt;- factor(gender)
+gender</pre>
+
+<pre >## [1] Male   Female Female Male  
+## Levels: Female Male</pre>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>as.integer(gender)</pre>
+
+<pre >## [1] 2 1 1 2</pre>
+
+<pre class = 'prettyprint lang-r'>as.character(gender)</pre>
+
+<pre >## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Female&quot; &quot;Male&quot;</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Named vector</h2></hgroup><article  id="named-vector">
+
+<p>A vector can have a name attribute.</p>
+
+<pre class = 'prettyprint lang-r'>v5 &lt;- c(1.2, 5, 8 , 12, 4.3, TRUE)
+v5</pre>
+
+<pre >## [1]  1.2  5.0  8.0 12.0  4.3  1.0</pre>
+
+<pre class = 'prettyprint lang-r'>names(v5) &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;)
+v5</pre>
+
+<pre >##    a    b    c    d    e    f 
+##  1.2  5.0  8.0 12.0  4.3  1.0</pre>
+
+<pre class = 'prettyprint lang-r'>attributes(v5)</pre>
+
+<pre >## $names
+## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</pre>
+
+</article></slide><slide class=''><hgroup><h2>Subsetting: vector</h2></hgroup><article  id="subsetting-vector">
+
+<p>you can subset a vector in various ways.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>v5[c(5, 2, 6)]</pre>
+
+<pre >##   e   b   f 
+## 4.3 5.0 1.0</pre>
+
+<pre class = 'prettyprint lang-r'>v5[-c(1, 3)]</pre>
+
+<pre >##    b    d    e    f 
+##  5.0 12.0  4.3  1.0</pre>
+
+<pre class = 'prettyprint lang-r'>v5[c(&quot;a&quot;, &quot;f&quot;, &quot;c&quot;)]</pre>
+
+<pre >##   a   f   c 
+## 1.2 1.0 8.0</pre>
+
+<pre class = 'prettyprint lang-r'>v5[c(T, F, F, T, F, T)]</pre>
+
+<pre >##    a    d    f 
+##  1.2 12.0  1.0</pre>
+
+<pre class = 'prettyprint lang-r'>v5[v5 &gt;=7.5]</pre>
+
+<pre >##  c  d 
+##  8 12</pre>
+
+<pre class = 'prettyprint lang-r'>v5[v5 == max(v5)]</pre>
+
+<pre >##  d 
+## 12</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Matrix</h2></hgroup><article  id="matrix">
+
+<p>Matrix is a 2-dimenstion array. You can have various <a href='http://www.statmethods.net/advstats/matrix.html' title=''>matrix operation in R</a>.</p>
+
+<pre class = 'prettyprint lang-r'>x &lt;- matrix(c(2,1,3,2), nrow = 2, ncol = 2)
+rownames(x) &lt;- c(&quot;a&quot;, &quot;b&quot;)
+colnames(x) &lt;- c(&quot;x&quot;, &quot;y&quot;)</pre>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'># eigenvalue and eigenvector
+eigen(x)</pre>
+
+<pre >## $values
+## [1] 3.7320508 0.2679492
+## 
+## $vectors
+##           [,1]       [,2]
+## [1,] 0.8660254 -0.8660254
+## [2,] 0.5000000  0.5000000</pre>
+
+<pre class = 'prettyprint lang-r'># matrix multiplication and transpose
+x %*% t(x)  </pre>
+
+<pre >##    a b
+## a 13 8
+## b  8 5</pre>
+
+<p><br> <br></p></div>
+
+</article></slide><slide class=''><hgroup><h2>Subsetting: matrix</h2></hgroup><article  id="subsetting-matrix">
+
+<p>You can subset a matrix in various ways.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>x[1, ]</pre>
+
+<pre >## x y 
+## 2 3</pre>
+
+<pre class = 'prettyprint lang-r'>x[&quot;b&quot;, ]</pre>
+
+<pre >## x y 
+## 1 2</pre>
+
+<pre class = 'prettyprint lang-r'>x[&quot;a&quot;, 2]</pre>
+
+<pre >## [1] 3</pre>
+
+<pre class = 'prettyprint lang-r'>x[2, 1:2]</pre>
+
+<pre >## x y 
+## 1 2</pre>
+
+<pre class = 'prettyprint lang-r'>x[2, 2]</pre>
+
+<pre >## [1] 2</pre>
+
+<pre class = 'prettyprint lang-r'>x[&quot;b&quot;, 2]</pre>
+
+<pre >## [1] 2</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>List</h2></hgroup><article  id="list">
+
+<p>Elements in a list can be any kinds type and its length is arbitrary. Function <code>str</code> can help you investigate the structure of a nested list.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>li &lt;- list(a = 1:10, 
+           b = c(&quot;apple&quot;, &quot;banana&quot;))
+str(li)</pre>
+
+<pre >## List of 2
+##  $ a: int [1:10] 1 2 3 4 5 6 7 8 9 10
+##  $ b: chr [1:2] &quot;apple&quot; &quot;banana&quot;</pre>
+
+<p><br> <br></p>
+
+<pre class = 'prettyprint lang-r'>li2 &lt;- list(li = li, 
+            c = matrix(1:4, nrow = 2))
+str(li2)</pre>
+
+<pre >## List of 2
+##  $ li:List of 2
+##   ..$ a: int [1:10] 1 2 3 4 5 6 7 8 9 10
+##   ..$ b: chr [1:2] &quot;apple&quot; &quot;banana&quot;
+##  $ c : int [1:2, 1:2] 1 2 3 4</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Subsetting: list</h2></hgroup><article  id="subsetting-list">
+
+<p>You can subset a data frame in various ways.</p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>li2$li$a</pre>
+
+<pre >##  [1]  1  2  3  4  5  6  7  8  9 10</pre>
+
+<pre class = 'prettyprint lang-r'>li2$c</pre>
+
+<pre >##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</pre>
+
+<pre class = 'prettyprint lang-r'>li2[[1]][[2]]</pre>
+
+<pre >## [1] &quot;apple&quot;  &quot;banana&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>li2[[&quot;li&quot;]][[&quot;b&quot;]]</pre>
+
+<pre >## [1] &quot;apple&quot;  &quot;banana&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>li2[[&quot;li&quot;]][[&quot;b&quot;]][2]</pre>
+
+<pre >## [1] &quot;banana&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>li2$li[[1]]</pre>
+
+<pre >##  [1]  1  2  3  4  5  6  7  8  9 10</pre>
+
+<p><br></p></div>
+
+</article></slide><slide class=''><hgroup><h2>Data Frame</h2></hgroup><article  id="data-frame">
+
+<p>Data frame is a 2-dimension data structure to deal with a table-like heterogeneous data.</p>
+
+<pre class = 'prettyprint lang-r'>df &lt;- data.frame(gender = c(&quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;),
+                 age = c(33, 18, 24, 26))
+## Add new column in a data frame
+df$city &lt;- c(&quot;Taipei&quot;, &quot;Taipei&quot;, &quot;Hsinchu&quot;, &quot;Taichung&quot;)</pre>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>df</pre>
+
+<pre >##   gender age     city
+## 1   male  33   Taipei
+## 2 female  18   Taipei
+## 3 female  24  Hsinchu
+## 4   male  26 Taichung</pre>
+
+<pre class = 'prettyprint lang-r'>str(df)</pre>
+
+<pre >## &#39;data.frame&#39;:    4 obs. of  3 variables:
+##  $ gender: Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 2 1 1 2
+##  $ age   : num  33 18 24 26
+##  $ city  : chr  &quot;Taipei&quot; &quot;Taipei&quot; &quot;Hsinchu&quot; &quot;Taichung&quot;</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Subsetting: data frame</h2></hgroup><article  id="subsetting-data-frame">
+
+<p>You can subset a data frame in various ways. <br></p>
+
+<div class="columns-2">
+<pre class = 'prettyprint lang-r'>df[c(1, 3), &quot;city&quot;]</pre>
+
+<pre >## [1] &quot;Taipei&quot;  &quot;Hsinchu&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>df[3, c(&quot;gender&quot;, &quot;age&quot;)]</pre>
+
+<pre >##   gender age
+## 3 female  24</pre>
+
+<p><br></p>
+
+<pre class = 'prettyprint lang-r'>df$gender[c(2,3)]</pre>
+
+<pre >## [1] female female
+## Levels: female male</pre>
+
+<pre class = 'prettyprint lang-r'>df[df$gender == &quot;female&quot;, c(2, 3)]</pre>
+
+<pre >##   age    city
+## 2  18  Taipei
+## 3  24 Hsinchu</pre></div>
+
+</article></slide><slide class=''><hgroup><h2>Recap: data structure</h2></hgroup><article  id="recap-data-structure">
 
 <p>All data structures above are objects. They apply different methods and saved as different type internally.</p>
 
@@ -328,6 +665,17 @@ getwd()</pre>
 
 </article></slide><slide class=''><hgroup><h2>for</h2></hgroup><article  id="for">
 
+<p>Iterate items in R.</p>
+
+<div class="code_block">
+<pre class = 'prettyprint lang-r'># iterate a character vector
+for (i in c(&quot;a&quot;, &quot;b&quot;)) {
+    print(i)
+}</pre>
+
+<pre >## [1] &quot;a&quot;
+## [1] &quot;b&quot;</pre>
+
 <pre class = 'prettyprint lang-r'># nested loop
 m &lt;- matrix(numeric(), nrow = 2, ncol = 2)
 for (i in 1:nrow(m)) {
@@ -339,7 +687,7 @@ m</pre>
 
 <pre >##      [,1] [,2]
 ## [1,]    1    2
-## [2,]    2    4</pre>
+## [2,]    2    4</pre></div>
 
 </article></slide><slide class=''><hgroup><h2>tryCache</h2></hgroup><article  id="trycache">
 
@@ -437,7 +785,7 @@ y</pre>
 <li><strong>.SD</strong>: <strong>S</strong>ubset of <strong>D</strong>ata.table. It&#39;s a data table that holds the data for the current group defined using <em>by</em>.</li>
 <li><strong>.SDcols</strong> specifies the columns that returned in .SD.</li>
 <li><strong>.N</strong>: returns the number of rows in the subset.</li>
-<li><strong>DT[ &#8230; ][ &#8230; ][ &#8230; ]</strong>: chaining. Avoid intermediate assignment</li>
+<li><strong>DT[ &#8230; ][ &#8230; ][ &#8230; ]</strong>: chaining. Avoid intermediate assignment.</li>
 <li><strong>rbindlist</strong>: same as do.call(&quot;rbind&quot;, l) on data.frames, but faster.</li>
 <li><strong>copy</strong>: to do a deep copy</li>
 </ul>
@@ -598,7 +946,7 @@ students</pre>
 
 <ul>
 <li>The query string is sent in the URL of a <a href='http://www.w3schools.com/tags/ref_httpmethods.asp' title=''>GET</a> request</li>
-<li>non ASCI-character and some preserved caracter need to be encode with <a href='http://www.w3schools.com/tags/ref_urlencode.asp' title=''>URL Encode</a></li>
+<li>non ASCI-character and some preserved characters need to be encoded with <a href='http://www.w3schools.com/tags/ref_urlencode.asp' title=''>URL Encode</a></li>
 <li>In most situation, you may need to manipulate the query string when you write a crawler</li>
 </ul>
 
@@ -639,7 +987,7 @@ greeting_enc</pre>
 </article></slide><slide class=''><hgroup><h2>Case study: 東森房屋</h2></hgroup><article  id="case-study-">
 
 <ul>
-<li><a href='example/etwarm.html' title=''>Result</a></li>
+<li><a href='example/etwarm.html' title=''>東森房屋</a></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise">
@@ -655,21 +1003,21 @@ greeting_enc</pre>
 <li><strong>Method</strong>:
 
 <ul>
-<li><strong>GET</strong>: to retrieve a resource</li>
-<li><strong>POST</strong>: to create a new resource</li>
-<li><strong>PUT</strong>: to edit/update an existing resource</li>
-<li><strong>DELETE</strong>: to delete a resource</li>
+<li>GET: to retrieve a resource</li>
+<li>POST: to create a new resource</li>
 </ul></li>
 <li><strong>Headers</strong>: Meta-information about a request
 
 <ul>
-<li><strong>User-Agent</strong></li>
-<li><strong>Cookie</strong></li>
+<li>User-Agent</li>
+<li>Cookie</li>
+<li>Content-type</li>
+<li><a href='https://en.wikipedia.org/wiki/List_of_HTTP_header_fields' title=''>List of HTTP header fields</a></li>
 </ul></li>
 <li><strong>Body</strong>:
 
 <ul>
-<li>Form data</li>
+<li>Form</li>
 </ul></li>
 </ul>
 
@@ -679,13 +1027,18 @@ greeting_enc</pre>
 <li>Basic Features:
 
 <ul>
-<li>HTTP verbs: <code>GET()</code>, <code>POST()</code>, <code>HEAD()</code>, <code>PUT()</code> and <code>DELETE()</code></li>
+<li>HTTP verbs: <code>GET()</code>, <code>POST()</code>, <code>HEAD()</code>&#8230;</li>
 <li><code>http_status</code>: Translate http status code <a href='https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81' title=''>HTTP status</a> code</li>
 <li><code>headers()</code>: Access response headers</li>
-<li><code>content()</code>: Retrieve the contents of a request</li>
-<li><code>set_cookies()</code>: set cookles</li>
+<li><code>content()</code>: Retrieve the contents of a request
+
+<ul>
+<li>as = &quot;raw&quot;: return binary</li>
+<li>as = &quot;text&quot;: return character</li>
 </ul></li>
-<li>Can be used with rvest</li>
+<li><code>set_cookies()</code>: set cookles</li>
+<li><code>add_headers()</code>: add additional headers to a request.</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Take a look at header</h2></hgroup><article  id="take-a-look-at-header">
@@ -731,7 +1084,7 @@ head$`content-type`</pre>
 ##  $ url        : chr &quot;https://tw.stock.yahoo.com/d/s/major_2451.html&quot;
 ##  $ status_code: int 200
 ##  $ headers    :List of 11
-##   ..$ date            : chr &quot;Tue, 05 Jan 2016 20:25:47 GMT&quot;
+##   ..$ date            : chr &quot;Fri, 08 Jan 2016 02:40:45 GMT&quot;
 ##   ..$ p3p             : chr &quot;policyref=\&quot;http://info.yahoo.com/w3c/p3p.xml\&quot;, CP=\&quot;CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAM&quot;| __truncated__
 ##   ..$ cache-control   : chr &quot;private&quot;
 ##   ..$ vary            : chr &quot;Accept-Encoding&quot;
@@ -748,9 +1101,9 @@ head$`content-type`</pre>
 ##   .. ..$ status : int 301
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 9
-##   .. .. ..$ date            : chr &quot;Tue, 05 Jan 2016 20:25:47 GMT&quot;
+##   .. .. ..$ date            : chr &quot;Fri, 08 Jan 2016 02:40:45 GMT&quot;
 ##   .. .. ..$ connection      : chr &quot;close&quot;
-##   .. .. ..$ via             : chr &quot;http/1.1 r201.finance.tw1.yahoo.com (ApacheTrafficServer [c s f ])&quot;
+##   .. .. ..$ via             : chr &quot;http/1.1 r202.finance.tw1.yahoo.com (ApacheTrafficServer [c s f ])&quot;
 ##   .. .. ..$ server          : chr &quot;ATS&quot;
 ##   .. .. ..$ cache-control   : chr &quot;no-store&quot;
 ##   .. .. ..$ location        : chr &quot;https://tw.stock.yahoo.com/d/s/major_2451.html&quot;
@@ -762,7 +1115,7 @@ head$`content-type`</pre>
 ##   .. ..$ status : int 200
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 11
-##   .. .. ..$ date            : chr &quot;Tue, 05 Jan 2016 20:25:47 GMT&quot;
+##   .. .. ..$ date            : chr &quot;Fri, 08 Jan 2016 02:40:45 GMT&quot;
 ##   .. .. ..$ p3p             : chr &quot;policyref=\&quot;http://info.yahoo.com/w3c/p3p.xml\&quot;, CP=\&quot;CAO DSP COR CUR ADM DEV TAI PSA PSD IVAi IVDi CONi TELo OTPi OUR DELi SAM&quot;| __truncated__
 ##   .. .. ..$ cache-control   : chr &quot;private&quot;
 ##   .. .. ..$ vary            : chr &quot;Accept-Encoding&quot;
@@ -783,8 +1136,8 @@ head$`content-type`</pre>
 ##   ..$ name      : logi(0) 
 ##   ..$ value     : logi(0) 
 ##  $ content    : raw(0) 
-##  $ date       : POSIXct[1:1], format: &quot;2016-01-05 20:25:47&quot;
-##  $ times      : Named num [1:6] 0.055 0.0296 0.0399 0.082 0.0952 ...
+##  $ date       : POSIXct[1:1], format: &quot;2016-01-08 02:40:45&quot;
+##  $ times      : Named num [1:6] 0.26718 0.00511 0.00832 0.03401 0.03977 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...
 ##  $ request    :List of 7
 ##   ..$ method    : chr &quot;HEAD&quot;
@@ -814,10 +1167,10 @@ res = GET(url)
 res</pre>
 
 <pre >## Response [http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc]
-##   Date: 2016-01-04 21:59
+##   Date: 2016-01-07 23:30
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 9.46 kB</pre>
+##   Size: 9.83 kB</pre>
 
 <pre class = 'prettyprint lang-r'>class(res)</pre>
 
@@ -833,15 +1186,15 @@ res</pre>
 ##  $ url        : chr &quot;http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc&quot;
 ##  $ status_code: int 200
 ##  $ headers    :List of 14
-##   ..$ date            : chr &quot;Mon, 04 Jan 2016 21:59:29 GMT&quot;
-##   ..$ set-cookie      : chr &quot;U=60ad17d6aeddbe9b3dca1d237d38794550f1904d; expires=Tue, 03-Jan-2017 21:59:29 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
+##   ..$ date            : chr &quot;Thu, 07 Jan 2016 23:30:58 GMT&quot;
+##   ..$ set-cookie      : chr &quot;U=0d55025d4ccc552e9f5d83f695e41809721d8514; expires=Fri, 06-Jan-2017 23:30:58 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
 ##   ..$ cache-control   : chr &quot;max-age=600, public&quot;
-##   ..$ expires         : chr &quot;Mon, 04 Jan 2016 22:09:29 GMT&quot;
-##   ..$ etag            : chr &quot;c8c88977f3ca29710be30764825d96644f3e04fc&quot;
+##   ..$ expires         : chr &quot;Thu, 07 Jan 2016 23:40:58 GMT&quot;
+##   ..$ etag            : chr &quot;eeda6cb12aeaeb67cc26103cb520cf6fb0c6850f&quot;
 ##   ..$ content-encoding: chr &quot;gzip&quot;
 ##   ..$ vary            : chr &quot;Accept-Encoding&quot;
 ##   ..$ accept-ranges   : chr &quot;None&quot;
-##   ..$ content-length  : chr &quot;2314&quot;
+##   ..$ content-length  : chr &quot;2326&quot;
 ##   ..$ content-type    : chr &quot;application/json&quot;
 ##   ..$ x-frame-options : chr &quot;SAMEORIGIN&quot;
 ##   ..$ server          : chr &quot;PChome/1.0.4&quot;
@@ -853,15 +1206,15 @@ res</pre>
 ##   .. ..$ status : int 200
 ##   .. ..$ version: chr &quot;HTTP/1.1&quot;
 ##   .. ..$ headers:List of 14
-##   .. .. ..$ date            : chr &quot;Mon, 04 Jan 2016 21:59:29 GMT&quot;
-##   .. .. ..$ set-cookie      : chr &quot;U=60ad17d6aeddbe9b3dca1d237d38794550f1904d; expires=Tue, 03-Jan-2017 21:59:29 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
+##   .. .. ..$ date            : chr &quot;Thu, 07 Jan 2016 23:30:58 GMT&quot;
+##   .. .. ..$ set-cookie      : chr &quot;U=0d55025d4ccc552e9f5d83f695e41809721d8514; expires=Fri, 06-Jan-2017 23:30:58 GMT; Max-Age=31536000; path=/; domain=.pchome.com&quot;| __truncated__
 ##   .. .. ..$ cache-control   : chr &quot;max-age=600, public&quot;
-##   .. .. ..$ expires         : chr &quot;Mon, 04 Jan 2016 22:09:29 GMT&quot;
-##   .. .. ..$ etag            : chr &quot;c8c88977f3ca29710be30764825d96644f3e04fc&quot;
+##   .. .. ..$ expires         : chr &quot;Thu, 07 Jan 2016 23:40:58 GMT&quot;
+##   .. .. ..$ etag            : chr &quot;eeda6cb12aeaeb67cc26103cb520cf6fb0c6850f&quot;
 ##   .. .. ..$ content-encoding: chr &quot;gzip&quot;
 ##   .. .. ..$ vary            : chr &quot;Accept-Encoding&quot;
 ##   .. .. ..$ accept-ranges   : chr &quot;None&quot;
-##   .. .. ..$ content-length  : chr &quot;2314&quot;
+##   .. .. ..$ content-length  : chr &quot;2326&quot;
 ##   .. .. ..$ content-type    : chr &quot;application/json&quot;
 ##   .. .. ..$ x-frame-options : chr &quot;SAMEORIGIN&quot;
 ##   .. .. ..$ server          : chr &quot;PChome/1.0.4&quot;
@@ -873,12 +1226,12 @@ res</pre>
 ##   ..$ flag      : logi TRUE
 ##   ..$ path      : chr &quot;/&quot;
 ##   ..$ secure    : logi FALSE
-##   ..$ expiration: POSIXct[1:1], format: &quot;2017-01-04 05:59:29&quot;
+##   ..$ expiration: POSIXct[1:1], format: &quot;2017-01-07 07:30:58&quot;
 ##   ..$ name      : chr &quot;U&quot;
-##   ..$ value     : chr &quot;60ad17d6aeddbe9b3dca1d237d38794550f1904d&quot;
-##  $ content    : raw [1:9457] 7b 22 51 54 ...
-##  $ date       : POSIXct[1:1], format: &quot;2016-01-04 21:59:29&quot;
-##  $ times      : Named num [1:6] 0 0.0302 0.0437 0.0438 0.1215 ...
+##   ..$ value     : chr &quot;0d55025d4ccc552e9f5d83f695e41809721d8514&quot;
+##  $ content    : raw [1:9827] 7b 22 51 54 ...
+##  $ date       : POSIXct[1:1], format: &quot;2016-01-07 23:30:58&quot;
+##  $ times      : Named num [1:6] 0 0.0295 0.0405 0.0406 0.2555 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...
 ##  $ request    :List of 7
 ##   ..$ method    : chr &quot;GET&quot;
@@ -911,10 +1264,10 @@ res$request</pre>
 <pre class = 'prettyprint lang-r'>res</pre>
 
 <pre >## Response [http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&amp;page=1&amp;sort=rnk/dc]
-##   Date: 2016-01-04 21:59
+##   Date: 2016-01-07 23:30
 ##   Status: 200
 ##   Content-Type: application/json
-##   Size: 9.46 kB</pre></div>
+##   Size: 9.83 kB</pre></div>
 
 </article></slide><slide class=''><hgroup><h2>Query</h2></hgroup><article  id="query">
 
@@ -926,7 +1279,7 @@ identical(res$content, res2$content)</pre>
 
 <pre >## [1] FALSE</pre>
 
-</article></slide><slide class=''><hgroup><h2>String Template</h2></hgroup><article  id="string-template">
+</article></slide><slide class=''><hgroup><h2>Use string template</h2></hgroup><article  id="use-string-template">
 
 <pre class = 'prettyprint lang-r'>library(whisker)
 
@@ -955,13 +1308,13 @@ res_df = content(res, as = &quot;text&quot;) %&gt;%
 str(res_df)</pre>
 
 <pre >## &#39;data.frame&#39;:    20 obs. of  11 variables:
-##  $ Id         : chr  &quot;DYAF1S-A9006169J&quot; &quot;DYAD2P-A9006QFVE&quot; &quot;DPAD06-A90063WC1&quot; &quot;DYAD2O-A9006JDQE&quot; ...
-##  $ cateId     : chr  &quot;DYAQCO&quot; &quot;DYAD2P&quot; &quot;DPAD06&quot; &quot;DYAD2O&quot; ...
-##  $ picS       : chr  &quot;/pic/v1/data/item/201504/D/Y/A/F/1/S/sDYAF1S-A9006169J000_5534b06879e40.png&quot; &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/sDYAD2P-A9006QFVE000_567a69394bb07.jpg&quot; &quot;/pic/v1/data/item/201505/D/P/A/D/0/6/sDPAD06-A90063WC1000_555d97fa6dbf7.jpg&quot; &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot; ...
-##  $ picB       : chr  &quot;/pic/v1/data/item/201601/D/Y/A/F/1/S/DYAF1S-A9006169J000_5689d3c944e72.png&quot; &quot;/pic/v1/data/item/201601/D/Y/A/D/2/P/DYAD2P-A9006QFVE000_5689d3f5bebc0.jpg&quot; &quot;/pic/v1/data/item/201601/D/P/A/D/0/6/DPAD06-A90063WC1000_5689cc54a4305.jpg&quot; &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_5680992d371ef.jpg&quot; ...
-##  $ name       : chr  &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot; &quot;SONY Xperia Z5 Compact&quot; &quot;SONY KDL-40W700C 40型 LED液晶電視&quot; &quot;SONY Xperia Z5&quot; ...
-##  $ describe   : chr  &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot; &quot;▼送32G+原廠皮套▼SONY Xperia Z5 Compact&quot; &quot;SONY KDL-40W700C 40型 LED液晶電視極瞬流線影像+X-Reality Pro極真影像內建Wifi+網路娛樂平台&quot; &quot;▼送保護貼+保護套+拭淨布+觸控筆▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot; ...
-##  $ price      : int  1990 16490 19900 18690 2299 8999 23380 11980 6890 18499 ...
+##  $ Id         : chr  &quot;DGBV08-A9005QQXZ&quot; &quot;DYAD2O-A9006JDQE&quot; &quot;DEBB1B-A9006JKQD&quot; &quot;DYAD27-A90066O9Y&quot; ...
+##  $ cateId     : chr  &quot;DYAM1L&quot; &quot;DYAD2O&quot; &quot;DEBB1B&quot; &quot;DYAD27&quot; ...
+##  $ picS       : chr  &quot;/pic/v1/data/item/201412/D/G/B/V/0/8/sDGBV08-A9005QQXZ000_5485264aac04b.png&quot; &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot; &quot;/pic/v1/data/item/201510/D/E/B/B/1/B/sDEBB1B-A9006JKQD000_561338800ad9a.jpg&quot; &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/sDYAD27-A90066O9Y000_5582308468c0b.jpg&quot; ...
+##  $ picB       : chr  &quot;/pic/v1/data/item/201601/D/G/B/V/0/8/DGBV08-A9005QQXZ000_568dcb35f2088.jpg&quot; &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_5680992d371ef.jpg&quot; &quot;/pic/v1/data/item/201601/D/E/B/B/1/B/DEBB1B-A9006JKQD000_568cf24c3d24a.jpg&quot; &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/DYAD27-A90066O9Y000_5582308467016.jpg&quot; ...
+##  $ name       : chr  &quot;SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)&quot; &quot;SONY Xperia Z5&quot; &quot;全視線 CA3300 聯詠96655 SONY CMOS 高畫質行車記錄器&quot; &quot;Sony Xperia M4 Aqua dual&quot; ...
+##  $ describe   : chr  &quot;送8GB記憶卡+Z3 專用保護貼+兩件式購物袋收納組SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)  SGP641&quot; &quot;▼送保護貼+保護套+拭淨布+觸控筆▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot; &quot;▼每日強檔‧轟殺特賣▼全視線 CA3300 聯詠96655 SONY CMOS 高畫質行車記錄器送16G TF卡+高爾夫雨傘(藍)&quot; &quot;★送玻璃保貼★Sony Xperia M4 Aqua &quot; ...
+##  $ price      : int  13888 18690 2980 6880 19900 18499 999 11900 8990 11980 ...
 ##  $ author     : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
 ##  $ brand      : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
 ##  $ publishDate: chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
@@ -974,13 +1327,13 @@ str(res_df)</pre>
 str(res_list$prods[[1]])</pre>
 
 <pre >## List of 11
-##  $ Id         : chr &quot;DYAF1S-A9006169J&quot;
-##  $ cateId     : chr &quot;DYAQCO&quot;
-##  $ picS       : chr &quot;/pic/v1/data/item/201504/D/Y/A/F/1/S/sDYAF1S-A9006169J000_5534b06879e40.png&quot;
-##  $ picB       : chr &quot;/pic/v1/data/item/201601/D/Y/A/F/1/S/DYAF1S-A9006169J000_5689d3c944e72.png&quot;
-##  $ name       : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
-##  $ describe   : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
-##  $ price      : int 1990
+##  $ Id         : chr &quot;DGBV08-A9005QQXZ&quot;
+##  $ cateId     : chr &quot;DYAM1L&quot;
+##  $ picS       : chr &quot;/pic/v1/data/item/201412/D/G/B/V/0/8/sDGBV08-A9005QQXZ000_5485264aac04b.png&quot;
+##  $ picB       : chr &quot;/pic/v1/data/item/201601/D/G/B/V/0/8/DGBV08-A9005QQXZ000_568dcb35f2088.jpg&quot;
+##  $ name       : chr &quot;SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)&quot;
+##  $ describe   : chr &quot;送8GB記憶卡+Z3 專用保護貼+兩件式購物袋收納組SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)  SGP641&quot;
+##  $ price      : int 13888
 ##  $ author     : chr &quot;&quot;
 ##  $ brand      : chr &quot;&quot;
 ##  $ publishDate: chr &quot;&quot;
@@ -1008,152 +1361,152 @@ identical(res_df, res_df3)</pre>
 
 <pre >## &#39;data.frame&#39;:    20 obs. of  11 variables:
 ##  $ Id         :List of 20
-##   ..$ : chr &quot;DYAF1S-A9006169J&quot;
-##   ..$ : chr &quot;DYAD2P-A9006QFVE&quot;
-##   ..$ : chr &quot;DPAD06-A90063WC1&quot;
+##   ..$ : chr &quot;DGBV08-A9005QQXZ&quot;
 ##   ..$ : chr &quot;DYAD2O-A9006JDQE&quot;
-##   ..$ : chr &quot;DGBT30-A900649ND&quot;
-##   ..$ : chr &quot;DYAD2J-A9006FOW2&quot;
-##   ..$ : chr &quot;DYAD2R-A9006LM8Y&quot;
-##   ..$ : chr &quot;DGBJA7-19006JHRF&quot;
-##   ..$ : chr &quot;DYAD27-A9006G8CA&quot;
-##   ..$ : chr &quot;DYAD2O-A9006J87V&quot;
-##   ..$ : chr &quot;DGBT30-A9005EEQH&quot;
-##   ..$ : chr &quot;DGCD05-A9006BAYN&quot;
-##   ..$ : chr &quot;DGALTU-A9005GYNM&quot;
-##   ..$ : chr &quot;DYAD2R-A9006LUT8&quot;
+##   ..$ : chr &quot;DEBB1B-A9006JKQD&quot;
 ##   ..$ : chr &quot;DYAD27-A90066O9Y&quot;
-##   ..$ : chr &quot;DGAD01-A90054RYV&quot;
-##   ..$ : chr &quot;DYAI49-A9006GL8L&quot;
-##   ..$ : chr &quot;DYAD26-A90066326&quot;
+##   ..$ : chr &quot;DPAD06-A90063WC1&quot;
+##   ..$ : chr &quot;DYAD2O-A9006J87V&quot;
+##   ..$ : chr &quot;DYAF1S-A9006169J&quot;
 ##   ..$ : chr &quot;DYAM1L-A9006EO0P&quot;
-##   ..$ : chr &quot;DGAD01-A64596174&quot;
+##   ..$ : chr &quot;DYAD2J-A9006FRSN&quot;
+##   ..$ : chr &quot;DGBJA7-19006JHRF&quot;
+##   ..$ : chr &quot;DYAD2O-A9006J896&quot;
+##   ..$ : chr &quot;DYAD2P-A9006QFVE&quot;
+##   ..$ : chr &quot;DYAD27-A9006G8CA&quot;
+##   ..$ : chr &quot;DGAD01-A90054RYV&quot;
+##   ..$ : chr &quot;DGBJA7-19006PWRS&quot;
+##   ..$ : chr &quot;DYAD2R-A9006LUT8&quot;
+##   ..$ : chr &quot;DYAD26-A90066D02&quot;
+##   ..$ : chr &quot;DYAD2J-A9006I085&quot;
+##   ..$ : chr &quot;DYAI49-A9006GL8L&quot;
+##   ..$ : chr &quot;DGAD01-A90067X1Y&quot;
 ##  $ cateId     :List of 20
-##   ..$ : chr &quot;DYAQCO&quot;
-##   ..$ : chr &quot;DYAD2P&quot;
+##   ..$ : chr &quot;DYAM1L&quot;
+##   ..$ : chr &quot;DYAD2O&quot;
+##   ..$ : chr &quot;DEBB1B&quot;
+##   ..$ : chr &quot;DYAD27&quot;
 ##   ..$ : chr &quot;DPAD06&quot;
 ##   ..$ : chr &quot;DYAD2O&quot;
-##   ..$ : chr &quot;DYAQA6&quot;
+##   ..$ : chr &quot;DYAQCO&quot;
+##   ..$ : chr &quot;DYAM1L&quot;
 ##   ..$ : chr &quot;DYAD2J&quot;
-##   ..$ : chr &quot;DYAD2R&quot;
 ##   ..$ : chr &quot;DGBJA7&quot;
-##   ..$ : chr &quot;DYAD27&quot;
 ##   ..$ : chr &quot;DYAD2O&quot;
-##   ..$ : chr &quot;DYAQA6&quot;
-##   ..$ : chr &quot;DGCD1G&quot;
-##   ..$ : chr &quot;DYAD00&quot;
-##   ..$ : chr &quot;DYAD2R&quot;
+##   ..$ : chr &quot;DYAD2P&quot;
 ##   ..$ : chr &quot;DYAD27&quot;
 ##   ..$ : chr &quot;DGAD01&quot;
-##   ..$ : chr &quot;DYAI49&quot;
+##   ..$ : chr &quot;DGBJA7&quot;
+##   ..$ : chr &quot;DYAD2R&quot;
 ##   ..$ : chr &quot;DYAD26&quot;
-##   ..$ : chr &quot;DYAM1L&quot;
+##   ..$ : chr &quot;DYAD2J&quot;
+##   ..$ : chr &quot;DYAI49&quot;
 ##   ..$ : chr &quot;DGAD01&quot;
 ##  $ picS       :List of 20
-##   ..$ : chr &quot;/pic/v1/data/item/201504/D/Y/A/F/1/S/sDYAF1S-A9006169J000_5534b06879e40.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/sDYAD2P-A9006QFVE000_567a69394bb07.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201505/D/P/A/D/0/6/sDPAD06-A90063WC1000_555d97fa6dbf7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201412/D/G/B/V/0/8/sDGBV08-A9005QQXZ000_5485264aac04b.png&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/sDYAD2O-A9006JDQE000_560e037b08db2.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201505/D/G/B/T/3/0/sDGBT30-A900649ND000_5567e78207366.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FOW2000_55daeea2b67c3.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/R/sDYAD2R-A9006LM8Y000_5632f01c560d4.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/sDGBJA7-19006JHRF000_5611f51163fef.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/7/sDYAD27-A9006G8CA000_55e41f7def3c6.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/O/sDYAD2O-A9006J87V000_560b9b7cb48ad.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/G/B/T/3/0/sDGBT30-A9005EEQH000_565566ad99f75.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201507/D/G/C/D/0/5/sDGCD05-A9006BAYN000_55b0805ac65d2.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201409/D/G/A/L/T/U/sDGALTU-A9005GYNM000_5423793c7987a.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/R/sDYAD2R-A9006LUT8000_563720e98e6f5.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/E/B/B/1/B/sDEBB1B-A9006JKQD000_561338800ad9a.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/sDYAD27-A90066O9Y000_5582308468c0b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201405/D/G/A/D/0/1/sDGAD01-A90054RYV000_5375d3251963b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GL8L000_55e81d402f9e7.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/6/sDYAD26-A90066326000_55797197669c3.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201505/D/P/A/D/0/6/sDPAD06-A90063WC1000_555d97fa6dbf7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/O/sDYAD2O-A9006J87V000_560b9b7cb48ad.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/F/1/S/sDYAF1S-A9006169J000_568dc3167c99d.png&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/M/1/L/sDYAM1L-A9006EO0P000_55d2b63f896eb.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201206/D/G/A/D/0/1/sDGAD01-A64596174000_4fd97439bada1&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/J/sDYAD2J-A9006FRSN000_55dc33a226e76.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/sDGBJA7-19006JHRF000_5611f51163fef.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/O/sDYAD2O-A9006J896000_560b9c5332e28.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/P/sDYAD2P-A9006QFVE000_567a69394bb07.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/7/sDYAD27-A9006G8CA000_55e41f7def3c6.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201405/D/G/A/D/0/1/sDGAD01-A90054RYV000_5375d3251963b.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/sDGBJA7-19006PWRS000_56712b0b85546.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/R/sDYAD2R-A9006LUT8000_563720e98e6f5.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/6/sDYAD26-A90066D02000_557e70b3db760.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/J/sDYAD2J-A9006I085000_55f7f34abd5c9.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/I/4/9/sDYAI49-A9006GL8L000_55e81d402f9e7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201506/D/G/A/D/0/1/sDGAD01-A90067X1Y000_55924b5c3f3c8.jpg&quot;
 ##  $ picB       :List of 20
-##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/F/1/S/DYAF1S-A9006169J000_5689d3c944e72.png&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/D/2/P/DYAD2P-A9006QFVE000_5689d3f5bebc0.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201601/D/P/A/D/0/6/DPAD06-A90063WC1000_5689cc54a4305.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/G/B/V/0/8/DGBV08-A9005QQXZ000_568dcb35f2088.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006JDQE000_5680992d371ef.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/T/3/0/DGBT30-A900649ND000_562ede06e0dc7.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FOW2000_56493d32e0bcb.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LM8Y000_565ff381b6538.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/DGBJA7-19006JHRF000_5611f5115ed74.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/7/DYAD27-A9006G8CA000_56833d832f0a5.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006J87V000_5660f701363de.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201408/D/G/B/T/3/0/DGBT30-A9005EEQH000_53ff03486dda6&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/C/D/0/5/DGCD05-A9006BAYN000_5680992fd732b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/A/L/T/U/DGALTU-A9005GYNM000_5682840a7c23b.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LUT8000_565ff356a18bb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/E/B/B/1/B/DEBB1B-A9006JKQD000_568cf24c3d24a.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201506/D/Y/A/D/2/7/DYAD27-A90066O9Y000_5582308467016.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201509/D/G/A/D/0/1/DGAD01-A90054RYV000_55ecef3cbfa3c.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GL8L000_56736989580a6.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201508/D/Y/A/D/2/6/DYAD26-A90066326000_55c17c65b19a8.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/P/A/D/0/6/DPAD06-A90063WC1000_5689cc54a4305.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/O/DYAD2O-A9006J87V000_5660f701363de.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/F/1/S/DYAF1S-A9006169J000_568dc3167b5d0.jpg&quot;
 ##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/M/1/L/DYAM1L-A9006EO0P000_56848d0a05d6d.jpg&quot;
-##   ..$ : chr &quot;/pic/v1/data/item/201408/D/G/A/D/0/1/DGAD01-A64596174000_53e8266ca8bc7.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201511/D/Y/A/D/2/J/DYAD2J-A9006FRSN000_56493ca5aa9a2.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/G/B/J/A/7/DGBJA7-19006JHRF000_5611f5115ed74.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201510/D/Y/A/D/2/O/DYAD2O-A9006J896000_560e217ce9fba.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/D/2/P/DYAD2P-A9006QFVE000_5689d3f5bebc0.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201601/D/Y/A/D/2/7/DYAD27-A9006G8CA000_568cf412ded34.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/G/A/D/0/1/DGAD01-A90054RYV000_55ecef3cbfa3c.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/B/J/A/7/DGBJA7-19006PWRS000_56712b0b84290.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/R/DYAD2R-A9006LUT8000_565ff356a18bb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/D/2/6/DYAD26-A90066D02000_5677607634deb.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201509/D/Y/A/D/2/J/DYAD2J-A9006I085000_55f7f34aba324.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/Y/A/I/4/9/DYAI49-A9006GL8L000_56736989580a6.jpg&quot;
+##   ..$ : chr &quot;/pic/v1/data/item/201512/D/G/A/D/0/1/DGAD01-A90067X1Y000_56721018dadc2.jpg&quot;
 ##  $ name       :List of 20
-##   ..$ : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
-##   ..$ : chr &quot;SONY Xperia Z5 Compact&quot;
+##   ..$ : chr &quot;SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)&quot;
+##   ..$ : chr &quot;SONY Xperia Z5&quot;
+##   ..$ : chr &quot;全視線 CA3300 聯詠96655 SONY CMOS 高畫質行車記錄器&quot;
+##   ..$ : chr &quot;Sony Xperia M4 Aqua dual&quot;
 ##   ..$ : chr &quot;SONY KDL-40W700C 40型 LED液晶電視&quot;
 ##   ..$ : chr &quot;SONY Xperia Z5&quot;
-##   ..$ : chr &quot;SONY SBH70 (防水IP57)無線藍牙耳機&quot;
-##   ..$ : chr &quot;SONY Xperia C5 Ultra (E5553)&quot;
-##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
+##   ..$ : chr &quot;SONY Xperia Z3 Tablet Compact (WIFI版/32G/黑)&quot;
+##   ..$ : chr &quot;Sony Xperia C5 Ultra&quot;
 ##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
-##   ..$ : chr &quot;Sony Xperia M4 Aqua dual&quot;
 ##   ..$ : chr &quot;SONY Xperia Z5&quot;
-##   ..$ : chr &quot;SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot;
-##   ..$ : chr &quot;SONY MICRO VAULT 130M/s USB3.0 64GB OTG 隨身碟&quot;
-##   ..$ : chr &quot;SONY Xperia Z3 (D6653)&quot;
-##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;SONY Xperia Z5 Compact&quot;
 ##   ..$ : chr &quot;Sony Xperia M4 Aqua dual&quot;
 ##   ..$ : chr &quot;SONY DSC-RX100M3(公司貨)&quot;
-##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
+##   ..$ : chr &quot;SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
+##   ..$ : chr &quot;SONY Xperia Z5 Premium&quot;
 ##   ..$ : chr &quot;SONY Xperia Z3+ (E6553)&quot;
-##   ..$ : chr &quot;SONY Xperia Z3 Tablet Compact (WIFI版/32G/黑)&quot;
-##   ..$ : chr &quot;SONY DSC-RX100(公司貨)&quot;
-##  $ describe   :List of 20
-##   ..$ : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
-##   ..$ : chr &quot;▼送32G+原廠皮套▼SONY Xperia Z5 Compact&quot;
-##   ..$ : chr &quot;SONY KDL-40W700C 40型 LED液晶電視極瞬流線影像+X-Reality Pro極真影像內建Wifi+網路娛樂平台&quot;
-##   ..$ : chr &quot;▼送保護貼+保護套+拭淨布+觸控筆▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot;
-##   ..$ : chr &quot;◤熱銷商品◢ SONY SBH70 (防水IP57)無線藍牙耳機&quot;
-##   ..$ : chr &quot;▼6吋大螢幕▼SONY Xperia C5 Ultra 八核心6吋4G LTE大螢幕慧型手機&quot;
-##   ..$ : chr &quot;▼送64G卡+LINE傳輸線▼SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot; 強檔遊戲任選SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
-##   ..$ : chr &quot;▼殺破$7000▼Sony Xperia M4 Aqua &quot;
-##   ..$ : chr &quot;▼送原廠立架+觸控筆+SONY賀春磁鐵▼SONY Xperia Z5&quot;
-##   ..$ : chr &quot;假日特惠SONY SBH-50 原廠FM / 一對二立體聲藍牙耳機&quot;
-##   ..$ : chr &quot;SONY MICRO VAULT 130M/s USB3.0 64GB OTG 隨身碟黑/白二色可選&quot;
-##   ..$ : chr &quot;▼送16G+漂浮手腕帶▼SONY Xperia Z3 (D6653)&quot;
-##   ..$ : chr &quot;▼送8G卡+玻璃保貼+皮套+原廠立架+SONY賀春磁鐵▼SONY Xperia Z5 Premium&quot;
-##   ..$ : chr &quot;★送玻璃保貼↘★Sony Xperia M4 Aqua &quot;
-##   ..$ : chr &quot;F1.8★32G卡+電池組SONY DSC-RX100M3(公司貨)&quot;
+##   ..$ : chr &quot;Sony Xperia C5 Ultra E5553 6吋八核自拍機 &quot;
 ##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
-##   ..$ : chr &quot;聖誕特價★送Line傳輸線SONY Xperia Z3+ (E6553)&quot;
+##   ..$ : chr &quot;SONY數位相機 RX100 M4 (公司貨)&quot;
+##  $ describe   :List of 20
+##   ..$ : chr &quot;送8GB記憶卡+Z3 專用保護貼+兩件式購物袋收納組SONY Xperia  Z3 Tablet Compact 8吋四核防水平板(LTE版/16G/白)  SGP641&quot;
+##   ..$ : chr &quot;▼送保護貼+保護套+拭淨布+觸控筆▼SONY Xperia Z5 5.2吋美型防水旗艦機&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼全視線 CA3300 聯詠96655 SONY CMOS 高畫質行車記錄器送16G TF卡+高爾夫雨傘(藍)&quot;
+##   ..$ : chr &quot;★送玻璃保貼★Sony Xperia M4 Aqua &quot;
+##   ..$ : chr &quot;SONY KDL-40W700C 40型 LED液晶電視極瞬流線影像+X-Reality Pro極真影像內建Wifi+網路娛樂平台&quot;
+##   ..$ : chr &quot;▼送原廠立架+觸控筆+SONY賀春磁鐵▼SONY Xperia Z5&quot;
+##   ..$ : chr &quot;Sony 原廠數位降噪耳機 MDR-NC31EM 封口袋裝&quot;
 ##   ..$ : chr &quot;搶購 送保護貼+保護套+立架+觸控筆SONY Xperia Z3 Tablet Compact 8吋四核防水平板(WiFi版/32G/黑)&quot;
-##   ..$ : chr &quot;原廠降2千★手持夜拍SONY DSC-RX100(公司貨)&quot;
+##   ..$ : chr &quot;送冰淇淋券Sony Xperia C5 Ultra&quot;
+##   ..$ : chr &quot; 強檔遊戲任選SONY PS4主機 CUH-1207A系列500G(冰河白)&quot;
+##   ..$ : chr &quot;★送玻璃保貼★SONY Xperia Z5&quot;
+##   ..$ : chr &quot;▼送32G+原廠皮套▼SONY Xperia Z5 Compact&quot;
+##   ..$ : chr &quot;▼每日強檔‧轟殺特賣▼Sony Xperia M4 Aqua &quot;
+##   ..$ : chr &quot;F1.8★32G卡+電池組SONY DSC-RX100M3(公司貨)&quot;
+##   ..$ : chr &quot; 雙手把+豪華周邊組SONY PS4主機 CUH-1207A系列500G(極致黑)&quot;
+##   ..$ : chr &quot;▼送8G卡+玻璃保貼+皮套+原廠立架+SONY賀春磁鐵▼SONY Xperia Z5 Premium&quot;
+##   ..$ : chr &quot;◤歡慶新年 送保貼+傳輸線+觸控筆+拭淨布◢SONY Xperia Z3+ (E6553)&quot;
+##   ..$ : chr &quot;送保護套+玻璃保貼Sony Xperia C5 Ultra E5553 6吋八核自拍機 &quot;
+##   ..$ : chr &quot;SONY SWR12 藍牙手環&quot;
+##   ..$ : chr &quot;4K 錄影★64G電組SONY RX100 M4(公司貨)&quot;
 ##  $ price      :List of 20
-##   ..$ : int 1990
-##   ..$ : int 16490
-##   ..$ : int 19900
+##   ..$ : int 13888
 ##   ..$ : int 18690
-##   ..$ : int 2299
-##   ..$ : int 8999
-##   ..$ : int 23380
-##   ..$ : int 11980
-##   ..$ : int 6890
+##   ..$ : int 2980
+##   ..$ : int 6880
+##   ..$ : int 19900
 ##   ..$ : int 18499
-##   ..$ : int 1780
-##   ..$ : int 1388
-##   ..$ : int 13490
-##   ..$ : int 22390
-##   ..$ : int 6888
-##   ..$ : int 22980
-##   ..$ : int 4680
-##   ..$ : int 13990
+##   ..$ : int 999
 ##   ..$ : int 11900
-##   ..$ : int 13980
+##   ..$ : int 8990
+##   ..$ : int 11980
+##   ..$ : int 18200
+##   ..$ : int 16490
+##   ..$ : int 6880
+##   ..$ : int 22980
+##   ..$ : int 12980
+##   ..$ : int 22390
+##   ..$ : int 13990
+##   ..$ : int 8990
+##   ..$ : int 4680
+##   ..$ : int 28980
 ##  $ author     :List of 20
 ##   ..$ : chr &quot;&quot;
 ##   ..$ : chr &quot;&quot;
@@ -1265,21 +1618,21 @@ class(dat1)</pre>
 
 <pre >## [[1]]
 ##      買超券商 買進 賣出 買超   賣超券商 買進 賣出 賣超
-## 1    花旗環球   42    0   42 台灣摩根士    7   41  -34
-## 2  港商德意志   44    3   41   瑞士信貸    6   40  -34
-## 3    中信銀證   30    0   30   元大證券   16   33  -17
-## 4    美商高盛   17    0   17   凱基證券    9   19  -10
-## 5  台灣東方匯   11    0   11   法銀巴黎    0    9   -9
-## 6        元富   12    1   11 香港上海匯    0    8   -8
-## 7  新加坡商瑞   28   22    6       美林    2   10   -8
-## 8    合庫證券    1    0    1   群益金鼎    1    8   -7
-## 9    大眾證券    2    1    1   大昌證券    0    6   -6
-## 10     第一金    1    0    1   摩根大通    0    6   -6
-## 11       亞東    0    0    0   日盛證券    0    6   -6
-## 12       統一    2    2    0   富邦證券    0    5   -5
-## 13       光和    0    0    0   華南永昌    1    4   -3
-## 14       豐農    0    0    0   兆豐證券    1    4   -3
-## 15   康和證券    1    1    0   新光證券    1    4   -3</pre>
+## 1  新加坡商瑞  126    0  126   元大證券    7   48  -41
+## 2    美商高盛   94    7   87 港商德意志    3   42  -39
+## 3    康和證券   50    2   48 台灣摩根士   21   50  -29
+## 4    群益金鼎   12    8    4       統一    6   31  -25
+## 5  台灣東方匯    3    0    3 香港上海匯    0   24  -24
+## 6    大昌證券    3    1    2       元富    0   22  -22
+## 7      第一金    1    0    1   新光證券    0   16  -16
+## 8    玉山證券    1    0    1 永豐金證券    0   14  -14
+## 9    台灣企銀    0    0    0       美林    8   21  -13
+## 10       亞東    0    0    0 港商麥格里    0   11  -11
+## 11       盈溢    0    0    0   凱基證券   24   35  -11
+## 12   福邦證券    0    0    0   日盛證券    2   13  -11
+## 13       台安    0    0    0       彰銀    0   10  -10
+## 14   中農證券    0    0    0   國泰證券    0   10  -10
+## 15 台灣巴克萊    0    0    0   華南永昌    0    9   -9</pre>
 
 <pre class = 'prettyprint lang-r'>dat2 = read_html(Target_URL, encoding = &quot;big5&quot;) %&gt;% 
     html_nodes(xpath = &quot;//table[1]//table[2]&quot;) %&gt;% 
@@ -1290,11 +1643,22 @@ identical(dat1, dat2)</pre>
 
 </article></slide><slide class=''><hgroup><h2>Exercise</h2></hgroup><article  id="exercise-1">
 
-<p><a href='http://opendata.epa.gov.tw/DevelopZone/Sample/UV/' title=''>行政院環境保護署環境資源資料開放平台</a>提供了一系列的Restfuk Api供大家取用，請試著把 <a href='http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json' title=''>紫外線即時監測資料</a>的資料取回來並轉成data.frame</p>
+<p><a href='http://opendata.epa.gov.tw/DevelopZone/Sample/UV/' title=''>行政院環境保護署環境資源資料開放平台</a>提供了一系列的RESTful Api供大家取用，請試著把 <a href='http://opendata.epa.gov.tw/webapi/api/rest/datastore/355000000I-000004/?format=json' title=''>紫外線即時監測資料</a>的資料取回來並轉成data.frame</p>
 
 </article></slide><slide class=''><hgroup><h2>Answer</h2></hgroup><article  id="answer">
 
 <p><a href='example/uv.html' title=''>紫外線即時監測資料</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Cookies</h2></hgroup><article  id="cookies">
+
+<ul>
+<li>A small piece of data sent from a website and stored in the user&#39;s web browser while the user is browsing it</li>
+<li>Someetimes you may need set cookies with <code>set_cookies</code> to retreve a request.
+
+<ul>
+<li><a href='example/ptt_gossiping.html' title=''>PTT Gossiping</a></li>
+</ul></li>
+</ul>
 
 </article></slide><slide class=''><hgroup><h2>POST</h2></hgroup><article  id="post">
 
@@ -1312,6 +1676,14 @@ identical(dat1, dat2)</pre>
 </article></slide><slide class=''><hgroup><h2>Exercise: Guestbook</h2></hgroup><article  id="exercise-guestbook">
 
 <p>Try to post a message in <a href='http://apt-bonbon-93413.appspot.com/' title=''>App Engine GuestBook</a></p>
+
+</article></slide><slide class=''><hgroup><h2>Set header</h2></hgroup><article  id="set-header">
+
+<p>Sometime you may need to provide appropriate <a href='https://en.wikipedia.org/wiki/List_of_HTTP_header_fields' title=''>HTTP header fields</a> with <code>add_headers()</code> to make a request.</p>
+
+<ul>
+<li><a href='example/starbucks.html' title=''>Starbucks</a></li>
+</ul>
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Save your data</h2></hgroup><article  id="save-your-data">
 
@@ -1382,22 +1754,15 @@ writeBin(bin, &quot;data/download/uv.json&quot;)</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>RCurl</h2></hgroup><article  id="rcurl">
-
-<ul>
-<li>General network client interface for R</li>
-<li>A wrapper of libcurl</li>
-</ul>
-
 </article></slide><slide class=''><hgroup><h2>Case study</h2></hgroup><article  id="case-study">
 
 <ul>
 <li><a href='example/etwarm.html' title=''>東森房屋</a></li>
 <li><a href='example/guestbook.html' title=''>Guestbook</a></li>
 <li><a href='example/pchome.html' title=''>PChome</a></li>
+<li><a href='example/ptt_gossiping.html' title=''>PTT Gossiping</a></li>
 <li><a href='example/cwb.html' title=''>中央氣象局觀測資料查詢系統</a></li>
 <li><a href='example/mops.html' title=''>公開資訊觀測站</a></li>
-<li><a href='example/ptt_gossiping.html' title=''>PTT Gossiping</a></li>
 <li><a href='example/seven_eleven.html' title=''>Seven Eleven</a></li>
 <li><a href='example/uv.html' title=''>紫外線即時監測資料</a></li>
 <li><a href='example/yahoo_stock.html' title=''>Yahoo Stock</a></li>

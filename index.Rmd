@@ -41,13 +41,12 @@ Reindent lines                   | Ctrl+I             | Command+I
 
 ## R recap
 
-- ?, ??, how to read manuel
+- How to get help
 - Working Environment
 - Basic Data Structure
-- function
-- str, type, class
-- for, if/else ifelse 
-- apply/lapply/sapply, unlist
+- Function
+- if/else, for   
+- apply/lapply/sapply
 - do.call
 - [magrittr](https://github.com/smbache/magrittr)
 - [data.table](https://cran.r-project.org/web/packages/data.table/index.html)
@@ -101,7 +100,269 @@ These data structures can be mapped into a table according to:
 nd   | Array	
 
 
-## Data structure
+## Vector
+
+Vector is a basic data structure in R. 
+A scalar is a vector of length 1.
+
+
+<div class="columns-2">
+
+```{r}
+v1 <- c(1:10)
+v1
+is.vector(v1)
+length(v1)
+s1 <- 2
+s1
+is.vector(s1)
+length(s1)
+```
+
+</div>
+
+
+## Type of Vector
+
+Vector can contains several kinds of type.
+Type describes how the object is stored in memory.
+Elements in a vector will convert into looser types.
+
+<div class="columns-2">
+
+```{r}
+logical_v = c(TRUE, FALSE, T, F)
+typeof(logical_v)
+
+int_v <- c(2L, 3L, 4L)
+typeof(int_v)
+
+numeric_v <- c(2.5, 3, pi)
+typeof(numeric_v)
+
+character_v = c("apple", "banana", 1)
+typeof(character_v)
+```
+
+</div>
+
+
+## Calculation with vector
+
+Vectors can be calculated in the sense of [Array Programming](https://en.wikipedia.org/wiki/Array_programming).
+
+```{r}
+x <- 9.8
+v1 <- 1:10
+v1 * x
+v2 <- c(rep(2, 5), rep(3,5))
+v2
+v1 + v2
+```
+
+
+## Recycle
+
+If you calculate tow vectors with different length, 
+the shorter vector will be recycled with the longer vector.
+
+```{r}
+v3 <- c(2, 3)
+v1^v3
+v4 <- c(2, 3, 4)
+v1*v4
+```
+
+
+## Factor
+
+A factor is a vector that can contain only predefined values, 
+and is used to store categorical data.
+Factors are widely used in various statically function(Ex: Regression, graphics, table) in R.
+
+```{r}
+gender <- c("Male", "Female", "Female", "Male")
+gender <- factor(gender)
+gender
+```
+
+<div class="columns-2">
+
+```{r}
+as.integer(gender)
+as.character(gender)
+```
+
+</div>
+
+
+## Named vector
+
+A vector can have a name attribute.
+
+```{r}
+v5 <- c(1.2, 5, 8 , 12, 4.3, TRUE)
+v5
+names(v5) <- c("a", "b", "c", "d", "e", "f")
+v5
+attributes(v5)
+```
+
+
+## Subsetting: vector
+
+you can subset a vector in various ways.
+
+<div class="columns-2">
+
+```{r}
+v5[c(5, 2, 6)]
+v5[-c(1, 3)]
+v5[c("a", "f", "c")]
+v5[c(T, F, F, T, F, T)]
+v5[v5 >=7.5]
+v5[v5 == max(v5)]
+```
+
+</div>
+
+
+## Matrix
+
+Matrix is a 2-dimenstion array. 
+You can have various 
+[matrix operation in R](http://www.statmethods.net/advstats/matrix.html).
+
+```{r}
+x <- matrix(c(2,1,3,2), nrow = 2, ncol = 2)
+rownames(x) <- c("a", "b")
+colnames(x) <- c("x", "y")
+```
+
+<div class="columns-2">
+
+```{r}
+# eigenvalue and eigenvector
+eigen(x)
+```
+
+```{r}
+# matrix multiplication and transpose
+x %*% t(x)  
+```
+<br>
+<br>
+
+</div>
+
+
+## Subsetting: matrix
+
+You can subset a matrix in various ways.
+
+<div class="columns-2">
+
+```{r}
+x[1, ]
+x["b", ]
+x["a", 2]
+x[2, 1:2]
+x[2, 2]
+x["b", 2]
+```
+
+</div>
+
+
+## List
+
+Elements in a list can be any kinds type and its length is arbitrary.
+Function `str` can help you investigate the structure of a nested list.
+
+<div class="columns-2">
+
+```{r}
+li <- list(a = 1:10, 
+           b = c("apple", "banana"))
+str(li)
+```
+
+<br>
+<br>
+
+```{r}
+li2 <- list(li = li, 
+            c = matrix(1:4, nrow = 2))
+str(li2)
+```
+
+</div>
+
+
+## Subsetting: list
+
+You can subset a data frame in various ways.
+
+<div class="columns-2">
+
+```{r}
+li2$li$a
+li2$c
+li2[[1]][[2]]
+li2[["li"]][["b"]]
+li2[["li"]][["b"]][2]
+li2$li[[1]]
+```
+<br>
+
+</div>
+
+
+## Data Frame
+
+Data frame is a 2-dimension data structure to deal with a table-like heterogeneous data.
+
+```{r}
+df <- data.frame(gender = c("male", "female", "female", "male"),
+                 age = c(33, 18, 24, 26))
+## Add new column in a data frame
+df$city <- c("Taipei", "Taipei", "Hsinchu", "Taichung")
+```
+
+<div class="columns-2">
+```{r}
+df
+str(df)
+```
+
+</div>
+
+
+## Subsetting: data frame
+
+You can subset a data frame in various ways.
+<br>
+
+<div class="columns-2">
+
+```{r}
+df[c(1, 3), "city"]
+df[3, c("gender", "age")]
+
+```
+
+<br>
+
+```{r}
+df$gender[c(2,3)]
+df[df$gender == "female", c(2, 3)]
+```
+
+
+</div>
+
+
+## Recap: data structure
 
 All data structures above are objects.
 They apply different methods and saved as different type internally.
@@ -178,7 +439,15 @@ if (an expression returns TRUE or FALSE) {
 
 ## for
 
+Iterate items in R.
+
+<div class="code_block">
 ```{r}
+# iterate a character vector
+for (i in c("a", "b")) {
+    print(i)
+}
+
 # nested loop
 m <- matrix(numeric(), nrow = 2, ncol = 2)
 for (i in 1:nrow(m)) {
@@ -188,7 +457,7 @@ for (i in 1:nrow(m)) {
 }
 m
 ```
-
+</div>
 
 ## tryCache
 
@@ -269,7 +538,7 @@ Take **DT**, subset rows using *i*, then calculate *j*, grouped by *by*.
 - **.SD**: **S**ubset of **D**ata.table. It's a data table that holds the data for the current group defined using *by*. 
 - **.SDcols** specifies the columns that returned in .SD.
 - **.N**: returns the number of rows in the subset.
-- **DT[ ... ][ ... ][ ... ]**: chaining. Avoid intermediate assignment
+- **DT[ ... ][ ... ][ ... ]**: chaining. Avoid intermediate assignment.
 - **rbindlist**: same as do.call("rbind", l) on data.frames, but faster.
 - **copy**: to do a deep copy
 
@@ -386,7 +655,7 @@ URL?val1=val1&val2=val2
 
 - The query string is sent in the URL of a
 [GET](http://www.w3schools.com/tags/ref_httpmethods.asp) request
-- non ASCI-character and some preserved caracter need to be encode with 
+- non ASCI-character and some preserved characters need to be encoded with 
 [URL Encode](http://www.w3schools.com/tags/ref_urlencode.asp)
 - In most situation, you may need to manipulate the query string when you 
 write a crawler
@@ -415,7 +684,7 @@ sprintf("%s,%s嗎?", "hihi", greeting)
 
 ## Case study: 東森房屋
 
-- [Result](example/etwarm.html)
+- [東森房屋](example/etwarm.html)
 
 
 ## Exercise
@@ -429,27 +698,30 @@ A valid HTTP request includes four things:
 
 - **URL**: a unique address for a thing
 - **Method**:
-    - **GET**: to retrieve a resource
-    - **POST**: to create a new resource
-    - **PUT**: to edit/update an existing resource
-    - **DELETE**: to delete a resource
+    - GET: to retrieve a resource
+    - POST: to create a new resource
 - **Headers**: Meta-information about a request
-    - **User-Agent**
-    - **Cookie**
+    - User-Agent
+    - Cookie
+    - Content-type
+    - [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
 - **Body**: 
-    - Form data
+    - Form
 
 
 ## httr
 
 - Basic Features:
-    - HTTP verbs: `GET()`, `POST()`, `HEAD()`, `PUT()` and `DELETE()`
+    - HTTP verbs: `GET()`, `POST()`, `HEAD()`... 
     - `http_status`: Translate http status code
        [HTTP status](https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81) code
     - `headers()`: Access response headers
     - `content()`: Retrieve the contents of a request
+        - as = "raw": return binary
+        - as = "text": return character
     - `set_cookies()`: set cookles
-- Can be used with rvest 
+    - `add_headers()`: add additional headers to a request.
+
 
 
 ## Take a look at header
@@ -504,7 +776,7 @@ identical(res$content, res2$content)
 ```
 
 
-## String Template
+## Use string template
 
 ```{r}
 library(whisker)
@@ -602,6 +874,13 @@ identical(dat1, dat2)
 [紫外線即時監測資料](example/uv.html)
 
 
+## Cookies
+
+- A small piece of data sent from a website and stored in the user's web browser while the user is browsing it
+- Someetimes you may need set cookies with `set_cookies` to retreve a request.
+    - [PTT Gossiping](example/ptt_gossiping.html)
+
+
 ## POST
 
 - Submits data to be processed to a specified resource
@@ -619,6 +898,15 @@ identical(dat1, dat2)
 
 Try to post a message in 
 [App Engine GuestBook](http://apt-bonbon-93413.appspot.com/)
+
+
+## Set header
+
+Sometime you may need to provide appropriate 
+[HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
+with `add_headers()` to make a request.
+
+- [Starbucks](example/starbucks.html)
 
 
 # Save your data
@@ -691,24 +979,18 @@ writeBin(bin, "data/download/uv.json")
     - ...
 
 
-## RCurl
-    
-- General network client interface for R 
-- A wrapper of libcurl
-
-
 ## Case study
 
 - [東森房屋](example/etwarm.html)
 - [Guestbook](example/guestbook.html)
 - [PChome](example/pchome.html)
-- [中央氣象局觀測資料查詢系統](example/cwb.html)
-- [公開資訊觀測站](example/mops.html)
-- [PTT Gossiping](example/ptt_gossiping.html)
-- [Seven Eleven](example/seven_eleven.html)
 - [紫外線即時監測資料](example/uv.html)
-- [Yahoo Stock](example/yahoo_stock.html)
+- [PTT Gossiping](example/ptt_gossiping.html)
 - [Starbucks](example/starbucks.html)
+- [公開資訊觀測站](example/mops.html)
+- [Seven Eleven](example/seven_eleven.html)
+- [Yahoo Stock](example/yahoo_stock.html)
+- [中央氣象局觀測資料查詢系統](example/cwb.html)
 
 
 ## References
