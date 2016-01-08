@@ -1,0 +1,8 @@
+base
+knitr
+magrittr
+xml2
+rvest
+httr
+whisker
+jsonlite

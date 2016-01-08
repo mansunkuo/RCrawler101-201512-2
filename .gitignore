@@ -5,3 +5,5 @@ index_cache
 index_files
 note.Rmd
 README.html
+data/download/uv.json
+data/pchome.csv

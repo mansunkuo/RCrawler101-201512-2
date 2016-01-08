@@ -1,13 +1,13 @@
 ---
 title: "RCrawler101-201512"
 author: "Mansun Kuo"
-date: "`r Sys.Date()`"
-subtitle: "Week 2"
-css: css/ioslides.css
-#widescreen: yes
-output: 
-  ioslides_presentation: 
+date: '`r Sys.Date()`'
+output:
+  slidy_presentation: default
+  ioslides_presentation:
     widescreen: yes
+subtitle: Week 2
+css: css/ioslides.css
 ---
 
 ```{r include=FALSE}
@@ -27,7 +27,7 @@ knitr::opts_knit$set(root.dir = '.')
 
 ## Must-known keyboard shortcuts
 
-[AllRStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
+[All RStudio keyboard shortcuts](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts)
 
 Description                      | Windows & Linux    | Mac
 -------------------------------- | ------------------ | ---
@@ -906,6 +906,8 @@ Sometime you may need to provide appropriate
 with `add_headers()` to make a request.
 
 - [Starbucks](example/starbucks.html)
+
+<img src="img/starbucks.png" width=800>
 
 
 # Save your data
