@@ -23,9 +23,9 @@ suppressPackageStartupMessages(library(googleVis))
 library(leaflet)
 
 
-#' ## Get Stories
+#' ## Get Stores
 
-get_stories = function(city, town) {
+get_stores = function(city, town) {
     res = POST("http://emap.pcsc.com.tw/EMapSDK.aspx",
                body = list(commandid="SearchStore", 
                            city = city,
@@ -37,7 +37,7 @@ get_stories = function(city, town) {
     return(stores)
 }
 
-stores = get_stories("台北市", "大安區")
+stores = get_stores("台北市", "大安區")
 datatable(stores)
 
 
@@ -80,7 +80,7 @@ for (i in 2:2) {
     citycode = cities$citycode[i]
     towns = get_towns(citycode)
     for (townname in towns$TownName) {
-        stores[[paste0(cityname, townname)]] = get_stories(cityname, townname)
+        stores[[paste0(cityname, townname)]] = get_stores(cityname, townname)
         citytown = paste0(cityname, townname)
         message(citytown)
         if (nrow(stores[[citytown]]) > 0 ) {

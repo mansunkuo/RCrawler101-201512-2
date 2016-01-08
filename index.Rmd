@@ -705,8 +705,7 @@ A valid HTTP request includes four things:
     - Cookie
     - Content-type
     - [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
-- **Body**: 
-    - Form
+- **Body**: data to be send to a server
 
 
 ## httr
