@@ -652,6 +652,8 @@ identical(res_df, res_df2)
 ```{r}
 res_df3 = data.frame(do.call(rbind, res_list$prods))
 identical(res_df, res_df3)
+
+# An ugly data.frame
 str(res_df3)
 ```
 
@@ -712,9 +714,14 @@ with `add_headers()` to make a request.
 <img src="img/starbucks.png" width="1000">
 
 
-# Save your data
+## XML
 
-## Ways to save your data in R
+Parse XML table with `XML::xmlToDataFrame()`
+
+- [Seven Eleven](example/seven_eleven.html)
+
+
+## Save your data
 
 - write.csv: write data.frame as csv file
 - download.file: save html, jpeg, etc
@@ -786,13 +793,13 @@ writeBin(bin, "data/download/uv.json")
 
 - [東森房屋](example/etwarm.html)
 - [Guestbook](example/guestbook.html)
-- [PChome](example/pchome.html)
 - [Yahoo Stock](example/yahoo_stock.html)
 - [紫外線即時監測資料](example/uv.html)
 - [PTT Gossiping](example/ptt_gossiping.html)
 - [Starbucks](example/starbucks.html)
-- [公開資訊觀測站](example/mops.html)
 - [Seven Eleven](example/seven_eleven.html)
+- [PChome](example/pchome.html)
+- [公開資訊觀測站](example/mops.html)
 - [中央氣象局觀測資料查詢系統](example/cwb.html)
 
 
