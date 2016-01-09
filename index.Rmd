@@ -16,6 +16,17 @@ knitr::opts_chunk$set(warning = TRUE,
 knitr::opts_knit$set(root.dir = '.')
 ```
 
+
+## Outline
+
+- Hello RStudio
+- R recap
+- Crawler’s toolkits in R
+- Save your data
+- Case study
+- References
+
+
 ## Hello RStudio
 
 <img src="img/hello_rstudio.png" width="1000">
@@ -41,9 +52,7 @@ Reindent lines                   | Ctrl+I             | Command+I
 - Working Environment
 - Basic Data Structure
 - Function
-- if/else, for   
-- apply/lapply/sapply
-- do.call
+- if/else, for, tryCache
 - [magrittr](https://github.com/smbache/magrittr)
 - [data.table](https://cran.r-project.org/web/packages/data.table/index.html)
 
@@ -136,33 +145,6 @@ typeof(character_v)
 ```
 
 
-## Calculation with vector
-
-Vectors can be calculated in the sense of [Array Programming](https://en.wikipedia.org/wiki/Array_programming).
-
-```{r}
-x <- 9.8
-v1 <- 1:10
-v1 * x
-v2 <- c(rep(2, 5), rep(3,5))
-v2
-v1 + v2
-```
-
-
-## Recycle
-
-If you calculate tow vectors with different length, 
-the shorter vector will be recycled with the longer vector.
-
-```{r}
-v3 <- c(2, 3)
-v1^v3
-v4 <- c(2, 3, 4)
-v1*v4
-```
-
-
 ## Factor
 
 A factor is a vector that can contain only predefined values, 
@@ -181,36 +163,6 @@ as.integer(gender)
 as.character(gender)
 ```
 
-
-
-## Named vector
-
-A vector can have a name attribute.
-
-```{r}
-v5 <- c(1.2, 5, 8 , 12, 4.3, TRUE)
-v5
-names(v5) <- c("a", "b", "c", "d", "e", "f")
-v5
-attributes(v5)
-```
-
-
-## Subsetting: vector
-
-you can subset a vector in various ways.
-
-
-```{r}
-v5[c(5, 2, 6)]
-v5[-c(1, 3)]
-v5[c("a", "f", "c")]
-v5[c(T, F, F, T, F, T)]
-v5[v5 >=7.5]
-v5[v5 == max(v5)]
-```
-
-
 ## Matrix
 
 Matrix is a 2-dimenstion array. 
@@ -222,33 +174,6 @@ x <- matrix(c(2,1,3,2), nrow = 2, ncol = 2)
 rownames(x) <- c("a", "b")
 colnames(x) <- c("x", "y")
 ```
-
-
-```{r}
-# eigenvalue and eigenvector
-eigen(x)
-```
-
-```{r}
-# matrix multiplication and transpose
-x %*% t(x)  
-```
-
-
-## Subsetting: matrix
-
-You can subset a matrix in various ways.
-
-
-```{r}
-x[1, ]
-x["b", ]
-x["a", 2]
-x[2, 1:2]
-x[2, 2]
-x["b", 2]
-```
-
 
 
 ## List
@@ -271,22 +196,6 @@ str(li2)
 ```
 
 
-
-## Subsetting: list
-
-You can subset a data frame in various ways.
-
-
-```{r}
-li2$li$a
-li2$c
-li2[[1]][[2]]
-li2[["li"]][["b"]]
-li2[["li"]][["b"]][2]
-li2$li[[1]]
-```
-
-
 ## Data Frame
 
 Data frame is a 2-dimension data structure to deal with a table-like heterogeneous data.
@@ -302,25 +211,6 @@ df$city <- c("Taipei", "Taipei", "Hsinchu", "Taichung")
 df
 str(df)
 ```
-
-
-## Subsetting: data frame
-
-You can subset a data frame in various ways.
-
-
-```{r}
-df[c(1, 3), "city"]
-df[3, c("gender", "age")]
-
-```
-
-
-```{r}
-df$gender[c(2,3)]
-df[df$gender == "female", c(2, 3)]
-```
-
 
 
 ## Recap: data structure
@@ -360,7 +250,6 @@ knitr::kable(x)
 ```
 
 
-
 ## Function in R
 
 A typical function in R may look like:
@@ -376,9 +265,6 @@ f <- function(arg1, arg2, ...) {
   the return value will be the last expression inside the function.
 - Call by value by default  
   send a copy of a object into a function and the input object won't change after execution without assignment
-- [First class object](https://en.wikipedia.org/wiki/First-class_citizen)
-     - Can be passed as arguments to other functions
-     - Can be nested
 
 
 ## If
@@ -434,21 +320,6 @@ tryCatch({
 ```
 
 
-## Expression
-
-Expression represents an action that can be performed by R.
-With expression you can do a lot of things that is not easy to do with other language.
-
-```{r}
-x <- 3
-square_str <- "y <- x^2"   # a string
-square_expr <- parse(text = square_str) # an expression
-square_expr
-eval(square_expr)   # evaluate an R expression
-y
-```
-
-
 ## magrittr
 
 Pipe argument to right-hand side with `%>%`
@@ -471,6 +342,7 @@ Pipe argument to right-hand side with `%>%`
     - Automatically optimization
     - Total solution for ETL
     - Concise syntax
+
 
 ## data.table: General Form
 
@@ -500,15 +372,13 @@ Take **DT**, subset rows using *i*, then calculate *j*, grouped by *by*.
 - **copy**: to do a deep copy
 
 
-# Crawler's toolkits in R
-
 ## Crawler's toolkits in R
 
 - [rvest](https://cran.r-project.org/web/packages/rvest/index.html): a web scraper based on httr and xml2
 - [httr](https://cran.r-project.org/web/packages/httr/index.html): toolkit of  [HTTP methods](http://www.w3schools.com/tags/ref_httpmethods.asp) in R
+- [XML](https://cran.r-project.org/web/packages/XML/index.html) & : XML parser
 - [xml2](https://cran.r-project.org/web/packages/xml2/index.html): xml parser based on libxml2
 - [RCurl](https://cran.r-project.org/web/packages/RCurl/index.html): a wrapper of libcurl
-- [XML](https://cran.r-project.org/web/packages/XML/index.html) & : XML parser
 
 
 ## rvest
@@ -610,7 +480,7 @@ URL?val1=val1&val2=val2
 
 - The query string is sent in the URL of a
 [GET](http://www.w3schools.com/tags/ref_httpmethods.asp) request
-- non ASCI-character and some preserved characters need to be encoded with 
+- Non-ASCII character and some preserved characters need to be encoded with 
 [URL Encode](http://www.w3schools.com/tags/ref_urlencode.asp)
 - In most situation, you may need to manipulate the query string when you 
 write a crawler
@@ -671,8 +541,9 @@ A valid HTTP request includes four things:
        [HTTP status](https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81) code
     - `headers()`: Access response headers
     - `content()`: Retrieve the contents of a request
-        - as = "raw": return binary
+        - as = "parsed": detect content type automatically and parse the result
         - as = "text": return character
+        - as = "raw": return binary
     - `set_cookies()`: set cookles
     - `add_headers()`: add additional headers to a request.
 
@@ -682,22 +553,30 @@ A valid HTTP request includes four things:
 
 Try to use TAB to explore object
 
-```{r}
+```{r cache=TRUE}
 library(httr)
-Target_URL = "http://tw.stock.yahoo.com/d/s/major_2451.html"
-res = HEAD(Target_URL)
-class(res)
+url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
+res = HEAD(url)
+res
+
+# HEAD won't return content
 res$content
+
+# see status code
 http_status(res)
 res$status_code
+
+# extract response headers
 head = headers(res)
 head$`content-type`
 res$headers$`content-type`
-str(res)
+
+# whole object
+res
 ```
 
 
-## Basic
+## GET
 
 Use `GET()` to request data from a specific resource
 
@@ -706,12 +585,8 @@ library(httr)
 url = "http://ecshweb.pchome.com.tw/search/v3.3/all/results?q=sony&page=1&sort=rnk/dc"
 res = GET(url)
 res
-class(res)
-typeof(res)
-str(res)
-# res$content
+
 res$request
-res
 ```
 
 
@@ -783,28 +658,10 @@ str(res_df3)
 
 ## Use with rvest
 
-
-```{r}
-library(httr)
-library(rvest)
-
-Target_URL = "http://tw.stock.yahoo.com/d/s/major_2451.html"
-res = GET(Target_URL)
-doc_str = iconv(content(res, type = "text", encoding = "big5"))
-
-dat1 = doc_str %>% 
-    read_html() %>% 
-    html_nodes(xpath = "//table[1]//table[2]") %>% 
-    html_table(header=TRUE)
-class(dat1)
-class(dat1[[1]])
-dat1
-
-dat2 = read_html(Target_URL, encoding = "big5") %>% 
-    html_nodes(xpath = "//table[1]//table[2]") %>% 
-    html_table(header=TRUE)
-identical(dat1, dat2)
-```
+- Parse data with appropriate encoding
+- Bware of System Encoding
+- Use `iconv()` and `Sys.setlocale()` in Windows
+- Example: [Yahoo Stock](example/yahoo_stock.html)
 
 
 ## Exercise
@@ -930,12 +787,12 @@ writeBin(bin, "data/download/uv.json")
 - [東森房屋](example/etwarm.html)
 - [Guestbook](example/guestbook.html)
 - [PChome](example/pchome.html)
+- [Yahoo Stock](example/yahoo_stock.html)
 - [紫外線即時監測資料](example/uv.html)
 - [PTT Gossiping](example/ptt_gossiping.html)
 - [Starbucks](example/starbucks.html)
 - [公開資訊觀測站](example/mops.html)
 - [Seven Eleven](example/seven_eleven.html)
-- [Yahoo Stock](example/yahoo_stock.html)
 - [中央氣象局觀測資料查詢系統](example/cwb.html)
 
 
