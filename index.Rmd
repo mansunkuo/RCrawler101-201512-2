@@ -514,7 +514,7 @@ sprintf("%s,%s嗎?", "hihi", greeting)
 
 ## Exercise
 
-Try to get some houses's information in 台北縣.
+Try to get some houses's information in 新北市.
 
 
 ## HTTP request
@@ -594,9 +594,9 @@ res$request
 
 You can assign query parameter with `query()` 
 
-```{r}
+```{r cache=TRUE}
 url2 = "http://ecshweb.pchome.com.tw/search/v3.3/all/results"
-res2 = GET(url, query = list(q="sony", page="1", sort="rnk/dc"))
+res2 = GET(url2, query = list(q="sony", page="1", sort="rnk/dc"))
 identical(res$content, res2$content)
 ```
 

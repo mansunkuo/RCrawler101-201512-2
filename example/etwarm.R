@@ -23,8 +23,8 @@ library(stringr)
 library(data.table)
 
 city = "台北市"
-url = sprintf("http://www.etwarm.com.tw/object_list.php?city=%s", 
-              URLencode(city))
+# city = "新北市"
+url = sprintf("http://www.etwarm.com.tw/object_list.php?area=%s", URLencode(city))
 
 # Get the max index
 max_index = read_html(url) %>% 
@@ -35,8 +35,7 @@ max_index = read_html(url) %>%
     max(na.rm = TRUE)
 
 # Construct all urls
-urls = sprintf("http://www.etwarm.com.tw/object_list?city=%s&page=",
-               URLencode(city))
+urls = sprintf("http://www.etwarm.com.tw/object_list?area=%s&page=", URLencode(city))
 urls = paste0(urls, 1:max_index)
 
 # Get data
@@ -48,8 +47,9 @@ for (i in 1:3) {
         html_nodes(xpath = "//li[@class='obj_item']/div[@class='obj_info']/h3/a") %>% 
         html_text %>%
         iconv(from = "UTF-8", to = "UTF-8") %>% # to compatible in Wondows  
-        str_extract(sprintf("%s.*區", city))
-    price = res %>% 
+        str_match(sprintf(".+(%s.*區)", city)) %>% 
+        .[,2]
+    price = res %>%  
         html_nodes(xpath = "//div[@class='price']") %>% 
         html_text %>% 
         str_replace_all(",", "") %>% 
@@ -57,7 +57,7 @@ for (i in 1:3) {
     temp = data.table(district = district,
                       price = price)  
     houses = rbind(houses, temp)
-    Sys.sleep(abs(rnorm(1)))
+    # Sys.sleep(abs(rnorm(1)))
     print(urls[i])
 }
 houses

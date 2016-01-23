@@ -10,7 +10,7 @@
 
 <meta name="author" content="Agilelearning, Mansun Kuo" />
 
-<meta name="date" content="2016-01-08" />
+<meta name="date" content="2016-01-23" />
 
 <title>東森房屋</title>
 
@@ -64,7 +64,7 @@ img {
 <div id="header">
 <h1 class="title">東森房屋</h1>
 <h4 class="author"><em>Agilelearning, Mansun Kuo</em></h4>
-<h4 class="date"><em>2016-01-08</em></h4>
+<h4 class="date"><em>2016-01-23</em></h4>
 </div>
 
 <div id="TOC">
@@ -78,13 +78,14 @@ img {
 <div id="crawler" class="section level2">
 <h2>Crawler</h2>
 <pre class="r"><code>library(httr)
-library(rvest)
-library(stringr)
+library(rvest)</code></pre>
+<pre><code>## Loading required package: xml2</code></pre>
+<pre class="r"><code>library(stringr)
 library(data.table)
 
 city = &quot;台北市&quot;
-url = sprintf(&quot;http://www.etwarm.com.tw/object_list.php?city=%s&quot;, 
-              URLencode(city))
+# city = &quot;新北市&quot;
+url = sprintf(&quot;http://www.etwarm.com.tw/object_list.php?area=%s&quot;, URLencode(city))
 
 # Get the max index
 max_index = read_html(url) %&gt;% 
@@ -95,8 +96,7 @@ max_index = read_html(url) %&gt;%
     max(na.rm = TRUE)
 
 # Construct all urls
-urls = sprintf(&quot;http://www.etwarm.com.tw/object_list?city=%s&amp;page=&quot;,
-               URLencode(city))
+urls = sprintf(&quot;http://www.etwarm.com.tw/object_list?area=%s&amp;page=&quot;, URLencode(city))
 urls = paste0(urls, 1:max_index)
 
 # Get data
@@ -108,8 +108,9 @@ for (i in 1:3) {
         html_nodes(xpath = &quot;//li[@class='obj_item']/div[@class='obj_info']/h3/a&quot;) %&gt;% 
         html_text %&gt;%
         iconv(from = &quot;UTF-8&quot;, to = &quot;UTF-8&quot;) %&gt;% # to compatible in Wondows  
-        str_extract(sprintf(&quot;%s.*區&quot;, city))
-    price = res %&gt;% 
+        str_match(sprintf(&quot;.+(%s.*區)&quot;, city)) %&gt;% 
+        .[,2]
+    price = res %&gt;%  
         html_nodes(xpath = &quot;//div[@class='price']&quot;) %&gt;% 
         html_text %&gt;% 
         str_replace_all(&quot;,&quot;, &quot;&quot;) %&gt;% 
@@ -117,44 +118,44 @@ for (i in 1:3) {
     temp = data.table(district = district,
                       price = price)  
     houses = rbind(houses, temp)
-    Sys.sleep(abs(rnorm(1)))
+    # Sys.sleep(abs(rnorm(1)))
     print(urls[i])
 }</code></pre>
-<pre><code>## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=1&quot;
-## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;
-## [1] &quot;http://www.etwarm.com.tw/object_list?city=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=3&quot;</code></pre>
+<pre><code>## [1] &quot;http://www.etwarm.com.tw/object_list?area=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=1&quot;
+## [1] &quot;http://www.etwarm.com.tw/object_list?area=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=2&quot;
+## [1] &quot;http://www.etwarm.com.tw/object_list?area=%E5%8F%B0%E5%8C%97%E5%B8%82&amp;page=3&quot;</code></pre>
 <pre class="r"><code>houses</code></pre>
 <pre><code>##         district price
-##  1: 台北市中山區  2350
-##  2: 台北市中山區  5500
-##  3: 台北市萬華區  3380
-##  4: 台北市南港區  6088
-##  5: 台北市中山區  1100
-##  6: 台北市文山區  2380
-##  7: 台北市南港區  2380
-##  8: 台北市中山區  1780
-##  9: 台北市大安區  5250
-## 10: 台北市北投區 13230
-## 11: 台北市士林區  1880
-## 12: 台北市中山區 12000
-## 13: 台北市北投區  1280
-## 14: 台北市大安區  2580
-## 15: 台北市北投區  1038
-## 16: 台北市中山區  1480
-## 17: 台北市內湖區  1880
-## 18: 台北市內湖區  2688
-## 19: 台北市北投區  1880
-## 20: 台北市中山區  2798
-## 21: 台北市南港區  2200
-## 22: 台北市內湖區   850
-## 23: 台北市中正區  2980
-## 24: 台北市大同區  3380
-## 25: 台北市北投區  3890
-## 26: 台北市北投區  1980
-## 27: 台北市北投區  6880
-## 28: 台北市北投區    98
-## 29: 台北市北投區  1150
-## 30: 台北市士林區   980
+##  1: 台北市北投區  1880
+##  2: 台北市南港區  9600
+##  3: 台北市松山區  1580
+##  4: 台北市北投區   750
+##  5: 台北市文山區  2290
+##  6: 台北市中山區 29800
+##  7: 台北市北投區   730
+##  8: 台北市中山區  1998
+##  9: 台北市士林區  3980
+## 10: 台北市文山區  1580
+## 11: 台北市北投區  1188
+## 12: 台北市文山區  2980
+## 13: 台北市士林區  2880
+## 14: 台北市北投區  1300
+## 15: 台北市文山區  1080
+## 16: 台北市文山區  1488
+## 17: 台北市北投區  5300
+## 18: 台北市內湖區  3200
+## 19: 台北市文山區  1430
+## 20: 台北市北投區  1612
+## 21: 台北市南港區  1990
+## 22: 台北市文山區  1380
+## 23: 台北市中山區  1980
+## 24: 台北市信義區  1398
+## 25: 台北市北投區  1697
+## 26: 台北市北投區  1780
+## 27: 台北市北投區  3344
+## 28: 台北市中山區  1880
+## 29: 台北市中正區  5280
+## 30: 台北市內湖區  1050
 ##         district price</code></pre>
 </div>
 <div id="play-with-data.table" class="section level2">
@@ -164,17 +165,16 @@ houses_agg = houses[, .(count = .N,
                         mean_price = mean(price)), 
                     by = &quot;district&quot;]
 houses_agg</code></pre>
-<pre><code>##         district count mean_price
-##  1: 台北市中山區     7   3858.286
-##  2: 台北市萬華區     1   3380.000
-##  3: 台北市南港區     3   3556.000
-##  4: 台北市文山區     1   2380.000
-##  5: 台北市大安區     2   3915.000
-##  6: 台北市北投區     9   3491.778
-##  7: 台北市士林區     2   1430.000
-##  8: 台北市內湖區     3   1806.000
-##  9: 台北市中正區     1   2980.000
-## 10: 台北市大同區     1   3380.000</code></pre>
+<pre><code>##        district count mean_price
+## 1: 台北市北投區    10   1958.100
+## 2: 台北市南港區     2   5795.000
+## 3: 台北市松山區     1   1580.000
+## 4: 台北市文山區     7   1746.857
+## 5: 台北市中山區     4   8914.500
+## 6: 台北市士林區     2   3430.000
+## 7: 台北市內湖區     2   2125.000
+## 8: 台北市信義區     1   1398.000
+## 9: 台北市中正區     1   5280.000</code></pre>
 <pre class="r"><code># Encoding in our data.table
 head(apply(houses, 2, Encoding))</code></pre>
 <pre><code>##      district price    
@@ -201,36 +201,36 @@ houses_merge = suppressWarnings(
 )
 houses_merge</code></pre>
 <pre><code>##         district price count mean_price
-##  1: 台北市中山區  2350     7   3858.286
-##  2: 台北市中山區  5500     7   3858.286
-##  3: 台北市中山區  1100     7   3858.286
-##  4: 台北市中山區  1780     7   3858.286
-##  5: 台北市中山區 12000     7   3858.286
-##  6: 台北市中山區  1480     7   3858.286
-##  7: 台北市中山區  2798     7   3858.286
-##  8: 台北市中正區  2980     1   2980.000
-##  9: 台北市內湖區  1880     3   1806.000
-## 10: 台北市內湖區  2688     3   1806.000
-## 11: 台北市內湖區   850     3   1806.000
-## 12: 台北市北投區 13230     9   3491.778
-## 13: 台北市北投區  1280     9   3491.778
-## 14: 台北市北投區  1038     9   3491.778
-## 15: 台北市北投區  1880     9   3491.778
-## 16: 台北市北投區  3890     9   3491.778
-## 17: 台北市北投區  1980     9   3491.778
-## 18: 台北市北投區  6880     9   3491.778
-## 19: 台北市北投區    98     9   3491.778
-## 20: 台北市北投區  1150     9   3491.778
-## 21: 台北市南港區  6088     3   3556.000
-## 22: 台北市南港區  2380     3   3556.000
-## 23: 台北市南港區  2200     3   3556.000
-## 24: 台北市士林區  1880     2   1430.000
-## 25: 台北市士林區   980     2   1430.000
-## 26: 台北市大同區  3380     1   3380.000
-## 27: 台北市大安區  5250     2   3915.000
-## 28: 台北市大安區  2580     2   3915.000
-## 29: 台北市文山區  2380     1   2380.000
-## 30: 台北市萬華區  3380     1   3380.000
+##  1: 台北市中山區 29800     4   8914.500
+##  2: 台北市中山區  1998     4   8914.500
+##  3: 台北市中山區  1980     4   8914.500
+##  4: 台北市中山區  1880     4   8914.500
+##  5: 台北市中正區  5280     1   5280.000
+##  6: 台北市信義區  1398     1   1398.000
+##  7: 台北市內湖區  3200     2   2125.000
+##  8: 台北市內湖區  1050     2   2125.000
+##  9: 台北市北投區  1880    10   1958.100
+## 10: 台北市北投區   750    10   1958.100
+## 11: 台北市北投區   730    10   1958.100
+## 12: 台北市北投區  1188    10   1958.100
+## 13: 台北市北投區  1300    10   1958.100
+## 14: 台北市北投區  5300    10   1958.100
+## 15: 台北市北投區  1612    10   1958.100
+## 16: 台北市北投區  1697    10   1958.100
+## 17: 台北市北投區  1780    10   1958.100
+## 18: 台北市北投區  3344    10   1958.100
+## 19: 台北市南港區  9600     2   5795.000
+## 20: 台北市南港區  1990     2   5795.000
+## 21: 台北市士林區  3980     2   3430.000
+## 22: 台北市士林區  2880     2   3430.000
+## 23: 台北市文山區  2290     7   1746.857
+## 24: 台北市文山區  1580     7   1746.857
+## 25: 台北市文山區  2980     7   1746.857
+## 26: 台北市文山區  1080     7   1746.857
+## 27: 台北市文山區  1488     7   1746.857
+## 28: 台北市文山區  1430     7   1746.857
+## 29: 台北市文山區  1380     7   1746.857
+## 30: 台北市松山區  1580     1   1580.000
 ##         district price count mean_price</code></pre>
 </div>
 
